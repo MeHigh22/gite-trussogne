@@ -21,7 +21,7 @@ function AboutHero() {
               </div>
             </div>
             <h1 className="serif" style={{ fontSize: 'clamp(56px, 7vw, 110px)', lineHeight: 0.95, fontWeight: 400, letterSpacing: '-0.02em', marginBottom: 28 }}>
-              À propos de<br /><em style={{ color: 'var(--green)' }}>Trussogne.</em>
+              À propos de<br /><span style={{ color: 'var(--green)' }}>Trussogne.</span>
             </h1>
             <p style={{ fontSize: 19, lineHeight: 1.65, color: 'var(--ink-soft)', maxWidth: 480, marginBottom: 44 }}>
               Trussogne est né d'une passion pour l'authenticité et d'un profond respect pour la nature des Ardennes.
@@ -60,7 +60,7 @@ function Story() {
           <div>
             <div className="sec-num" style={{ marginBottom: 20 }}>· 01 — NOTRE HISTOIRE ·</div>
             <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 40 }}>
-              Le fruit d'un rêve, devenu <em style={{ color: 'var(--green)' }}>havre de paix.</em>
+              Le fruit d'un rêve, devenu <span style={{ textDecoration: 'underline', textDecorationColor: 'var(--green)', textUnderlineOffset: '6px', textDecorationThickness: '2px' }}>havre de paix.</span>
             </h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
               <p style={{ fontSize: 17, lineHeight: 1.75, color: 'var(--ink-soft)' }}>Située dans un écrin de verdure à Houyet, ce gîte est le fruit d'un rêve : un havre de paix où le temps s'arrête. En famille ou entre amis, reconnectez-vous à l'essentiel dans le calme d'un jardin avec vue sur la beauté naturelle.</p>
@@ -93,7 +93,7 @@ function Pillars() {
         <div style={{ textAlign: 'center', marginBottom: 96 }}>
           <div className="sec-num" style={{ marginBottom: 20 }}>· 02 — NOTRE PHILOSOPHIE ·</div>
           <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 80px)', lineHeight: 1.05, fontWeight: 400, maxWidth: 800, margin: '0 auto' }}>
-            Trois piliers, <em style={{ color: 'var(--green)' }}>une vision.</em>
+            Trois piliers, <span style={{ opacity: 0.4 }}>une vision.</span>
           </h2>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
@@ -147,7 +147,7 @@ export default function APropos() {
       <section style={{ padding: '160px 48px', background: 'var(--paper)', textAlign: 'center' }}>
         <div style={{ maxWidth: 700, margin: '0 auto' }}>
           <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 80px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 28 }}>
-            Vivez l'expérience <em style={{ color: 'var(--green)' }}>Trussogne.</em>
+            Vivez l'expérience <span style={{ textDecoration: 'underline', textDecorationColor: 'var(--green)', textUnderlineOffset: '6px', textDecorationThickness: '2px' }}>Trussogne.</span>
           </h2>
           <p style={{ fontSize: 17, lineHeight: 1.6, color: 'var(--ink-soft)', maxWidth: 480, margin: '0 auto 44px' }}>
             Réservez en direct pour un séjour authentique dans les Ardennes belges. Sandra vous attend.

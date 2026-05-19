@@ -53,7 +53,7 @@ function ActHero() {
         <div style={{ maxWidth: 800 }}>
           <div className="mono-label" style={{ color: 'rgba(244,239,230,0.6)', marginBottom: 24 }}>· Aux alentours du gîte de Trussogne ·</div>
           <h1 className="serif" style={{ fontSize: 'clamp(56px, 8vw, 120px)', lineHeight: 0.95, fontWeight: 400, marginBottom: 28 }}>
-            Activités <em style={{ color: 'rgba(244,239,230,0.7)' }}>à faire</em><br />aux alentours.
+            Activités <span style={{ opacity: 0.55 }}>à faire</span><br />aux alentours.
           </h1>
           <p style={{ fontSize: 18, lineHeight: 1.6, color: 'rgba(244,239,230,0.8)', maxWidth: 520 }}>
             Nature, patrimoine, aventure et gastronomie — les Ardennes belges regorgent de trésors à découvrir, à quelques minutes de votre porte.
@@ -83,7 +83,7 @@ function ActivitiesSection() {
           <div>
             <div className="sec-num" style={{ marginBottom: 16 }}>· DÉCOUVRIR ·</div>
             <h2 className="serif" style={{ fontSize: 'clamp(36px, 4.5vw, 64px)', lineHeight: 1.05, fontWeight: 400 }}>
-              {filtered.length} activités<em style={{ color: 'var(--green)' }}> à découvrir.</em>
+              {filtered.length} activités<span style={{ color: 'var(--green)' }}> à découvrir.</span>
             </h2>
           </div>
         </div>
@@ -128,7 +128,7 @@ function RestaurantsSection() {
           <div style={{ position: 'sticky', top: 140, alignSelf: 'start' }}>
             <div className="sec-num" style={{ marginBottom: 20 }}>· GASTRONOMIE ·</div>
             <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 24 }}>
-              Nos adresses <em style={{ color: 'var(--green)' }}>gourmandes.</em>
+              Nos adresses <span style={{ textDecoration: 'underline', textDecorationColor: 'var(--green)', textUnderlineOffset: '6px', textDecorationThickness: '2px' }}>gourmandes.</span>
             </h2>
             <p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--ink-soft)', marginBottom: 32 }}>
               Des tables authentiques, du bistrot convivial au gastronomique étoilé.
@@ -174,7 +174,7 @@ export default function Activites() {
       <section style={{ padding: '120px 48px', background: 'var(--green)', color: 'var(--paper)', textAlign: 'center' }}>
         <div style={{ maxWidth: 800, margin: '0 auto' }}>
           <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 80px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 32 }}>
-            Votre évasion <em>vous attend.</em>
+            Votre évasion <span style={{ opacity: 0.6 }}>vous attend.</span>
           </h2>
           <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link to="/#book" className="btn-primary" style={{ background: 'var(--paper)', color: 'var(--green)', fontSize: 16, padding: '22px 36px' }}>Réserver en direct →</Link>

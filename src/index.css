@@ -15,16 +15,16 @@
 html, body {
   background: var(--paper);
   color: var(--ink);
-  font-family: 'Manrope', system-ui, sans-serif;
+  font-family: 'DM Sans', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
 html { scroll-behavior: smooth; }
 
-.serif { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; }
+.serif { font-family: 'Playfair Display', Georgia, serif; font-weight: 400; }
 .mono-label {
-  font-family: 'Manrope', sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 11px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
@@ -138,7 +138,7 @@ img { display: block; max-width: 100%; }
 
 /* Section number */
 .sec-num {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Playfair Display', serif;
   font-size: 13px;
   letter-spacing: 0.3em;
   color: var(--green);
@@ -174,7 +174,7 @@ img { display: block; max-width: 100%; }
 
 /* Counter */
 .num-big {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Playfair Display', serif;
   font-size: 96px;
   line-height: 0.9;
   font-weight: 400;

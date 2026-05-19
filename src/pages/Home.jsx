@@ -20,33 +20,21 @@ function Hero() {
       position: 'relative',
       background: 'var(--paper)'
     }}>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.35fr', gap: 64, alignItems: 'center', minHeight: 'calc(100vh - 220px)' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '2fr 3fr', gap: 40, alignItems: 'center', minHeight: 'calc(100vh - 220px)' }}>
         <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 36 }}>
-            <span className="leaf-mark">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--green)" strokeWidth="1.2">
-                <path d="M12 22 C 6 18, 4 12, 6 6 C 10 8, 14 8, 18 6 C 20 12, 18 18, 12 22 Z"/>
-                <path d="M12 22 L 12 8" />
-              </svg>
-            </span>
-            <span className="mono-label" style={{ color: 'var(--ink-soft)' }}>Houyet, Belgique · 50.183°N</span>
-          </div>
-
           <h1 className="serif" style={{
-            fontSize: 'clamp(64px, 8vw, 124px)',
+            fontSize: 'clamp(48px, 5.5vw, 88px)',
             lineHeight: 0.95,
             letterSpacing: '-0.02em',
             fontWeight: 400,
             color: 'var(--ink)',
             marginBottom: 24,
           }}>
-            Gîte de<br/>
-            <span style={{ fontStyle: 'italic', color: 'var(--green)' }}>charme</span>,<br/>
-            silence<br/>
-            <span style={{ fontStyle: 'italic' }}>&amp; espace.</span>
+            Gîte de <span style={{ color: 'var(--green)' }}>charme</span>,<br/>
+            silence <span style={{ opacity: 0.4 }}>&amp;&nbsp;espace.</span>
           </h1>
 
-          <p style={{ fontSize: 18, lineHeight: 1.5, color: 'var(--ink-soft)', maxWidth: 460, marginBottom: 44 }}>
+          <p style={{ fontSize: 18, lineHeight: 1.5, color: 'var(--ink-soft)', marginBottom: 44 }}>
             Niché au cœur des Ardennes belges à Houyet, un havre de paix pour 6 à 9 personnes, où le temps semble s'arrêter et où l'on se reconnecte à l'essentiel.
           </p>
 
@@ -67,9 +55,9 @@ function Hero() {
 
         <div style={{ height: 'min(720px, 80vh)', position: 'relative' }}>
           <div className="hero-grid">
-            <div className="ph h-main" data-label="EXTÉRIEUR · maison · vue large" style={{ borderRadius: 4 }}></div>
-            <div className="ph" data-label="VUE · vallée" style={{ borderRadius: 4 }}></div>
-            <div className="ph" data-label="INTÉRIEUR · feu" style={{ borderRadius: 4 }}></div>
+            <div className="h-main" style={{ borderRadius: 4, overflow: 'hidden' }}><img src="/assets/photo1.webp" alt="Maison ardennaise" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /></div>
+            <div style={{ borderRadius: 4, overflow: 'hidden' }}><img src="/assets/Marcassins-Trussogne.webp" alt="Marcassins à Trussogne" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /></div>
+            <div style={{ borderRadius: 4, overflow: 'hidden' }}><img src="/assets/Photo-Lievres-amoureux-Tru.webp" alt="Lièvres amoureux à Trussogne" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /></div>
           </div>
           <div style={{
             position: 'absolute', bottom: -24, left: -24,
@@ -90,39 +78,61 @@ function Hero() {
 
 function Sensory() {
   const senses = [
-    { num: '01', label: 'Odorat',  caption: "Sentez l'odeur de la pluie après une après-midi chaude.", img: 'PLUIE · forêt humide' },
-    { num: '02', label: 'Vue',     caption: "Une expérience sensorielle au cœur de la pleine nature.", img: 'VUE · brume au matin' },
-    { num: '03', label: 'Ouïe',    caption: "Écoutez le chant des oiseaux dans les sapins.",           img: 'AUBE · oiseaux' },
-    { num: '04', label: 'Calme',   caption: "Laissez-vous envelopper par le calme de la saison.",      img: 'SAISON · feu de bois' },
+    { num: '01', label: 'Printemps', caption: "Sentez l'odeur de la pluie après une après-midi chaude.", photo: '/assets/quatreSaisons/printemps.webp' },
+    { num: '02', label: 'Été',      caption: "Une expérience sensorielle au cœur de la pleine nature.", photo: '/assets/quatreSaisons/ete.webp' },
+    { num: '03', label: 'Automne',  caption: "Écoutez le chant des oiseaux dans les sapins.",           photo: '/assets/quatreSaisons/brume.webp' },
+    { num: '04', label: 'Hiver',    caption: "Laissez-vous envelopper par le calme de la saison.",      photo: '/assets/quatreSaisons/hiver1.webp' },
   ];
+  const [active, setActive] = useState(0);
+  const current = senses[active];
+
   return (
-    <section style={{ background: 'var(--green-deep)', color: 'var(--paper)', padding: '120px 48px' }}>
-      <div style={{ maxWidth: 1280, margin: '0 auto' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 64, gap: 48, flexWrap: 'wrap' }}>
-          <div>
-            <div className="sec-num" style={{ marginBottom: 20, color: 'rgba(244, 239, 230, 0.65)' }}>· UNE EXPÉRIENCE SENSORIELLE ·</div>
-            <h2 className="serif" style={{ fontSize: 'clamp(40px, 5.5vw, 80px)', lineHeight: 1.0, fontWeight: 400, maxWidth: 880 }}>
-              Quatre sens, <em style={{ color: 'rgba(244,239,230,0.7)' }}>une saison.</em>
-            </h2>
-          </div>
-          <p style={{ fontSize: 15, color: 'rgba(244,239,230,0.7)', maxWidth: 320, lineHeight: 1.6 }}>
-            Trussogne se vit autant qu'elle se regarde. Les fenêtres ouvertes, le bois qui crépite, le silence des Ardennes.
-          </p>
+    <section style={{ background: 'var(--green-deep)', color: 'var(--paper)', padding: 0, position: 'relative' }}>
+      {/* Full-bleed image */}
+      <div style={{ position: 'relative', height: '85vh', minHeight: 560, overflow: 'hidden' }}>
+        {senses.map((s, i) => (
+          <img key={i} src={s.photo} alt={s.label} style={{
+            position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
+            opacity: active === i ? 1 : 0,
+            transform: active === i ? 'scale(1)' : 'scale(1.05)',
+            transition: 'opacity 1.2s ease, transform 1.8s ease',
+          }} />
+        ))}
+        {/* Gradient overlays */}
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(31,58,24,0.7) 0%, rgba(31,58,24,0.3) 40%, rgba(31,58,24,0.3) 50%, rgba(31,58,24,0.85) 100%)', pointerEvents: 'none' }} />
+
+        {/* Top content */}
+        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, padding: '80px 48px 0' }}>
+          <div className="sec-num" style={{ marginBottom: 16, color: '#fff' }}>· UNE EXPÉRIENCE SENSORIELLE ·</div>
+          <h2 className="serif" style={{ fontSize: 'clamp(40px, 5.5vw, 80px)', lineHeight: 1.0, fontWeight: 400, color: '#fff' }}>
+            Quatre saisons, un lieu.
+          </h2>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16 }}>
-          {senses.map((s, i) => (
-            <article key={i} className="sense-card" style={{ position: 'relative', aspectRatio: '3/4', overflow: 'hidden', borderRadius: 4, background: '#000' }}>
-              <div className="ph sense-img" data-label={s.img} style={{ position: 'absolute', inset: 0, transition: 'transform 1.4s cubic-bezier(.2,.7,.2,1)' }}></div>
-              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(31,58,24,0.15) 0%, transparent 30%, transparent 50%, rgba(31,58,24,0.85) 100%)', pointerEvents: 'none' }}></div>
-              <div style={{ position: 'absolute', top: 20, left: 20, right: 20, display: 'flex', justifyContent: 'space-between', color: 'var(--paper)' }}>
-                <span className="mono-label" style={{ fontSize: 10, color: 'rgba(244,239,230,0.85)' }}>· {s.num} ·</span>
-                <span className="mono-label" style={{ fontSize: 10, color: 'rgba(244,239,230,0.85)' }}>{s.label}</span>
-              </div>
-              <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '28px 24px', color: 'var(--paper)' }}>
-                <p className="serif" style={{ fontSize: 24, lineHeight: 1.15, fontWeight: 400, fontStyle: i % 2 ? 'italic' : 'normal' }}>{s.caption}</p>
-              </div>
-            </article>
-          ))}
+
+        {/* Bottom content */}
+        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '0 48px 64px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 48, flexWrap: 'wrap' }}>
+          <div style={{ maxWidth: 480 }}>
+            <p className="serif" style={{ fontSize: 28, lineHeight: 1.25, fontWeight: 400, marginBottom: 12 }}>{current.caption}</p>
+            <p style={{ fontSize: 14, color: 'rgba(244,239,230,0.6)', lineHeight: 1.5 }}>
+              Trussogne se vit autant qu'elle se regarde. Les fenêtres ouvertes, le bois qui crépite, le silence des Ardennes.
+            </p>
+          </div>
+
+          {/* Season selector */}
+          <div style={{ display: 'flex', gap: 0 }}>
+            {senses.map((s, i) => (
+              <button key={i} onClick={() => setActive(i)} style={{
+                padding: '16px 28px',
+                background: active === i ? 'rgba(244,239,230,0.15)' : 'transparent',
+                border: 'none', cursor: 'pointer',
+                borderBottom: active === i ? '2px solid var(--paper)' : '2px solid transparent',
+                transition: 'all 0.4s ease',
+              }}>
+                <div className="mono-label" style={{ fontSize: 9, color: active === i ? 'var(--paper)' : 'rgba(244,239,230,0.4)', marginBottom: 4 }}>{s.num}</div>
+                <div style={{ fontSize: 14, fontWeight: 500, color: active === i ? 'var(--paper)' : 'rgba(244,239,230,0.5)', letterSpacing: '0.02em' }}>{s.label}</div>
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -137,7 +147,7 @@ function Story() {
         <div>
           <div className="sec-num" style={{ marginBottom: 20 }}>· 02 — NOTRE HISTOIRE ·</div>
           <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 1.05, marginBottom: 32, fontWeight: 400 }}>
-            Le fruit d'un rêve, devenu <em style={{ color: 'var(--green)' }}>havre de paix</em>.
+            Le fruit d'un rêve, devenu <span style={{ textDecoration: 'underline', textDecorationColor: 'var(--green)', textUnderlineOffset: '6px', textDecorationThickness: '2px' }}>havre de paix</span>.
           </h2>
           <p style={{ fontSize: 18, lineHeight: 1.7, color: 'var(--ink-soft)', marginBottom: 24, maxWidth: 560 }}>
             Nichée au cœur d'un environnement naturel préservé à Houyet dans nos Ardennes, notre propriété est née d'une envie simple : créer un lieu où le temps ralentit, où l'on respire profondément, et où la beauté discrète de la région se révèle au fil des heures.
@@ -178,7 +188,7 @@ function GiteSection() {
           <div>
             <div className="sec-num" style={{ marginBottom: 20 }}>· 03 — LE GÎTE ·</div>
             <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 1.05, fontWeight: 400, maxWidth: 720 }}>
-              Tout est prévu. <em style={{ color: 'var(--green)' }}>Vous n'avez qu'à arriver.</em>
+              Tout est prévu. <span style={{ color: 'var(--green)' }}>Vous n'avez qu'à arriver.</span>
             </h2>
           </div>
           <p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--ink-soft)', maxWidth: 360 }}>
@@ -220,17 +230,17 @@ function Chambres() {
         <div className="sec-num" style={{ marginBottom: 20 }}>· 04 — CHAMBRES ·</div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 64, gap: 48, flexWrap: 'wrap' }}>
           <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 1.05, fontWeight: 400, maxWidth: 720 }}>
-            Quatre chambres, <em style={{ color: 'var(--green)' }}>quatre atmosphères.</em>
+            Quatre chambres, <span style={{ textDecoration: 'underline', textDecorationColor: 'var(--green)', textUnderlineOffset: '6px', textDecorationThickness: '2px' }}>quatre atmosphères.</span>
           </h2>
           <p style={{ fontSize: 16, color: 'var(--ink-soft)', maxWidth: 320, lineHeight: 1.6 }}>
             Décorées avec soin, chacune respire son propre caractère.
           </p>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 24 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 24 }}>
           {rooms.map((r, i) => (
             <div key={i} className="room-card" onMouseEnter={() => setActive(i)} style={{ cursor: 'pointer' }}>
               <div className="ph" data-label={r.img} style={{
-                aspectRatio: '3/4', borderRadius: 4, marginBottom: 16,
+                aspectRatio: '16/9', borderRadius: 4, marginBottom: 16,
                 outline: active === i ? '1px solid var(--green)' : 'none',
                 outlineOffset: 6, transition: 'outline 0.3s'
               }}></div>
@@ -261,7 +271,7 @@ function ActivitiesPreview() {
       <div style={{ maxWidth: 1280, margin: '0 auto' }}>
         <div className="sec-num" style={{ marginBottom: 20, color: 'rgba(244,239,230,0.7)' }}>· 05 — ALENTOURS ·</div>
         <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 80px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 64, maxWidth: 900 }}>
-          Un environnement <em>à couper le souffle</em>, à quelques minutes de la porte.
+          Un environnement <span style={{ opacity: 0.6 }}>à couper le souffle</span>, à quelques minutes de la porte.
         </h2>
         <div className="tab-strip" style={{ borderColor: 'rgba(244,239,230,0.18)', marginBottom: 56 }}>
           {items.map((it, i) => (
@@ -297,14 +307,14 @@ function Extras() {
     <section style={{ padding: '160px 48px', background: 'var(--cream-warm)' }}>
       <div style={{ maxWidth: 1080, margin: '0 auto', textAlign: 'center' }}>
         <div className="sec-num" style={{ marginBottom: 20 }}>· 06 — NOS PETITS PLUS ·</div>
-        <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 96, fontStyle: 'italic' }}>
+        <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 96 }}>
           Pour aller plus loin.
         </h2>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 56, textAlign: 'left' }}>
           <div>
             <div className="ph" data-label="REIKI · soin" style={{ aspectRatio: '5/3', borderRadius: 4, marginBottom: 32 }}></div>
             <h3 className="serif" style={{ fontSize: 40, lineHeight: 1.1, fontWeight: 400, marginBottom: 16 }}>
-              Séances de <em style={{ color: 'var(--green)' }}>Reiki</em>
+              Séances de <span style={{ color: 'var(--green)' }}>Reiki</span>
             </h3>
             <p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--ink-soft)' }}>
               Méthode de soins énergétiques d'origine japonaise. Par l'imposition des mains, le Reiki aide à équilibrer les énergies du corps.
@@ -313,7 +323,7 @@ function Extras() {
           <div>
             <div className="ph" data-label="TRAITEUR · table" style={{ aspectRatio: '5/3', borderRadius: 4, marginBottom: 32 }}></div>
             <h3 className="serif" style={{ fontSize: 40, lineHeight: 1.1, fontWeight: 400, marginBottom: 16 }}>
-              Service <em style={{ color: 'var(--green)' }}>traiteur</em>
+              Service <span style={{ textDecoration: 'underline', textDecorationColor: 'var(--green)', textUnderlineOffset: '4px', textDecorationThickness: '2px' }}>traiteur</span>
             </h3>
             <p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--ink-soft)' }}>
               Repas gourmands sur mesure, créations culinaires préparées avec des produits locaux et de saison.
@@ -352,7 +362,7 @@ function Reviews() {
         <div className="sec-num" style={{ marginBottom: 20 }}>· 07 — AVIS ·</div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 56, gap: 48, flexWrap: 'wrap' }}>
           <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 1.05, fontWeight: 400, maxWidth: 720 }}>
-            Ce que disent <em style={{ color: 'var(--green)' }}>nos voyageurs.</em>
+            Ce que disent <span style={{ color: 'var(--green)' }}>nos voyageurs.</span>
           </h2>
           <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -408,7 +418,7 @@ function Booking() {
         <div>
           <div className="sec-num" style={{ marginBottom: 20 }}>· 08 — RÉSERVATION ·</div>
           <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 32 }}>
-            Réservez en <em style={{ color: 'var(--green)' }}>direct.</em>
+            Réservez en <span style={{ textDecoration: 'underline', textDecorationColor: 'var(--green)', textUnderlineOffset: '6px', textDecorationThickness: '2px' }}>direct.</span>
           </h2>
           <p style={{ fontSize: 17, lineHeight: 1.6, color: 'var(--ink-soft)', maxWidth: 460, marginBottom: 48 }}>
             Pas d'intermédiaire, pas de surprise. Tarifs établis pour 6 à 9 personnes.

@@ -97,7 +97,7 @@ export default function Galerie() {
         <div style={{ maxWidth: 800, margin: '0 auto' }}>
           <div className="mono-label" style={{ color: 'rgba(244,239,230,0.45)', marginBottom: 24 }}>· Gîte de Trussogne · Houyet, Ardennes belges ·</div>
           <h1 className="serif" style={{ fontSize: 'clamp(56px, 8vw, 120px)', lineHeight: 0.95, fontWeight: 400, marginBottom: 24 }}>
-            <em style={{ color: 'var(--green-soft)' }}>Galerie</em> photos.
+            <span style={{ color: 'var(--green-soft)' }}>Galerie</span> photos.
           </h1>
           <p style={{ fontSize: 17, lineHeight: 1.6, color: 'rgba(244,239,230,0.6)', maxWidth: 480, margin: '0 auto' }}>
             Découvrez Trussogne en images — les espaces, la nature, les détails qui font le charme de ce lieu d'exception.
@@ -136,7 +136,7 @@ export default function Galerie() {
       <section style={{ padding: '120px 48px', textAlign: 'center', borderTop: '1px solid rgba(244,239,230,0.08)' }}>
         <div style={{ maxWidth: 700, margin: '0 auto' }}>
           <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 32 }}>
-            Réservez votre <em style={{ color: 'var(--green-soft)' }}>parenthèse.</em>
+            Réservez votre <span style={{ textDecoration: 'underline', textDecorationColor: 'var(--green-soft)', textUnderlineOffset: '6px', textDecorationThickness: '2px' }}>parenthèse.</span>
           </h2>
           <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link to="/#book" className="btn-primary" style={{ fontSize: 16, padding: '22px 36px' }}>Réserver en direct →</Link>
@@ -148,7 +148,7 @@ export default function Galerie() {
       {/* Footer */}
       <footer style={{ padding: '64px 48px 40px', borderTop: '1px solid rgba(244,239,230,0.08)' }}>
         <div style={{ maxWidth: 1280, margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 24 }}>
-          <span className="serif" style={{ fontSize: 32, fontStyle: 'italic' }}>Trussogne <span style={{ fontSize: 13, color: 'rgba(244,239,230,0.35)', fontStyle: 'normal', fontFamily: 'Manrope, sans-serif' }}>· Galerie</span></span>
+          <span className="serif" style={{ fontSize: 32, fontStyle: 'italic' }}>Trussogne <span style={{ fontSize: 13, color: 'rgba(244,239,230,0.35)', fontStyle: 'normal', fontFamily: 'DM Sans, sans-serif' }}>· Galerie</span></span>
           <div style={{ display: 'flex', gap: 32, fontSize: 13, color: 'rgba(244,239,230,0.6)' }}>
             <Link to="/" className="ulink">Accueil</Link>
             <Link to="/le-gite" className="ulink">Le gîte</Link>

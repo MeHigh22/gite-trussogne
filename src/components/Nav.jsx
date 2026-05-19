@@ -32,17 +32,8 @@ export default function Nav({ scrolled, dark = false }) {
       borderBottom: borderColor,
       display: 'flex', alignItems: 'center', justifyContent: 'space-between'
     }}>
-      <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-        <span style={{
-          width: 36, height: 36, borderRadius: '50%',
-          background: 'var(--green)', color: 'var(--paper)',
-          display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-          fontFamily: 'Cormorant Garamond, serif', fontSize: 20, fontStyle: 'italic'
-        }}>T</span>
-        <div style={{ lineHeight: 1.1 }}>
-          <div className="serif" style={{ fontSize: 18, fontWeight: 500, fontStyle: 'italic', color: linkColor }}>Trussogne</div>
-          <div className="mono-label" style={{ fontSize: 9, color: dark ? 'rgba(244,239,230,0.5)' : 'var(--ink-soft)' }}>Gîte · Ardennes 1976</div>
-        </div>
+      <Link to="/" style={{ display: 'flex', alignItems: 'center' }}>
+        <img src="/assets/logo.webp" alt="Trussogne" style={{ height: 72 }} />
       </Link>
 
       <div className="nav-desktop" style={{ display: 'flex', gap: 32, alignItems: 'center' }}>
