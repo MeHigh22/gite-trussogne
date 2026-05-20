@@ -1,90 +1,118 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 
+function useBreakpoint() {
+  const [bp, setBp] = useState(() => {
+    if (window.innerWidth <= 600) return 'mobile';
+    if (window.innerWidth <= 900) return 'tablet';
+    return 'desktop';
+  });
+  useEffect(() => {
+    const fn = () => {
+      if (window.innerWidth <= 600) setBp('mobile');
+      else if (window.innerWidth <= 900) setBp('tablet');
+      else setBp('desktop');
+    };
+    window.addEventListener('resize', fn, { passive: true });
+    return () => window.removeEventListener('resize', fn);
+  }, []);
+  return bp;
+}
+
 function AboutHero() {
+  const bp = useBreakpoint();
   return (
-    <section className="ap-hero" style={{ minHeight: '85vh', padding: '180px 48px 120px', display: 'flex', alignItems: 'center', background: 'var(--paper)', position: 'relative' }}>
-      <div style={{ maxWidth: 1280, margin: '0 auto', width: '100%' }}>
-        <div className="ap-hero-grid" style={{ display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 80, alignItems: 'center' }}>
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 36 }}>
-              <span style={{ width: 64, height: 64, borderRadius: '50%', border: '1px solid var(--line)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--green)" strokeWidth="1.2">
-                  <path d="M12 22 C 6 18, 4 12, 6 6 C 10 8, 14 8, 18 6 C 20 12, 18 18, 12 22 Z"/><path d="M12 22 L 12 8" />
-                </svg>
-              </span>
-              <div>
-                <div className="mono-label" style={{ color: 'var(--ink-soft)' }}>Découvrez notre histoire</div>
-                <div className="mono-label" style={{ color: 'var(--green)', marginTop: 2 }}>Houyet, Ardennes belges</div>
-              </div>
-            </div>
-            <h1 className="serif" style={{ fontSize: 'clamp(56px, 7vw, 110px)', lineHeight: 0.95, fontWeight: 400, letterSpacing: '-0.02em', marginBottom: 28 }}>
-              À propos de<br /><span style={{ color: 'var(--green)' }}>Trussogne.</span>
-            </h1>
-            <p style={{ fontSize: 19, lineHeight: 1.65, color: 'var(--ink-soft)', maxWidth: 480, marginBottom: 44 }}>
-              Trussogne est né d'une passion pour l'authenticité et d'un profond respect pour la nature des Ardennes.
-            </p>
-            <div style={{ display: 'flex', gap: 14 }}>
-              <a href="#philosophie" className="btn-primary">Notre philosophie <span>↓</span></a>
-              <Link to="/le-gite" className="btn-ghost">Découvrir le gîte</Link>
-            </div>
+    <section className="ap-hero" style={{
+      minHeight: '100vh',
+      padding: bp === 'mobile' ? '80px 20px 40px' : bp === 'tablet' ? '90px 32px 60px' : '140px 48px 80px',
+      position: 'relative',
+      background: 'var(--paper)'
+    }}>
+      <div style={{ display: 'grid', gridTemplateColumns: bp === 'desktop' ? '2fr 3fr' : '1fr', gap: 40, alignItems: 'center', minHeight: 'calc(100vh - 220px)' }}>
+        <div>
+          <h1 className="serif" style={{
+            fontSize: bp === 'mobile' ? 'clamp(36px, 9vw, 52px)' : 'clamp(48px, 5.5vw, 88px)',
+            lineHeight: 0.95,
+            letterSpacing: '-0.02em',
+            fontWeight: 400,
+            marginBottom: 24,
+          }}>
+            À propos<br />de <span style={{ color: 'var(--green)' }}>Trussogne.</span>
+          </h1>
+
+          <p style={{ fontSize: 18, lineHeight: 1.5, color: 'var(--ink-soft)', marginBottom: 20 }}>
+            Trussogne est né d'une passion pour l'authenticité et d'un profond respect pour la nature des Ardennes. Notre bâtisse, bien que neuve, incarne le caractère d'antan tout en offrant le confort moderne que nos hôtes méritent.
+          </p>
+          <p style={{ fontSize: 18, lineHeight: 1.5, color: 'var(--ink-soft)', marginBottom: 20 }}>
+            Située dans un écrin de verdure à Houyet, ce gîte est le fruit d'un rêve : un havre de paix où le temps s'arrête. En famille ou entre amis, reconnectez-vous à l'essentiel dans le calme d'un jardin avec vue sur la beauté naturelle qui nous entoure.
+          </p>
+          <p style={{ fontSize: 18, lineHeight: 1.5, color: 'var(--ink-soft)', marginBottom: bp === 'mobile' ? 24 : 44 }}>
+            Chaque matériau a été choisi avec soin, chaque espace pensé pour maximiser la lumière et le lien avec la nature environnante.
+          </p>
+
+          <div style={{ display: 'flex', gap: 14, alignItems: 'center', flexWrap: bp === 'mobile' ? 'nowrap' : 'wrap' }}>
+            <a href="#philosophie" className="btn-primary" style={bp === 'mobile' ? { padding: '9px 14px', fontSize: 13 } : {}}>
+              {bp === 'mobile' ? 'Notre philosophie' : 'Notre philosophie →'}
+            </a>
+            <Link to="/le-gite" className="btn-ghost" style={bp === 'mobile' ? { padding: '8px 12px', fontSize: 13 } : {}}>Découvrir le gîte</Link>
           </div>
-          <div style={{ position: 'relative' }}>
-            <div className="ph" data-label="PORTRAIT · Sandra, votre hôtesse" style={{ aspectRatio: '4/5', borderRadius: 4 }}></div>
-            <div style={{ position: 'absolute', bottom: -32, left: -40, background: 'var(--paper)', padding: '24px 28px', border: '1px solid var(--line)', maxWidth: 300 }}>
-              <div className="serif" style={{ fontSize: 48, lineHeight: 0.9, fontStyle: 'italic', color: 'var(--green)', marginBottom: 8 }}>Sandra</div>
-              <div className="mono-label" style={{ color: 'var(--ink-soft)', marginBottom: 10 }}>Votre hôtesse</div>
-              <p style={{ fontSize: 14, lineHeight: 1.5, color: 'var(--ink-soft)' }}>Passionnée et attentionnée, elle veille à chaque détail pour que votre séjour soit inoubliable.</p>
+
+          {bp !== 'desktop' && (
+            <div style={{ borderRadius: 4, overflow: 'hidden', aspectRatio: '16/9', marginTop: 32 }}>
+              <img src="/assets/photo1.webp" alt="Trussogne, Ardennes" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
             </div>
-          </div>
+          )}
         </div>
+
+        {bp === 'desktop' && (
+          <div style={{ height: 'min(720px, 80vh)', display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr 1.5fr', gap: 12 }}>
+            {/* Two small images on top */}
+            <div style={{ borderRadius: 4, overflow: 'hidden' }}>
+              <img src="/assets/quatreChambres/ChambreDiane.webp" alt="Chambre Diane" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            </div>
+            <div style={{ borderRadius: 4, overflow: 'hidden' }}>
+              <img src="/assets/Chambre-Chapelle-scaled.webp" alt="Chambre Chapelle" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            </div>
+            {/* Big wide image spanning full width at the bottom */}
+            <div style={{ borderRadius: 4, overflow: 'hidden', gridColumn: '1 / -1' }}>
+              <img src="/assets/photo1.webp" alt="Trussogne, Ardennes" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
 }
 
-function Story() {
-  return (
-    <section className="ap-section" style={{ padding: '160px 48px', background: 'var(--cream)' }}>
-      <div style={{ maxWidth: 1280, margin: '0 auto' }}>
-        <div className="ap-story-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1.3fr', gap: 96, alignItems: 'start' }}>
-          <div style={{ position: 'sticky', top: 140, display: 'flex', flexDirection: 'column', gap: 16 }}>
-            <img src="/assets/Chambre-Chapelle-scaled.webp" alt="Chambre Chapelle" style={{ aspectRatio: '4/3', borderRadius: 4, width: '100%', objectFit: 'cover' }} />
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-              <div className="ph" data-label="DÉTAIL · pierre" style={{ aspectRatio: '1/1', borderRadius: 4 }}></div>
-              <div className="ph" data-label="JARDIN · vue" style={{ aspectRatio: '1/1', borderRadius: 4 }}></div>
-            </div>
-          </div>
-          <div>
-            <div className="sec-num" style={{ marginBottom: 20 }}>· 01 — NOTRE HISTOIRE ·</div>
-            <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 40 }}>
-              Le fruit d'un rêve, devenu havre de paix.
-            </h2>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
-              <p style={{ fontSize: 17, lineHeight: 1.75, color: 'var(--ink-soft)' }}>Située dans un écrin de verdure à Houyet, ce gîte est le fruit d'un rêve : un havre de paix où le temps s'arrête. En famille ou entre amis, reconnectez-vous à l'essentiel dans le calme d'un jardin avec vue sur la beauté naturelle.</p>
-              <p style={{ fontSize: 17, lineHeight: 1.75, color: 'var(--ink-soft)' }}>Notre bâtisse incarne le caractère d'antan tout en offrant le confort moderne que nos hôtes méritent. Chaque matériau a été choisi avec soin, chaque espace pensé pour maximiser la lumière et le lien avec la nature.</p>
-              <p style={{ fontSize: 17, lineHeight: 1.75, color: 'var(--ink-soft)' }}>À Trussogne, chacun peut se reconnecter à l'essentiel — le crépitement d'un feu, le bois fendu, les longues marches, et le silence des sapins.</p>
-            </div>
-            <div style={{ marginTop: 56, padding: '40px 44px', background: 'var(--paper)', borderLeft: '3px solid var(--green)' }}>
-              <p className="serif" style={{ fontSize: 28, lineHeight: 1.3, fontStyle: 'italic', color: 'var(--ink)', marginBottom: 16 }}>
-                "Le luxe véritable réside dans la simplicité et l'authenticité."
-              </p>
-              <div className="mono-label" style={{ color: 'var(--green)' }}>— Notre philosophie</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 function Pillars() {
   const pillars = [
-    { num: '01', title: 'La reconnexion avec la nature', desc: "Des espaces ouverts sur le paysage grâce à de grandes baies vitrées, une terrasse couverte offrant une vue imprenable sur les collines des Ardennes.", img: 'NATURE · baies vitrées', icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--green)" strokeWidth="1.2"><path d="M12 22 C 6 18, 4 12, 6 6 C 10 8, 14 8, 18 6 C 20 12, 18 18, 12 22 Z"/><path d="M12 22 L 12 8" /></svg> },
-    { num: '02', title: 'Les moments de partage', desc: "Une architecture fluide et conviviale permettant à tous de se retrouver, que ce soit en famille ou entre amis. Partagez un repas dans notre cuisine équipée d'une cuisinière La Cornue.", img: 'PARTAGE · cuisine feu', icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--green)" strokeWidth="1.2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> },
-    { num: '03', title: 'Le bien-être et la quiétude', desc: "Des chambres spacieuses avec salles de bain privatives, des espaces de détente soigneusement aménagés, et le calme omniprésent de notre environnement naturel.", img: 'QUIÉTUDE · chambre', icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--green)" strokeWidth="1.2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg> },
+    {
+      num: '01',
+      title: 'La reconnexion avec la nature',
+      desc: "Des espaces ouverts sur le paysage grâce à de grandes baies vitrées, une terrasse couverte offrant une vue imprenable sur les collines des Ardennes. Plongez en pleine nature depuis votre gîte, où chaque regard vers l'extérieur devient une invitation à la contemplation.",
+      img: '/assets/a-propos/reconnexion.webp',
+      alt: 'La reconnexion avec la nature',
+      icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--green)" strokeWidth="1.2"><path d="M12 22 C 6 18, 4 12, 6 6 C 10 8, 14 8, 18 6 C 20 12, 18 18, 12 22 Z"/><path d="M12 22 L 12 8" /></svg>
+    },
+    {
+      num: '02',
+      title: 'Les moments de partage',
+      desc: "Une architecture fluide et conviviale permettant à tous de se retrouver, que ce soit en famille ou entre amis. Partagez un repas préparé dans notre cuisine équipée d'une prestigieuse cuisinière La Cornue, au coin du feu dans notre salon chaleureux, ou lors d'une partie de kicker dans l'espace jeux.",
+      img: '/assets/a-propos/partage.webp',
+      alt: 'Les moments de partage',
+      icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--green)" strokeWidth="1.2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    },
+    {
+      num: '03',
+      title: 'Le bien-être et la quiétude',
+      desc: "Des chambres spacieuses avec salles de bain privatives, des espaces de détente soigneusement aménagés, et le calme omniprésent de notre environnement naturel. Après vos promenades, retrouvez la sérénité d'un lieu où confort et luxe discret s'allient pour votre bien-être.",
+      img: '/assets/a-propos/bienetre.webp',
+      alt: 'Le bien-être et la quiétude',
+      icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--green)" strokeWidth="1.2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+    },
   ];
 
   return (
@@ -92,14 +120,14 @@ function Pillars() {
       <div style={{ maxWidth: 1280, margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: 96 }}>
           <div className="sec-num" style={{ marginBottom: 20 }}>· 02 — NOTRE PHILOSOPHIE ·</div>
-          <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 80px)', lineHeight: 1.05, fontWeight: 400, maxWidth: 800, margin: '0 auto' }}>
-            Trois piliers, <span style={{ opacity: 0.4 }}>une vision.</span>
+          <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 80px)', lineHeight: 1.05, fontWeight: 400, maxWidth: 800, margin: '0 auto', marginBottom: 40 }}>
+            Le luxe véritable réside dans la <span style={{ color: 'var(--green)' }}>simplicité</span> et l'authenticité.
           </h2>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
           {pillars.map((p, i) => (
             <div key={i} className="ap-pillar-row" style={{ display: 'grid', gridTemplateColumns: i % 2 === 0 ? '1.3fr 1fr' : '1fr 1.3fr', gap: 80, alignItems: 'center', padding: '80px 0', borderBottom: i < pillars.length - 1 ? '1px solid var(--line)' : 'none' }}>
-              {i % 2 === 0 && <div className="ph" data-label={p.img} style={{ aspectRatio: '16/10', borderRadius: 4 }}></div>}
+              {i % 2 === 0 && <div style={{ aspectRatio: '16/10', borderRadius: 4, overflow: 'hidden' }}><img src={p.img} alt={p.alt} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} /></div>}
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 24 }}>
                   <div style={{ width: 64, height: 64, borderRadius: '50%', border: '1px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{p.icon}</div>
@@ -108,7 +136,7 @@ function Pillars() {
                 <h3 className="serif" style={{ fontSize: 40, lineHeight: 1.1, fontWeight: 400, marginBottom: 20 }}>{p.title}</h3>
                 <p style={{ fontSize: 16, lineHeight: 1.7, color: 'var(--ink-soft)', maxWidth: 480 }}>{p.desc}</p>
               </div>
-              {i % 2 !== 0 && <div className="ph" data-label={p.img} style={{ aspectRatio: '16/10', borderRadius: 4 }}></div>}
+              {i % 2 !== 0 && <div style={{ aspectRatio: '16/10', borderRadius: 4, overflow: 'hidden' }}><img src={p.img} alt={p.alt} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} /></div>}
             </div>
           ))}
         </div>
@@ -117,12 +145,85 @@ function Pillars() {
   );
 }
 
-function Manifesto() {
+function Engagement() {
   return (
-    <section className="ap-section" style={{ padding: '120px 48px', background: 'var(--green)', color: 'var(--paper)', textAlign: 'center' }}>
-      <div style={{ maxWidth: 900, margin: '0 auto' }}>
-        <div className="serif" style={{ fontSize: 'clamp(36px, 5vw, 64px)', lineHeight: 1.15, fontStyle: 'italic', fontWeight: 400 }}>
-          Trussogne — là où la nature et le confort se rencontrent pour créer des moments d'exception.
+    <section className="ap-section" style={{ padding: '160px 48px', background: 'var(--cream)' }}>
+      <div style={{ maxWidth: 860, margin: '0 auto' }}>
+        <div className="sec-num" style={{ marginBottom: 20 }}>· 03 — NOTRE ENGAGEMENT ·</div>
+        <h2 className="serif" style={{ fontSize: 'clamp(36px, 4vw, 64px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 48 }}>
+          Chaque détail pensé <span style={{ color: 'var(--green)' }}>pour vous.</span>
+        </h2>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
+          <p style={{ fontSize: 17, lineHeight: 1.75, color: 'var(--ink-soft)' }}>En choisissant Trussogne pour votre séjour dans les Ardennes, vous optez pour une expérience authentique où chaque détail a été pensé pour vous offrir un moment privilégié. Notre engagement est simple : vous permettre de vivre pleinement chaque instant, loin du stress quotidien, dans un cadre de calme et de nature propice aux retrouvailles.</p>
+          <p style={{ fontSize: 17, lineHeight: 1.75, color: 'var(--ink-soft)' }}>Que vous veniez en famille ou entre amis, pour un week-end de VTT ou un séjour plus long près de Dinant, notre plus grande satisfaction est de vous offrir des souvenirs précieux et l'envie de revenir découvrir notre gîte au travers des saisons.</p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Reviews() {
+  const bp = useBreakpoint();
+  const reviews = [
+    { name: 'Sophie du Fontbaré',     locale: 'FR', text: 'Endroit paradisiaque. Maison ultra confortable. Calme, nature, balades. Cocon de rêve pour se ressourcer. Foncez.' },
+    { name: 'Monika Steinel',          locale: 'EN', text: 'Wonderful location, the view must be one of the nicest in Belgium. The house is well-appointed and well-equipped. Recommend wholeheartedly.' },
+    { name: 'Julie Van Bockxelaere',   locale: 'NL', text: 'Het vakantiehuis in Trussogne is absoluut een aanrader. De ligging is adembenemend en het huis zelf is ruim en comfortabel.' },
+    { name: 'Anne-Françoise Cecoster', locale: 'FR', text: "Top endroit ! La vue est époustouflante et le gîte ultra confort. Situé à 5 min du golf d'Ardennes." },
+    { name: 'Ernest Baele',            locale: 'FR', text: "Reçus de manière très chaleureuse. La maison est de grande qualité avec une vue magnifique. Nous y retournerons avec plaisir." },
+    { name: 'Zoé Palacio',             locale: 'FR', text: "En famille ou entre amis, il fait bon à Trussogne ! Raffinement et bon goût de la décoration." },
+    { name: 'Kelley Steeves',          locale: 'EN', text: 'Trussogne is a piece of heaven. Beautiful property, incredible view. We will be back.' },
+    { name: 'Geert Coppens',           locale: 'NL', text: 'Fantastic location. Tastefully decorated with all modern amenities. Lovely fireplace and beautiful outdoor facilities.' },
+  ];
+  const trackRef = useRef(null);
+  const scroll = (dir) => {
+    const el = trackRef.current;
+    if (!el) return;
+    el.scrollBy({ left: dir * 480, behavior: 'smooth' });
+  };
+  const innerPad = bp === 'mobile' ? '0 20px' : bp === 'tablet' ? '0 32px' : '0 48px';
+
+  return (
+    <section style={{ padding: bp === 'mobile' ? '80px 0' : '160px 0', background: 'var(--paper)' }}>
+      <div style={{ maxWidth: 1280, margin: '0 auto', padding: innerPad }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 56, gap: 48, flexWrap: 'wrap' }}>
+          <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 1.05, fontWeight: 400, maxWidth: 720 }}>
+            Ce que disent <span style={{ color: 'var(--green)' }}>nos voyageurs.</span>
+          </h2>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <div className="serif" style={{ fontSize: 48, lineHeight: 1, color: 'var(--green)' }}>4.97</div>
+              <div className="mono-label" style={{ color: 'var(--ink-soft)' }}>moyenne · 80+ avis</div>
+            </div>
+            <div style={{ display: 'flex', gap: 8 }}>
+              <button onClick={() => scroll(-1)} style={{ width: 48, height: 48, borderRadius: '50%', border: '1px solid var(--line)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>←</button>
+              <button onClick={() => scroll(1)} style={{ width: 48, height: 48, borderRadius: '50%', border: '1px solid var(--line)', background: 'var(--green)', color: 'var(--paper)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>→</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style={{ maxWidth: 1280, margin: '0 auto', padding: innerPad }}>
+        <div ref={trackRef} className="review-track" style={{ display: 'flex', gap: 24, overflowX: 'auto', padding: '24px 0' }}>
+          {reviews.map((r, i) => (
+            <article key={i} className="review-card" style={{
+              flex: bp === 'mobile' ? '0 0 300px' : bp === 'tablet' ? '0 0 360px' : '0 0 460px',
+              background: i % 3 === 0 ? 'var(--green)' : 'var(--paper)',
+              color: i % 3 === 0 ? 'var(--paper)' : 'var(--ink)',
+              border: i % 3 === 0 ? 'none' : '1px solid var(--line)',
+              padding: bp === 'mobile' ? '28px 24px' : '40px 36px',
+              display: 'flex', flexDirection: 'column',
+              minHeight: 340, borderRadius: 4
+            }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 28 }}>
+                <span className="serif" style={{ fontSize: 56, lineHeight: 0.6, fontStyle: 'italic', opacity: 0.5 }}>"</span>
+                <span className="mono-label" style={{ opacity: 0.65 }}>{r.locale}</span>
+              </div>
+              <p className="serif" style={{ fontSize: 22, lineHeight: 1.4, fontWeight: 400, flex: 1, fontStyle: 'italic' }}>{r.text}</p>
+              <div style={{ marginTop: 32, paddingTop: 20, borderTop: '1px solid ' + (i % 3 === 0 ? 'rgba(244,239,230,0.2)' : 'var(--line)') }}>
+                <div style={{ fontSize: 14, fontWeight: 500 }}>{r.name}</div>
+                <div className="mono-label" style={{ marginTop: 4, opacity: 0.6 }}>Voyageur·euse vérifié·e</div>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>
@@ -141,17 +242,14 @@ export default function APropos() {
     <>
       <Nav scrolled={scrolled} />
       <AboutHero />
-      <Story />
       <Pillars />
-      <Manifesto />
+      <Engagement />
+      <Reviews />
       <section className="ap-section" style={{ padding: '160px 48px', background: 'var(--paper)', textAlign: 'center' }}>
         <div style={{ maxWidth: 700, margin: '0 auto' }}>
           <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 80px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 28 }}>
-            Vivez l'expérience Trussogne.
+            Réserver maintenant.
           </h2>
-          <p style={{ fontSize: 17, lineHeight: 1.6, color: 'var(--ink-soft)', maxWidth: 480, margin: '0 auto 44px' }}>
-            Réservez en direct pour un séjour authentique dans les Ardennes belges. Sandra vous attend.
-          </p>
           <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link to="/#book" className="btn-primary" style={{ fontSize: 16, padding: '22px 36px' }}>Réserver en direct →</Link>
             <Link to="/contact" className="btn-ghost">Nous contacter</Link>

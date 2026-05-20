@@ -25,7 +25,6 @@ const PHOTOS = [
   { src: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=80', cat: 'nature', caption: 'Sommet au-dessus des nuages' },
   { src: 'https://images.unsplash.com/photo-1600585153490-76fb20a32601?w=800&q=80', cat: 'details', caption: 'Coin lecture, plaid et thé' },
   { src: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=600&q=80', cat: 'exterieur', caption: 'Allée d\'arbres en automne' },
-  { src: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=80', cat: 'details', caption: 'Petit-déjeuner en terrasse' },
 ];
 
 const FILTERS = [
