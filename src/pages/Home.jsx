@@ -3,6 +3,24 @@ import { Link } from 'react-router-dom';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 
+function useBreakpoint() {
+  const [bp, setBp] = useState(() => {
+    if (window.innerWidth <= 600) return 'mobile';
+    if (window.innerWidth <= 900) return 'tablet';
+    return 'desktop';
+  });
+  useEffect(() => {
+    const fn = () => {
+      if (window.innerWidth <= 600) setBp('mobile');
+      else if (window.innerWidth <= 900) setBp('tablet');
+      else setBp('desktop');
+    };
+    window.addEventListener('resize', fn, { passive: true });
+    return () => window.removeEventListener('resize', fn);
+  }, []);
+  return bp;
+}
+
 function Stat({ n, label }) {
   return (
     <div>
@@ -13,17 +31,18 @@ function Stat({ n, label }) {
 }
 
 function Hero() {
+  const bp = useBreakpoint();
   return (
     <section id="top" style={{
       minHeight: '100vh',
-      padding: '140px 48px 80px',
+      padding: bp === 'mobile' ? '80px 20px 40px' : bp === 'tablet' ? '90px 32px 60px' : '140px 48px 80px',
       position: 'relative',
       background: 'var(--paper)'
     }}>
-      <div style={{ display: 'grid', gridTemplateColumns: '2fr 3fr', gap: 40, alignItems: 'center', minHeight: 'calc(100vh - 220px)' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: bp === 'desktop' ? '2fr 3fr' : '1fr', gap: 40, alignItems: 'center', minHeight: 'calc(100vh - 220px)' }}>
         <div>
           <h1 className="serif" style={{
-            fontSize: 'clamp(48px, 5.5vw, 88px)',
+            fontSize: bp === 'mobile' ? 'clamp(36px, 9vw, 52px)' : 'clamp(48px, 5.5vw, 88px)',
             lineHeight: 0.95,
             letterSpacing: '-0.02em',
             fontWeight: 400,
@@ -34,18 +53,34 @@ function Hero() {
             silence <span style={{ opacity: 0.4 }}>&amp;&nbsp;espace.</span>
           </h1>
 
-          <p style={{ fontSize: 18, lineHeight: 1.5, color: 'var(--ink-soft)', marginBottom: 44 }}>
+          <p style={{ fontSize: 18, lineHeight: 1.5, color: 'var(--ink-soft)', marginBottom: bp === 'mobile' ? 24 : 44 }}>
             Niché au cœur des Ardennes belges à Houyet, un havre de paix pour 6 à 9 personnes, où le temps semble s'arrêter et où l'on se reconnecte à l'essentiel.
           </p>
 
-          <div style={{ display: 'flex', gap: 14, alignItems: 'center', flexWrap: 'wrap' }}>
-            <a href="#book" className="btn-primary">
-              Réserver en direct <span>→</span>
+          <div style={{ display: 'flex', gap: 14, alignItems: 'center', flexWrap: bp === 'mobile' ? 'nowrap' : 'wrap' }}>
+            <a href="#book" className="btn-primary" style={bp === 'mobile' ? { padding: '9px 14px', fontSize: 13 } : {}}>
+              {bp === 'mobile' ? 'Réserver en direct' : <span>Réserver en direct →</span>}
             </a>
-            <a href="#story" className="btn-ghost">Découvrir le lieu</a>
+            <a href="#story" className="btn-ghost" style={bp === 'mobile' ? { padding: '8px 12px', fontSize: 13 } : {}}>Découvrir le lieu</a>
           </div>
 
-          <div style={{ display: 'flex', gap: 48, marginTop: 72, paddingTop: 36, borderTop: '1px solid var(--line)' }}>
+          {bp !== 'desktop' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 32 }}>
+              <div style={{ borderRadius: 4, overflow: 'hidden', aspectRatio: '16/9' }}>
+                <img src="/assets/photo1.webp" alt="Maison ardennaise" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+                <div style={{ borderRadius: 4, overflow: 'hidden', aspectRatio: '1/1' }}>
+                  <img src="/assets/Marcassins-Trussogne.webp" alt="Marcassins à Trussogne" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                </div>
+                <div style={{ borderRadius: 4, overflow: 'hidden', aspectRatio: '1/1' }}>
+                  <img src="/assets/Photo-Lievres-amoureux-Tru.webp" alt="Lièvres amoureux à Trussogne" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                </div>
+              </div>
+            </div>
+          )}
+
+          <div style={{ display: 'flex', gap: bp === 'mobile' ? 24 : 48, marginTop: 48, paddingTop: 36, borderTop: '1px solid var(--line)', flexWrap: 'wrap' }}>
             <Stat n="6—9" label="Voyageurs" />
             <Stat n="04" label="Chambres" />
             <Stat n="550" label="ha de nature" />
@@ -53,30 +88,33 @@ function Hero() {
           </div>
         </div>
 
-        <div style={{ height: 'min(720px, 80vh)', position: 'relative' }}>
-          <div className="hero-grid">
-            <div className="h-main" style={{ borderRadius: 4, overflow: 'hidden' }}><img src="/assets/photo1.webp" alt="Maison ardennaise" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /></div>
-            <div style={{ borderRadius: 4, overflow: 'hidden' }}><img src="/assets/Marcassins-Trussogne.webp" alt="Marcassins à Trussogne" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /></div>
-            <div style={{ borderRadius: 4, overflow: 'hidden' }}><img src="/assets/Photo-Lievres-amoureux-Tru.webp" alt="Lièvres amoureux à Trussogne" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /></div>
-          </div>
-          <div style={{
-            position: 'absolute', bottom: -24, left: -24,
-            background: 'var(--paper)', padding: '20px 24px',
-            border: '1px solid var(--line)', maxWidth: 280
-          }}>
-            <div className="mono-label" style={{ color: 'var(--green)', marginBottom: 8 }}>nº 01 — La maison</div>
-            <div className="serif" style={{ fontSize: 22, lineHeight: 1.2, fontStyle: 'italic' }}>
-              "Une vue parmi les plus belles de Belgique."
+        {bp === 'desktop' && (
+          <div style={{ height: 'min(720px, 80vh)', position: 'relative' }}>
+            <div className="hero-grid">
+              <div className="h-main" style={{ borderRadius: 4, overflow: 'hidden' }}><img src="/assets/photo1.webp" alt="Maison ardennaise" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /></div>
+              <div style={{ borderRadius: 4, overflow: 'hidden' }}><img src="/assets/Marcassins-Trussogne.webp" alt="Marcassins à Trussogne" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /></div>
+              <div style={{ borderRadius: 4, overflow: 'hidden' }}><img src="/assets/Photo-Lievres-amoureux-Tru.webp" alt="Lièvres amoureux à Trussogne" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /></div>
             </div>
-            <div className="mono-label" style={{ marginTop: 10, fontSize: 9, color: 'var(--ink-soft)' }}>— Monika S., voyageuse</div>
+            <div style={{
+              position: 'absolute', bottom: -24, left: -24,
+              background: 'var(--paper)', padding: '20px 24px',
+              border: '1px solid var(--line)', maxWidth: 280
+            }}>
+              <div className="mono-label" style={{ color: 'var(--green)', marginBottom: 8 }}>nº 01 — La maison</div>
+              <div className="serif" style={{ fontSize: 22, lineHeight: 1.2, fontStyle: 'italic' }}>
+                "Une vue parmi les plus belles de Belgique."
+              </div>
+              <div className="mono-label" style={{ marginTop: 10, fontSize: 9, color: 'var(--ink-soft)' }}>— Monika S., voyageuse</div>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );
 }
 
 function Sensory() {
+  const bp = useBreakpoint();
   const senses = [
     { num: '01', label: 'Printemps', caption: "Sentez l'odeur de la pluie après une après-midi chaude.", photo: '/assets/quatreSaisons/printemps.webp' },
     { num: '02', label: 'Été',      caption: "Une expérience sensorielle au cœur de la pleine nature.", photo: '/assets/quatreSaisons/ete.webp' },
@@ -88,7 +126,6 @@ function Sensory() {
 
   return (
     <section style={{ background: 'var(--green-deep)', color: 'var(--paper)', padding: 0, position: 'relative' }}>
-      {/* Full-bleed image */}
       <div style={{ position: 'relative', height: '85vh', minHeight: 560, overflow: 'hidden' }}>
         {senses.map((s, i) => (
           <img key={i} src={s.photo} alt={s.label} style={{
@@ -98,31 +135,27 @@ function Sensory() {
             transition: 'opacity 1.2s ease, transform 1.8s ease',
           }} />
         ))}
-        {/* Gradient overlays */}
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(31,58,24,0.7) 0%, rgba(31,58,24,0.3) 40%, rgba(31,58,24,0.3) 50%, rgba(31,58,24,0.85) 100%)', pointerEvents: 'none' }} />
 
-        {/* Top content */}
-        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, padding: '80px 48px 0' }}>
+        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, padding: bp === 'desktop' ? '80px 48px 0' : '60px 24px 0' }}>
           <div className="sec-num" style={{ marginBottom: 16, color: '#fff' }}>· UNE EXPÉRIENCE SENSORIELLE ·</div>
           <h2 className="serif" style={{ fontSize: 'clamp(40px, 5.5vw, 80px)', lineHeight: 1.0, fontWeight: 400, color: '#fff' }}>
             Quatre saisons, un lieu.
           </h2>
         </div>
 
-        {/* Bottom content */}
-        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '0 48px 64px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 48, flexWrap: 'wrap' }}>
+        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: bp === 'desktop' ? '0 48px 64px' : '0 24px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 48, flexWrap: 'wrap' }}>
           <div style={{ maxWidth: 480 }}>
-            <p className="serif" style={{ fontSize: 28, lineHeight: 1.25, fontWeight: 400, marginBottom: 12 }}>{current.caption}</p>
+            <p className="serif" style={{ fontSize: bp === 'desktop' ? 28 : 20, lineHeight: 1.25, fontWeight: 400, marginBottom: 12 }}>{current.caption}</p>
             <p style={{ fontSize: 14, color: 'rgba(244,239,230,0.6)', lineHeight: 1.5 }}>
               Trussogne se vit autant qu'elle se regarde. Les fenêtres ouvertes, le bois qui crépite, le silence des Ardennes.
             </p>
           </div>
 
-          {/* Season selector */}
-          <div style={{ display: 'flex', gap: 0 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: bp === 'mobile' ? '1fr 1fr' : 'repeat(4, auto)', gap: 0 }}>
             {senses.map((s, i) => (
               <button key={i} onClick={() => setActive(i)} style={{
-                padding: '16px 28px',
+                padding: '16px 20px',
                 background: active === i ? 'rgba(244,239,230,0.15)' : 'transparent',
                 border: 'none', cursor: 'pointer',
                 borderBottom: active === i ? '2px solid var(--paper)' : '2px solid transparent',
@@ -140,9 +173,10 @@ function Sensory() {
 }
 
 function Story() {
+  const bp = useBreakpoint();
   return (
-    <section id="story" style={{ padding: '160px 48px', background: 'var(--paper)' }}>
-      <div style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: 96, alignItems: 'center' }}>
+    <section id="story" style={{ padding: bp === 'mobile' ? '60px 20px' : bp === 'tablet' ? '80px 32px' : '160px 48px', background: 'var(--paper)' }}>
+      <div style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gridTemplateColumns: bp === 'desktop' ? '1fr 1.2fr' : '1fr', gap: bp === 'mobile' ? 32 : bp === 'tablet' ? 48 : 96, alignItems: 'center' }}>
         <img src="/assets/Chambre-Chapelle-scaled.webp" alt="Chambre Chapelle" style={{ aspectRatio: '4/5', borderRadius: 4, width: '100%', objectFit: 'cover' }} />
         <div>
           <div className="sec-num" style={{ marginBottom: 20 }}>· 02 — NOTRE HISTOIRE ·</div>
@@ -155,7 +189,7 @@ function Story() {
           <p style={{ fontSize: 18, lineHeight: 1.7, color: 'var(--ink-soft)', maxWidth: 560 }}>
             À Trussogne, chacun peut se reconnecter à l'essentiel — le crépitement d'un feu, le bois fendu, les longues marches, et le silence des sapins.
           </p>
-          <div style={{ marginTop: 56, display: 'flex', gap: 64 }}>
+          <div style={{ marginTop: 56, display: 'flex', gap: 64, flexWrap: 'wrap' }}>
             <div>
               <div className="serif" style={{ fontSize: 56, color: 'var(--green)', lineHeight: 1 }}>Sandra</div>
               <div className="mono-label" style={{ marginTop: 8, color: 'var(--ink-soft)' }}>Votre hôtesse</div>
@@ -173,6 +207,7 @@ function Story() {
 }
 
 function GiteSection() {
+  const bp = useBreakpoint();
   const features = [
     { num: '01', title: 'Cuisine premium', desc: 'La Cornue, Quooker, cafetière Nespresso, lave-vaisselle, fours.' },
     { num: '02', title: 'Linge fourni',    desc: 'Draps de lit, draps de bain, linge de maison inclus.' },
@@ -181,8 +216,9 @@ function GiteSection() {
     { num: '05', title: 'Confort cosy',     desc: 'Feu ouvert, TV écran plat, kicker, barbecue extérieur.' },
     { num: '06', title: 'Stationnement',    desc: 'Parking privé pour quatre véhicules sur la propriété.' },
   ];
+  const cols = bp === 'desktop' ? 3 : bp === 'tablet' ? 2 : 1;
   return (
-    <section id="gite" style={{ padding: '160px 48px', background: 'var(--cream)' }}>
+    <section id="gite" style={{ padding: bp === 'mobile' ? '60px 20px' : bp === 'tablet' ? '80px 32px' : '160px 48px', background: 'var(--cream)' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 80, gap: 48, flexWrap: 'wrap' }}>
           <div>
@@ -195,12 +231,12 @@ function GiteSection() {
             Une location pensée pour 6 à 9 personnes, en famille ou entre amis.
           </p>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 0, border: '1px solid var(--line)', background: 'var(--paper)' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: `repeat(${cols}, 1fr)`, gap: 0, border: '1px solid var(--line)', background: 'var(--paper)' }}>
           {features.map((f, i) => (
             <div key={i} style={{
               padding: '40px 36px',
-              borderRight: (i+1) % 3 !== 0 ? '1px solid var(--line)' : 'none',
-              borderBottom: i < 3 ? '1px solid var(--line)' : 'none'
+              borderRight: (i + 1) % cols !== 0 ? '1px solid var(--line)' : 'none',
+              borderBottom: i < features.length - cols ? '1px solid var(--line)' : 'none'
             }}>
               <div className="serif" style={{ fontSize: 14, color: 'var(--green)', letterSpacing: '0.2em', marginBottom: 24 }}>· {f.num} ·</div>
               <h3 className="serif" style={{ fontSize: 28, marginBottom: 12, fontWeight: 500 }}>{f.title}</h3>
@@ -217,6 +253,7 @@ function GiteSection() {
 }
 
 function Chambres() {
+  const bp = useBreakpoint();
   const rooms = [
     { name: 'Diane',   sub: 'La cynégétique',   beds: 'Lit double · vue jardin',   img: '/assets/quatreChambres/ChambreDiane.webp' },
     { name: 'Verte',   sub: 'La forestière',    beds: 'Lit double · velours sapin', img: '/assets/quatreChambres/ChambreVerte.webp' },
@@ -225,7 +262,7 @@ function Chambres() {
   ];
   const [active, setActive] = useState(0);
   return (
-    <section id="chambres" style={{ padding: '160px 48px', background: 'var(--paper)' }}>
+    <section id="chambres" style={{ padding: bp === 'mobile' ? '60px 20px' : bp === 'tablet' ? '80px 32px' : '160px 48px', background: 'var(--paper)' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto' }}>
         <div className="sec-num" style={{ marginBottom: 20 }}>· 04 — CHAMBRES ·</div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 64, gap: 48, flexWrap: 'wrap' }}>
@@ -236,14 +273,10 @@ function Chambres() {
             Décorées avec soin, chacune respire son propre caractère.
           </p>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 24 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: bp === 'mobile' ? '1fr' : 'repeat(2, 1fr)', gap: 24 }}>
           {rooms.map((r, i) => (
             <div key={i} className="room-card" onMouseEnter={() => setActive(i)} style={{ cursor: 'pointer' }}>
-              <div style={{
-                aspectRatio: '16/9', borderRadius: 4, marginBottom: 16, overflow: 'hidden',
-                outline: active === i ? '1px solid var(--green)' : 'none',
-                outlineOffset: 6, transition: 'outline 0.3s'
-              }}>
+              <div style={{ aspectRatio: '16/9', borderRadius: 4, marginBottom: 16, overflow: 'hidden' }}>
                 <img src={r.img} alt={r.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
@@ -261,35 +294,38 @@ function Chambres() {
 }
 
 function ActivitiesPreview() {
+  const bp = useBreakpoint();
   const items = [
-    { name: 'Domaine de Chevetogne',       meta: '12 km · parc 550 ha',    desc: 'Parc naturel belge offrant jardins, étangs, sentiers et aires de jeux.', tag: 'Nature & jeux' },
-    { name: "Royal Golf Château d'Ardenne", meta: '5 min · 18 trous',       desc: "Parcours historique alliant prestige et nature ardennaise.", tag: 'Sport' },
-    { name: 'Château de Vêves',             meta: '15 km · XIIIᵉ siècle',  desc: 'Forteresse médiévale féerique, joyau architectural posé au-dessus de la vallée.', tag: 'Patrimoine' },
-    { name: 'Promenades à Houyet',          meta: 'Au pied du gîte',        desc: 'Sentiers le long de la Lesse, panoramas saisissants.', tag: 'Marche & VTT' },
+    { name: 'Domaine de Chevetogne',       meta: '12 km · parc 550 ha',    desc: 'Parc naturel belge offrant jardins, étangs, sentiers et aires de jeux.', tag: 'Nature & jeux',  img: '/assets/alentours/chevetogne.webp' },
+    { name: "Royal Golf Château d'Ardenne", meta: '5 min · 18 trous',       desc: "Parcours historique alliant prestige et nature ardennaise.", tag: 'Sport',            img: '/assets/alentours/gold.webp' },
+    { name: 'Château de Vêves',             meta: '15 km · XIIIᵉ siècle',  desc: 'Forteresse médiévale féerique, joyau architectural posé au-dessus de la vallée.', tag: 'Patrimoine',      img: '/assets/alentours/veveve.webp' },
+    { name: 'Promenades à Houyet',          meta: 'Au pied du gîte',        desc: 'Sentiers le long de la Lesse, panoramas saisissants.', tag: 'Marche & VTT',          img: '/assets/alentours/houyet-1.webp' },
   ];
   const [tab, setTab] = useState(0);
   return (
-    <section id="alentours" style={{ padding: '160px 48px', background: 'var(--green)', color: 'var(--paper)' }}>
+    <section id="alentours" style={{ padding: bp === 'mobile' ? '40px 20px 60px' : bp === 'tablet' ? '60px 32px 80px' : '80px 48px 120px', background: 'var(--green)', color: 'var(--paper)' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto' }}>
         <div className="sec-num" style={{ marginBottom: 20, color: 'rgba(244,239,230,0.7)' }}>· 05 — ALENTOURS ·</div>
-        <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 80px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 64, maxWidth: 900 }}>
+        <h2 className="serif" style={{ fontSize: 'clamp(28px, 3vw, 48px)', lineHeight: 1.1, fontWeight: 400, marginBottom: 48, maxWidth: 640 }}>
           Un environnement <span style={{ opacity: 0.6 }}>à couper le souffle</span>, à quelques minutes de la porte.
         </h2>
-        <div className="tab-strip" style={{ borderColor: 'rgba(244,239,230,0.18)', marginBottom: 56 }}>
+        <div className="tab-strip" style={{ borderColor: 'rgba(244,239,230,0.18)', marginBottom: 56, overflowX: 'auto' }}>
           {items.map((it, i) => (
             <button key={i} className={'tab-btn' + (tab === i ? ' active' : '')} onClick={() => setTab(i)}
-              style={{ color: tab === i ? 'var(--paper)' : 'rgba(244,239,230,0.55)', borderBottomColor: tab === i ? 'var(--paper)' : 'transparent' }}>
-              <span style={{ marginRight: 10, opacity: 0.6 }}>0{i+1}</span> {it.name.split(' ').slice(0,2).join(' ')}
+              style={{ color: tab === i ? 'var(--paper)' : 'rgba(244,239,230,0.55)', borderBottomColor: tab === i ? 'var(--paper)' : 'transparent', whiteSpace: 'nowrap' }}>
+              <span style={{ marginRight: 10, opacity: 0.6 }}>0{i+1}</span> {it.name}
             </button>
           ))}
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: '1.3fr 1fr', gap: 64, alignItems: 'center' }}>
-          <div className="ph" data-label={items[tab].name.toUpperCase()} style={{ aspectRatio: '4/3', borderRadius: 4 }}></div>
+        <div style={{ display: 'grid', gridTemplateColumns: bp === 'desktop' ? '1.3fr 1fr' : '1fr', gap: bp === 'desktop' ? 64 : 40, alignItems: 'center' }}>
+          <div style={{ aspectRatio: '4/3', borderRadius: 4, overflow: 'hidden' }}>
+            <img src={items[tab].img} alt={items[tab].name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'opacity 0.4s ease' }} />
+          </div>
           <div>
             <div style={{ display: 'inline-flex', padding: '6px 14px', borderRadius: 100, border: '1px solid rgba(244,239,230,0.3)', fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 24 }}>
               {items[tab].tag}
             </div>
-            <h3 className="serif" style={{ fontSize: 56, lineHeight: 1.05, fontWeight: 400, marginBottom: 16 }}>{items[tab].name}</h3>
+            <h3 className="serif" style={{ fontSize: 36, lineHeight: 1.1, fontWeight: 400, marginBottom: 16 }}>{items[tab].name}</h3>
             <div className="mono-label" style={{ color: 'rgba(244,239,230,0.6)', marginBottom: 24 }}>{items[tab].meta}</div>
             <p style={{ fontSize: 18, lineHeight: 1.6, color: 'rgba(244,239,230,0.85)' }}>{items[tab].desc}</p>
           </div>
@@ -305,16 +341,19 @@ function ActivitiesPreview() {
 }
 
 function Extras() {
+  const bp = useBreakpoint();
   return (
-    <section style={{ padding: '160px 48px', background: 'var(--cream-warm)' }}>
+    <section style={{ padding: bp === 'mobile' ? '60px 20px' : bp === 'tablet' ? '80px 32px' : '160px 48px', background: 'var(--cream-warm)' }}>
       <div style={{ maxWidth: 1080, margin: '0 auto', textAlign: 'center' }}>
         <div className="sec-num" style={{ marginBottom: 20 }}>· 06 — NOS PETITS PLUS ·</div>
         <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 96 }}>
           Pour aller plus loin.
         </h2>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 56, textAlign: 'left' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: bp === 'mobile' ? '1fr' : '1fr 1fr', gap: bp === 'mobile' ? 40 : 56, textAlign: 'left' }}>
           <div>
-            <div className="ph" data-label="REIKI · soin" style={{ aspectRatio: '5/3', borderRadius: 4, marginBottom: 32 }}></div>
+            <div style={{ aspectRatio: '5/3', borderRadius: 4, marginBottom: 32, overflow: 'hidden' }}>
+              <img src="/assets/plusLoin/reiki.jpg" alt="Séances de Reiki" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+            </div>
             <h3 className="serif" style={{ fontSize: 40, lineHeight: 1.1, fontWeight: 400, marginBottom: 16 }}>
               Séances de <span style={{ color: 'var(--green)' }}>Reiki</span>
             </h3>
@@ -323,7 +362,9 @@ function Extras() {
             </p>
           </div>
           <div>
-            <div className="ph" data-label="TRAITEUR · table" style={{ aspectRatio: '5/3', borderRadius: 4, marginBottom: 32 }}></div>
+            <div style={{ aspectRatio: '5/3', borderRadius: 4, marginBottom: 32, overflow: 'hidden' }}>
+              <img src="/assets/plusLoin/traiteur.jpg" alt="Service traiteur" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+            </div>
             <h3 className="serif" style={{ fontSize: 40, lineHeight: 1.1, fontWeight: 400, marginBottom: 16 }}>
               Service traiteur
             </h3>
@@ -341,6 +382,7 @@ function Extras() {
 }
 
 function Reviews() {
+  const bp = useBreakpoint();
   const reviews = [
     { name: 'Sophie du Fontbaré',     locale: 'FR', text: 'Endroit paradisiaque. Maison ultra confortable. Calme, nature, balades. Cocon de rêve pour se ressourcer. Foncez.' },
     { name: 'Monika Steinel',          locale: 'EN', text: 'Wonderful location, the view must be one of the nicest in Belgium. The house is well-appointed and well-equipped. Recommend wholeheartedly.' },
@@ -357,10 +399,11 @@ function Reviews() {
     if (!el) return;
     el.scrollBy({ left: dir * 480, behavior: 'smooth' });
   };
+  const innerPad = bp === 'mobile' ? '0 20px' : bp === 'tablet' ? '0 32px' : '0 48px';
 
   return (
-    <section id="avis" style={{ padding: '160px 0 160px', background: 'var(--paper)' }}>
-      <div style={{ padding: '0 48px', maxWidth: 1280, margin: '0 auto' }}>
+    <section id="avis" style={{ padding: bp === 'mobile' ? '80px 0' : '160px 0', background: 'var(--paper)' }}>
+      <div style={{ maxWidth: 1280, margin: '0 auto', padding: innerPad }}>
         <div className="sec-num" style={{ marginBottom: 20 }}>· 07 — AVIS ·</div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 56, gap: 48, flexWrap: 'wrap' }}>
           <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 1.05, fontWeight: 400, maxWidth: 720 }}>
@@ -378,45 +421,40 @@ function Reviews() {
           </div>
         </div>
       </div>
-      <div ref={trackRef} className="review-track" style={{ display: 'flex', gap: 24, overflowX: 'auto', padding: '24px 48px' }}>
-        {reviews.map((r, i) => (
-          <article key={i} className="review-card" style={{
-            flex: '0 0 460px',
-            background: i % 3 === 0 ? 'var(--green)' : 'var(--paper)',
-            color: i % 3 === 0 ? 'var(--paper)' : 'var(--ink)',
-            border: i % 3 === 0 ? 'none' : '1px solid var(--line)',
-            padding: '40px 36px', display: 'flex', flexDirection: 'column',
-            minHeight: 340, borderRadius: 4
-          }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 28 }}>
-              <span className="serif" style={{ fontSize: 56, lineHeight: 0.6, fontStyle: 'italic', opacity: 0.5 }}>"</span>
-              <span className="mono-label" style={{ opacity: 0.65 }}>{r.locale}</span>
-            </div>
-            <p className="serif" style={{ fontSize: 22, lineHeight: 1.4, fontWeight: 400, flex: 1, fontStyle: 'italic' }}>{r.text}</p>
-            <div style={{ marginTop: 32, paddingTop: 20, borderTop: '1px solid ' + (i % 3 === 0 ? 'rgba(244,239,230,0.2)' : 'var(--line)') }}>
-              <div style={{ fontSize: 14, fontWeight: 500 }}>{r.name}</div>
-              <div className="mono-label" style={{ marginTop: 4, opacity: 0.6 }}>Voyageur·euse vérifié·e</div>
-            </div>
-          </article>
-        ))}
+      <div style={{ maxWidth: 1280, margin: '0 auto', padding: innerPad }}>
+        <div ref={trackRef} className="review-track" style={{ display: 'flex', gap: 24, overflowX: 'auto', padding: '24px 0' }}>
+          {reviews.map((r, i) => (
+            <article key={i} className="review-card" style={{
+              flex: bp === 'mobile' ? '0 0 300px' : bp === 'tablet' ? '0 0 360px' : '0 0 460px',
+              background: i % 3 === 0 ? 'var(--green)' : 'var(--paper)',
+              color: i % 3 === 0 ? 'var(--paper)' : 'var(--ink)',
+              border: i % 3 === 0 ? 'none' : '1px solid var(--line)',
+              padding: bp === 'mobile' ? '28px 24px' : '40px 36px',
+              display: 'flex', flexDirection: 'column',
+              minHeight: 340, borderRadius: 4
+            }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 28 }}>
+                <span className="serif" style={{ fontSize: 56, lineHeight: 0.6, fontStyle: 'italic', opacity: 0.5 }}>"</span>
+                <span className="mono-label" style={{ opacity: 0.65 }}>{r.locale}</span>
+              </div>
+              <p className="serif" style={{ fontSize: 22, lineHeight: 1.4, fontWeight: 400, flex: 1, fontStyle: 'italic' }}>{r.text}</p>
+              <div style={{ marginTop: 32, paddingTop: 20, borderTop: '1px solid ' + (i % 3 === 0 ? 'rgba(244,239,230,0.2)' : 'var(--line)') }}>
+                <div style={{ fontSize: 14, fontWeight: 500 }}>{r.name}</div>
+                <div className="mono-label" style={{ marginTop: 4, opacity: 0.6 }}>Voyageur·euse vérifié·e</div>
+              </div>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );
 }
 
 function Booking() {
-  const [arrive, setArrive] = useState('2026-06-12');
-  const [depart, setDepart] = useState('2026-06-15');
-  const [guests, setGuests] = useState(8);
-  const [submitted, setSubmitted] = useState(false);
-
-  const nights = Math.max(1, Math.round((new Date(depart) - new Date(arrive)) / 86400000));
-  const baseRate = 320;
-  const total = nights * baseRate;
-
+  const bp = useBreakpoint();
   return (
-    <section id="book" style={{ padding: '160px 48px', background: 'var(--cream)' }}>
-      <div style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 96 }}>
+    <section id="book" style={{ padding: bp === 'mobile' ? '60px 20px' : bp === 'tablet' ? '80px 32px' : '160px 48px', background: 'var(--cream)' }}>
+      <div style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gridTemplateColumns: bp === 'desktop' ? '1fr 1fr' : '1fr', gap: bp === 'desktop' ? 96 : 48, alignItems: 'center' }}>
         <div>
           <div className="sec-num" style={{ marginBottom: 20 }}>· 08 — RÉSERVATION ·</div>
           <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 32 }}>
@@ -425,74 +463,22 @@ function Booking() {
           <p style={{ fontSize: 17, lineHeight: 1.6, color: 'var(--ink-soft)', maxWidth: 460, marginBottom: 48 }}>
             Pas d'intermédiaire, pas de surprise. Tarifs établis pour 6 à 9 personnes.
           </p>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 28, maxWidth: 460 }}>
-            {[
-              { label: 'Adresse', value: 'Grande Trussogne, 9C\n5561 Houyet, Belgique' },
-              { label: 'Téléphone', value: '+32 476 222 707' },
-              { label: 'Email', value: 'trussogne@gmail.com' },
-              { label: 'Capacité', value: '6 à 9 voyageurs' },
-            ].map(({ label, value }) => (
-              <div key={label}>
-                <div className="mono-label" style={{ color: 'var(--ink-soft)', marginBottom: 8 }}>{label}</div>
-                <div style={{ fontSize: 15, lineHeight: 1.5, whiteSpace: 'pre-line' }}>{value}</div>
-              </div>
-            ))}
-          </div>
+          <a href="https://www.elloha.com" target="_blank" rel="noopener noreferrer" className="btn-primary">
+            Voir les disponibilités →
+          </a>
         </div>
-
-        <div style={{ background: 'var(--paper)', padding: 40, border: '1px solid var(--line)' }}>
-          {!submitted ? (
-            <>
-              <h3 className="serif" style={{ fontSize: 32, marginBottom: 32, fontWeight: 500 }}>Demande de réservation</h3>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginBottom: 24 }}>
-                <div className="field">
-                  <label>Arrivée</label>
-                  <input type="date" value={arrive} onChange={(e) => setArrive(e.target.value)} />
-                </div>
-                <div className="field">
-                  <label>Départ</label>
-                  <input type="date" value={depart} onChange={(e) => setDepart(e.target.value)} />
-                </div>
-              </div>
-              <div className="field" style={{ marginBottom: 24 }}>
-                <label>Voyageurs</label>
-                <select value={guests} onChange={(e) => setGuests(+e.target.value)}>
-                  {[2,3,4,5,6,7,8,9].map(n => <option key={n} value={n}>{n} {n>1?'voyageurs':'voyageur'}</option>)}
-                </select>
-              </div>
-              <div className="field" style={{ marginBottom: 24 }}>
-                <label>Votre nom</label>
-                <input type="text" placeholder="Prénom et nom" />
-              </div>
-              <div className="field" style={{ marginBottom: 24 }}>
-                <label>Email</label>
-                <input type="email" placeholder="vous@email.com" />
-              </div>
-              <div className="field" style={{ marginBottom: 32 }}>
-                <label>Un mot pour nous</label>
-                <textarea rows="3" placeholder="Reiki, traiteur, animaux, fête de famille…"></textarea>
-              </div>
-              <div style={{ background: 'var(--cream)', padding: '20px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 24 }}>
-                <div>
-                  <div className="mono-label" style={{ color: 'var(--ink-soft)', marginBottom: 4 }}>{nights} nuits · {guests} pers.</div>
-                  <div className="serif" style={{ fontSize: 14, fontStyle: 'italic', color: 'var(--ink-soft)' }}>estimation indicative</div>
-                </div>
-                <div className="serif" style={{ fontSize: 36, color: 'var(--green)' }}>{total} €</div>
-              </div>
-              <button className="btn-primary" style={{ width: '100%', justifyContent: 'center' }} onClick={() => setSubmitted(true)}>
-                Envoyer ma demande →
-              </button>
-            </>
-          ) : (
-            <div style={{ textAlign: 'center', padding: '48px 0' }}>
-              <div style={{ width: 72, height: 72, borderRadius: '50%', background: 'var(--green)', color: 'var(--paper)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: 32, marginBottom: 24 }}>✓</div>
-              <h3 className="serif" style={{ fontSize: 36, marginBottom: 16, fontWeight: 400 }}>Demande envoyée</h3>
-              <p style={{ fontSize: 16, color: 'var(--ink-soft)', maxWidth: 360, margin: '0 auto', lineHeight: 1.6 }}>
-                Sandra revient vers vous dans les 24 heures.
-              </p>
-              <button className="btn-ghost" style={{ marginTop: 32 }} onClick={() => setSubmitted(false)}>Nouvelle demande</button>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 28 }}>
+          {[
+            { label: 'Adresse', value: 'Grande Trussogne, 9C\n5561 Houyet, Belgique' },
+            { label: 'Téléphone', value: '+32 476 222 707' },
+            { label: 'Email', value: 'trussogne@gmail.com' },
+            { label: 'Capacité', value: '6 à 9 voyageurs' },
+          ].map(({ label, value }) => (
+            <div key={label}>
+              <div className="mono-label" style={{ color: 'var(--ink-soft)', marginBottom: 8 }}>{label}</div>
+              <div style={{ fontSize: 15, lineHeight: 1.5, whiteSpace: 'pre-line' }}>{value}</div>
             </div>
-          )}
+          ))}
         </div>
       </div>
     </section>
@@ -501,12 +487,25 @@ function Booking() {
 
 export default function Home() {
   const [scrolled, setScrolled] = useState(false);
+  const [bookVisible, setBookVisible] = useState(false);
+  const bp = useBreakpoint();
+  const bookRef = useRef(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  useEffect(() => {
+    const el = document.getElementById('book');
+    if (!el) return;
+    const obs = new IntersectionObserver(([e]) => setBookVisible(e.isIntersecting), { threshold: 0.1 });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  const showPill = scrolled && !bookVisible;
 
   return (
     <>
@@ -522,21 +521,25 @@ export default function Home() {
       <Booking />
       <Footer />
 
-      {scrolled && (
+      {showPill && (
         <div style={{ position: 'fixed', bottom: 24, left: '50%', transform: 'translateX(-50%)', zIndex: 40, animation: 'fadein 0.4s ease' }}>
           <div className="book-pill">
-            <div className="seg">
-              <div className="mono-label" style={{ color: 'var(--ink-soft)', marginBottom: 2 }}>Arrivée</div>
-              <div style={{ fontSize: 14 }}>12 juin</div>
-            </div>
-            <div className="seg">
-              <div className="mono-label" style={{ color: 'var(--ink-soft)', marginBottom: 2 }}>Départ</div>
-              <div style={{ fontSize: 14 }}>15 juin</div>
-            </div>
-            <div className="seg">
-              <div className="mono-label" style={{ color: 'var(--ink-soft)', marginBottom: 2 }}>Voyageurs</div>
-              <div style={{ fontSize: 14 }}>8 pers.</div>
-            </div>
+            {bp !== 'mobile' && (
+              <>
+                <div className="seg">
+                  <div className="mono-label" style={{ color: 'var(--ink-soft)', marginBottom: 2 }}>Arrivée</div>
+                  <div style={{ fontSize: 14 }}>12 juin</div>
+                </div>
+                <div className="seg">
+                  <div className="mono-label" style={{ color: 'var(--ink-soft)', marginBottom: 2 }}>Départ</div>
+                  <div style={{ fontSize: 14 }}>15 juin</div>
+                </div>
+                <div className="seg">
+                  <div className="mono-label" style={{ color: 'var(--ink-soft)', marginBottom: 2 }}>Voyageurs</div>
+                  <div style={{ fontSize: 14 }}>8 pers.</div>
+                </div>
+              </>
+            )}
             <a href="#book" className="btn-primary" style={{ padding: '14px 22px', fontSize: 13 }}>Vérifier →</a>
           </div>
         </div>
