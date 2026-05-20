@@ -60,8 +60,16 @@ function AboutHero() {
           </div>
 
           {bp !== 'desktop' && (
-            <div style={{ borderRadius: 4, overflow: 'hidden', aspectRatio: '16/9', marginTop: 32 }}>
-              <img src="/assets/photo1.webp" alt="Trussogne, Ardennes" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: 'auto auto', gap: 8, marginTop: 32 }}>
+              <div style={{ borderRadius: 4, overflow: 'hidden', aspectRatio: '1/1' }}>
+                <img src="/assets/quatreChambres/ChambreDiane.webp" alt="Chambre Diane" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+              </div>
+              <div style={{ borderRadius: 4, overflow: 'hidden', aspectRatio: '1/1' }}>
+                <img src="/assets/Chambre-Chapelle-scaled.webp" alt="Chambre Chapelle" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+              </div>
+              <div style={{ borderRadius: 4, overflow: 'hidden', aspectRatio: '16/9', gridColumn: '1 / -1' }}>
+                <img src="/assets/photo1.webp" alt="Trussogne, Ardennes" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+              </div>
             </div>
           )}
         </div>
@@ -88,6 +96,7 @@ function AboutHero() {
 
 
 function Pillars() {
+  const bp = useBreakpoint();
   const pillars = [
     {
       num: '01',
@@ -95,7 +104,7 @@ function Pillars() {
       desc: "Des espaces ouverts sur le paysage grâce à de grandes baies vitrées, une terrasse couverte offrant une vue imprenable sur les collines des Ardennes. Plongez en pleine nature depuis votre gîte, où chaque regard vers l'extérieur devient une invitation à la contemplation.",
       img: '/assets/a-propos/reconnexion.webp',
       alt: 'La reconnexion avec la nature',
-      icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--green)" strokeWidth="1.2"><path d="M12 22 C 6 18, 4 12, 6 6 C 10 8, 14 8, 18 6 C 20 12, 18 18, 12 22 Z"/><path d="M12 22 L 12 8" /></svg>
+      icon: <img src="/assets/a-propos/icons8-spa-flower-100.webp" alt="" style={{ width: 32, height: 32 }} />
     },
     {
       num: '02',
@@ -103,7 +112,7 @@ function Pillars() {
       desc: "Une architecture fluide et conviviale permettant à tous de se retrouver, que ce soit en famille ou entre amis. Partagez un repas préparé dans notre cuisine équipée d'une prestigieuse cuisinière La Cornue, au coin du feu dans notre salon chaleureux, ou lors d'une partie de kicker dans l'espace jeux.",
       img: '/assets/a-propos/partage.webp',
       alt: 'Les moments de partage',
-      icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--green)" strokeWidth="1.2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      icon: <img src="/assets/a-propos/icons8-hug-100.webp" alt="" style={{ width: 32, height: 32 }} />
     },
     {
       num: '03',
@@ -111,15 +120,15 @@ function Pillars() {
       desc: "Des chambres spacieuses avec salles de bain privatives, des espaces de détente soigneusement aménagés, et le calme omniprésent de notre environnement naturel. Après vos promenades, retrouvez la sérénité d'un lieu où confort et luxe discret s'allient pour votre bien-être.",
       img: '/assets/a-propos/bienetre.webp',
       alt: 'Le bien-être et la quiétude',
-      icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--green)" strokeWidth="1.2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      icon: <img src="/assets/a-propos/icons8-spa-candle-100.webp" alt="" style={{ width: 32, height: 32 }} />
     },
   ];
 
   return (
-    <section id="philosophie" className="ap-section" style={{ padding: '160px 48px', background: 'var(--paper)' }}>
+    <section id="philosophie" className="ap-section" style={{ padding: bp === 'mobile' ? '60px 20px' : bp === 'tablet' ? '80px 32px' : '160px 48px', background: 'var(--paper)' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: 96 }}>
-          <div className="sec-num" style={{ marginBottom: 20 }}>· 02 — NOTRE PHILOSOPHIE ·</div>
+          <div className="sec-num" style={{ marginBottom: 20 }}>· 01 — NOTRE PHILOSOPHIE ·</div>
           <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 80px)', lineHeight: 1.05, fontWeight: 400, maxWidth: 800, margin: '0 auto', marginBottom: 40 }}>
             Le luxe véritable réside dans la <span style={{ color: 'var(--green)' }}>simplicité</span> et l'authenticité.
           </h2>
@@ -149,7 +158,7 @@ function Engagement() {
   return (
     <section className="ap-section" style={{ padding: '160px 48px', background: 'var(--cream)' }}>
       <div style={{ maxWidth: 860, margin: '0 auto' }}>
-        <div className="sec-num" style={{ marginBottom: 20 }}>· 03 — NOTRE ENGAGEMENT ·</div>
+        <div className="sec-num" style={{ marginBottom: 20 }}>· 02 — NOTRE ENGAGEMENT ·</div>
         <h2 className="serif" style={{ fontSize: 'clamp(36px, 4vw, 64px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 48 }}>
           Chaque détail pensé <span style={{ color: 'var(--green)' }}>pour vous.</span>
         </h2>
