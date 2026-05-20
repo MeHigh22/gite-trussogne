@@ -144,25 +144,26 @@ function Sensory() {
           </h2>
         </div>
 
-        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: bp === 'desktop' ? '0 48px 64px' : '0 24px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 48, flexWrap: 'wrap' }}>
+        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: bp === 'desktop' ? '0 48px 64px' : '0 24px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: bp === 'mobile' ? 24 : 48, flexWrap: 'wrap' }}>
           <div style={{ maxWidth: 480 }}>
-            <p className="serif" style={{ fontSize: bp === 'desktop' ? 28 : 20, lineHeight: 1.25, fontWeight: 400, marginBottom: 12 }}>{current.caption}</p>
-            <p style={{ fontSize: 14, color: 'rgba(244,239,230,0.6)', lineHeight: 1.5 }}>
+            <p className="serif" style={{ fontSize: bp === 'desktop' ? 28 : 20, lineHeight: 1.25, fontWeight: 400, marginBottom: 12, color: '#fff' }}>{current.caption}</p>
+            <p style={{ fontSize: 14, color: bp === 'mobile' ? 'rgba(244,239,230,0.85)' : 'rgba(244,239,230,0.6)', lineHeight: 1.5 }}>
               Trussogne se vit autant qu'elle se regarde. Les fenêtres ouvertes, le bois qui crépite, le silence des Ardennes.
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: bp === 'mobile' ? '1fr 1fr' : 'repeat(4, auto)', gap: 0 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 0, width: bp === 'mobile' ? '100%' : 'auto' }}>
             {senses.map((s, i) => (
               <button key={i} onClick={() => setActive(i)} style={{
-                padding: '16px 20px',
+                padding: bp === 'mobile' ? '12px 8px' : '16px 28px',
                 background: active === i ? 'rgba(244,239,230,0.15)' : 'transparent',
                 border: 'none', cursor: 'pointer',
                 borderBottom: active === i ? '2px solid var(--paper)' : '2px solid transparent',
                 transition: 'all 0.4s ease',
+                textAlign: 'left',
               }}>
-                <div className="mono-label" style={{ fontSize: 9, color: active === i ? 'var(--paper)' : 'rgba(244,239,230,0.4)', marginBottom: 4 }}>{s.num}</div>
-                <div style={{ fontSize: 14, fontWeight: 500, color: active === i ? 'var(--paper)' : 'rgba(244,239,230,0.5)', letterSpacing: '0.02em' }}>{s.label}</div>
+                <div className="mono-label" style={{ fontSize: 9, color: active === i ? 'var(--paper)' : 'rgba(244,239,230,0.5)', marginBottom: 4 }}>{s.num}</div>
+                <div style={{ fontSize: bp === 'mobile' ? 13 : 14, fontWeight: 500, color: active === i ? '#fff' : 'rgba(244,239,230,0.65)', letterSpacing: '0.02em' }}>{s.label}</div>
               </button>
             ))}
           </div>
@@ -255,23 +256,20 @@ function GiteSection() {
 function Chambres() {
   const bp = useBreakpoint();
   const rooms = [
-    { name: 'Diane',   sub: 'La cynégétique',   beds: 'Lit double · vue jardin',   img: '/assets/quatreChambres/ChambreDiane.webp' },
-    { name: 'Verte',   sub: 'La forestière',    beds: 'Lit double · velours sapin', img: '/assets/quatreChambres/ChambreVerte.webp' },
-    { name: "L'Âne",   sub: 'La rustique',      beds: '2 lits simples · poutres',  img: '/assets/quatreChambres/ChambreAne.webp' },
-    { name: 'Chapelle',sub: 'La méditative',    beds: 'Lit double · pierre',       img: '/assets/quatreChambres/Chambre-Chapelle-scaled.webp' },
+    { name: 'Diane',   beds: 'Lit Queen size · salle de douche privative · vue panoramique',   img: '/assets/quatreChambres/ChambreDiane.webp' },
+    { name: 'Verte',   beds: 'Lit Queen size · salle de douche privative · accès direct jardin', img: '/assets/quatreChambres/ChambreVerte.webp' },
+    { name: "L'Âne",   beds: 'Lit Queen size · salle de bain privative avec baignoire',          img: '/assets/quatreChambres/ChambreAne.webp' },
+    { name: 'Chapelle',beds: 'Lit Queen size · salle de douche privative · rez-de-chaussée',     img: '/assets/quatreChambres/Chambre-Chapelle-scaled.webp' },
   ];
   const [active, setActive] = useState(0);
   return (
     <section id="chambres" style={{ padding: bp === 'mobile' ? '60px 20px' : bp === 'tablet' ? '80px 32px' : '160px 48px', background: 'var(--paper)' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto' }}>
         <div className="sec-num" style={{ marginBottom: 20 }}>· 04 — CHAMBRES ·</div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 64, gap: 48, flexWrap: 'wrap' }}>
+        <div style={{ marginBottom: 64 }}>
           <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 1.05, fontWeight: 400, maxWidth: 720 }}>
             Quatre chambres, quatre atmosphères.
           </h2>
-          <p style={{ fontSize: 16, color: 'var(--ink-soft)', maxWidth: 320, lineHeight: 1.6 }}>
-            Décorées avec soin, chacune respire son propre caractère.
-          </p>
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: bp === 'mobile' ? '1fr' : 'repeat(2, 1fr)', gap: 24 }}>
           {rooms.map((r, i) => (
@@ -280,10 +278,9 @@ function Chambres() {
                 <img src={r.img} alt={r.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-                <h3 className="serif" style={{ fontSize: 28, fontWeight: 500 }}>{r.name}</h3>
+                <h3 className="serif" style={{ fontSize: 28, fontWeight: 500, color: 'var(--green)' }}>{r.name}</h3>
                 <span className="mono-label" style={{ color: 'var(--ink-soft)' }}>0{i+1}</span>
               </div>
-              <div className="serif" style={{ fontSize: 16, fontStyle: 'italic', color: 'var(--green)', marginBottom: 8 }}>{r.sub}</div>
               <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>{r.beds}</div>
             </div>
           ))}
@@ -306,13 +303,13 @@ function ActivitiesPreview() {
     <section id="alentours" style={{ padding: bp === 'mobile' ? '40px 20px 60px' : bp === 'tablet' ? '60px 32px 80px' : '80px 48px 120px', background: 'var(--green)', color: 'var(--paper)' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto' }}>
         <div className="sec-num" style={{ marginBottom: 20, color: 'rgba(244,239,230,0.7)' }}>· 05 — ALENTOURS ·</div>
-        <h2 className="serif" style={{ fontSize: 'clamp(28px, 3vw, 48px)', lineHeight: 1.1, fontWeight: 400, marginBottom: 48, maxWidth: 640 }}>
+        <h2 className="serif" style={{ fontSize: 'clamp(28px, 3vw, 48px)', lineHeight: 1.1, fontWeight: 400, marginBottom: 24, maxWidth: 640 }}>
           Un environnement <span style={{ opacity: 0.6 }}>à couper le souffle</span>, à quelques minutes de la porte.
         </h2>
-        <div className="tab-strip" style={{ borderColor: 'rgba(244,239,230,0.18)', marginBottom: 56, overflowX: 'auto' }}>
+        <div className="tab-strip" style={{ borderColor: 'rgba(244,239,230,0.18)', marginBottom: 32, marginLeft: -12, flexWrap: 'wrap' }}>
           {items.map((it, i) => (
             <button key={i} className={'tab-btn' + (tab === i ? ' active' : '')} onClick={() => setTab(i)}
-              style={{ color: tab === i ? 'var(--paper)' : 'rgba(244,239,230,0.55)', borderBottomColor: tab === i ? 'var(--paper)' : 'transparent', whiteSpace: 'nowrap' }}>
+              style={{ color: tab === i ? 'var(--paper)' : 'rgba(244,239,230,0.55)' }}>
               <span style={{ marginRight: 10, opacity: 0.6 }}>0{i+1}</span> {it.name}
             </button>
           ))}

@@ -1,7 +1,25 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
+
+function useBreakpoint() {
+  const [bp, setBp] = useState(() => {
+    if (window.innerWidth <= 600) return 'mobile';
+    if (window.innerWidth <= 900) return 'tablet';
+    return 'desktop';
+  });
+  useEffect(() => {
+    const fn = () => {
+      if (window.innerWidth <= 600) setBp('mobile');
+      else if (window.innerWidth <= 900) setBp('tablet');
+      else setBp('desktop');
+    };
+    window.addEventListener('resize', fn, { passive: true });
+    return () => window.removeEventListener('resize', fn);
+  }, []);
+  return bp;
+}
 
 function LeafIcon({ size = 22, color = 'var(--green)' }) {
   return (
@@ -13,143 +31,160 @@ function LeafIcon({ size = 22, color = 'var(--green)' }) {
 }
 
 function GiteHero() {
+  const bp = useBreakpoint();
+  const stats = [
+    { n: '9 personnes', label: 'Capacité' },
+    { n: '4',           label: 'Chambres' },
+    { n: 'Vue imprenable', label: 'Panorama' },
+    { n: 'Quiétude absolue', label: 'Sérénité' },
+  ];
   return (
-    <section id="top" style={{ minHeight: '100vh', padding: '160px 48px 120px', display: 'flex', alignItems: 'center', position: 'relative', background: 'var(--paper)' }}>
-      <div style={{ maxWidth: 1280, margin: '0 auto', width: '100%' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.3fr', gap: 80, alignItems: 'center' }}>
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 36 }}>
-              <span style={{ width: 64, height: 64, borderRadius: '50%', border: '1px solid var(--line)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
-                <LeafIcon />
-              </span>
-              <div>
-                <div className="mono-label" style={{ color: 'var(--ink-soft)' }}>Houyet, Ardennes belges</div>
-                <div className="mono-label" style={{ color: 'var(--green)', marginTop: 2 }}>Gîte de caractère</div>
-              </div>
-            </div>
-            <h1 className="serif" style={{ fontSize: 'clamp(56px, 7vw, 110px)', lineHeight: 0.95, letterSpacing: '-0.02em', fontWeight: 400, marginBottom: 28 }}>
-              Votre<br />parenthèse<br />enchantée.
-            </h1>
-            <p style={{ fontSize: 18, lineHeight: 1.6, color: 'var(--ink-soft)', maxWidth: 440, marginBottom: 44 }}>
-              Gîte de caractère pouvant accueillir jusqu'à 9 personnes dans un cadre naturel d'exception. Niché au cœur d'un environnement préservé, Trussogne offre un espace authentique pour des moments inoubliables.
-            </p>
-            <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
-              <a href="#diane" className="btn-primary">Découvrir les chambres <span>↓</span></a>
-              <Link to="/#book" className="btn-ghost">Réserver en direct</Link>
-            </div>
-          </div>
-          <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gridTemplateRows: '1.5fr 1fr', gap: 14, height: 'min(680px, 75vh)' }}>
-            <div className="ph" data-label="FAÇADE · maison" style={{ gridColumn: '1 / -1', borderRadius: 4 }}></div>
-            <div className="ph" data-label="SÉJOUR · feu ouvert" style={{ borderRadius: 4 }}></div>
-            <div className="ph" data-label="VUE · vallée" style={{ borderRadius: 4 }}></div>
-          </div>
-        </div>
-
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 0, marginTop: 96, borderTop: '1px solid var(--line)', borderBottom: '1px solid var(--line)' }}>
-          {[{ n: '9', unit: 'personnes', label: 'Capacité' }, { n: '4', unit: 'chambres', label: 'Toutes uniques' }, { n: '∞', unit: 'hectares', label: 'Panorama vert' }, { n: '5★', unit: 'sur 5', label: 'Quiétude absolue' }].map((s, i) => (
-            <div key={i} style={{ padding: '40px 0', borderRight: i < 3 ? '1px solid var(--line)' : 'none', paddingLeft: i > 0 ? 40 : 0 }}>
-              <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 8 }}>
-                <span className="serif" style={{ fontSize: 48, lineHeight: 1, color: 'var(--green)' }}>{s.n}</span>
-                <span style={{ fontSize: 14, color: 'var(--ink-soft)' }}>{s.unit}</span>
-              </div>
-              <div className="mono-label" style={{ color: 'var(--ink-soft)' }}>{s.label}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Overview() {
-  return (
-    <section id="overview" style={{ padding: '160px 48px', background: 'var(--cream)' }}>
-      <div style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: 96, alignItems: 'center' }}>
+    <section id="top" style={{
+      minHeight: '100vh',
+      padding: bp === 'mobile' ? '80px 20px 40px' : bp === 'tablet' ? '90px 32px 60px' : '140px 48px 80px',
+      position: 'relative',
+      background: 'var(--paper)'
+    }}>
+      <div style={{ display: 'grid', gridTemplateColumns: bp === 'desktop' ? '2fr 3fr' : '1fr', gap: 40, alignItems: 'center', minHeight: 'calc(100vh - 220px)' }}>
         <div>
-          <div className="sec-num" style={{ marginBottom: 20 }}>· 01 — LE GÎTE ·</div>
-          <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 28 }}>
-            Un lieu d'exception où <span style={{ color: 'var(--green)' }}>confort et nature</span> se rencontrent.
-          </h2>
-          <p style={{ fontSize: 17, lineHeight: 1.7, color: 'var(--ink-soft)', marginBottom: 20 }}>
-            Niché au cœur d'un environnement naturel préservé à Houyet, Trussogne offre un espace authentique pour des moments inoubliables. Quatre chambres de caractère, chacune avec sa personnalité.
+          <h1 className="serif" style={{
+            fontSize: bp === 'mobile' ? 'clamp(36px, 9vw, 52px)' : 'clamp(48px, 5.5vw, 88px)',
+            lineHeight: 0.95,
+            letterSpacing: '-0.02em',
+            fontWeight: 400,
+            marginBottom: 24,
+          }}>
+            Votre<br />parenthèse<br /><span style={{ color: 'var(--green)' }}>enchantée.</span>
+          </h1>
+
+          <p style={{ fontSize: 18, lineHeight: 1.5, color: 'var(--ink-soft)', marginBottom: bp === 'mobile' ? 24 : 44 }}>
+            Gîte de caractère pouvant accueillir jusqu'à 9 personnes dans un cadre naturel d'exception. Niché au cœur d'un environnement préservé, Trussogne offre un espace authentique pour des moments inoubliables.
           </p>
-          <p style={{ fontSize: 17, lineHeight: 1.7, color: 'var(--ink-soft)', marginBottom: 40 }}>
-            Linge de maison, draps, serviettes, électricité, eau, chauffage, bois pour le feu ouvert et nettoyage final — tout est compris. Vous n'avez qu'à arriver.
-          </p>
-          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-            {['Cuisine La Cornue', 'Feu ouvert', 'Linge fourni', 'Parking privé', 'Barbecue', 'Équipement bébé'].map((f, i) => (
-              <span key={i} style={{ padding: '8px 16px', border: '1px solid var(--line)', borderRadius: 100, fontSize: 13, color: 'var(--ink-soft)' }}>{f}</span>
+
+          <div style={{ display: 'flex', gap: 14, alignItems: 'center', flexWrap: bp === 'mobile' ? 'nowrap' : 'wrap' }}>
+            <a href="#diane" className="btn-primary" style={bp === 'mobile' ? { padding: '9px 14px', fontSize: 13 } : {}}>
+              {bp === 'mobile' ? 'Voir les chambres' : 'Découvrir les chambres →'}
+            </a>
+            <Link to="/#book" className="btn-ghost" style={bp === 'mobile' ? { padding: '8px 12px', fontSize: 13 } : {}}>Réserver en direct</Link>
+          </div>
+
+          {bp !== 'desktop' && (
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginTop: 32, height: 260 }}>
+              <div style={{ borderRadius: 4, overflow: 'hidden' }}>
+                <img src="/assets/photo1.webp" alt="Maison ardennaise" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+              </div>
+              <div style={{ display: 'grid', gridTemplateRows: '1fr 1fr', gap: 8 }}>
+                <div style={{ borderRadius: 4, overflow: 'hidden' }}>
+                  <img src="/assets/Marcassins-Trussogne.webp" alt="Marcassins à Trussogne" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                </div>
+                <div style={{ borderRadius: 4, overflow: 'hidden' }}>
+                  <img src="/assets/Photo-Lievres-amoureux-Tru.webp" alt="Lièvres amoureux à Trussogne" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                </div>
+              </div>
+            </div>
+          )}
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', marginTop: 48, borderTop: '1px solid var(--line)' }}>
+            {stats.map((s, i) => (
+              <div key={i} style={{
+                padding: '20px 0',
+                borderBottom: i < 2 ? '1px solid var(--line)' : 'none',
+                borderRight: i % 2 === 0 ? '1px solid var(--line)' : 'none',
+                paddingRight: i % 2 === 0 ? 24 : 0,
+                paddingLeft: i % 2 === 1 ? 24 : 0,
+              }}>
+                <div className="mono-label" style={{ color: 'var(--ink-soft)', marginBottom: 6 }}>{s.label}</div>
+                <div style={{ fontSize: 18, lineHeight: 1.2, color: 'var(--green)', fontWeight: 500 }}>{s.n}</div>
+              </div>
             ))}
           </div>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
-          <div className="ph" data-label="CUISINE · la cornue" style={{ aspectRatio: '1/1.2', borderRadius: 4 }}></div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-            <div className="ph" data-label="SALON · canapé" style={{ flex: 1, borderRadius: 4 }}></div>
-            <div className="ph" data-label="TERRASSE · vue" style={{ flex: 1, borderRadius: 4 }}></div>
+
+        {bp === 'desktop' && (
+          <div style={{ height: 'min(720px, 80vh)', display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr 1fr', gap: 12 }}>
+            <div style={{ borderRadius: 4, overflow: 'hidden', gridRow: '1 / -1' }}>
+              <img src="/assets/photo1.webp" alt="Maison ardennaise" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            </div>
+            <div style={{ borderRadius: 4, overflow: 'hidden' }}>
+              <img src="/assets/Marcassins-Trussogne.webp" alt="Marcassins à Trussogne" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            </div>
+            <div style={{ borderRadius: 4, overflow: 'hidden' }}>
+              <img src="/assets/Photo-Lievres-amoureux-Tru.webp" alt="Lièvres amoureux à Trussogne" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );
 }
 
+
 const ROOMS = [
-  { id: 'diane',   num: '01', name: 'Diane',    sub: 'La cynégétique', color: '#6B4226', headline: "L'élégance de la chasse, le confort du refuge.", desc: "Teintée des nuances chaudes de la terre et du bois, la chambre Diane rend hommage à l'art cynégétique avec raffinement. L'atmosphère feutrée invite au repos tandis que les fenêtres cadrent les panoramas de la vallée ardennaise.", features: ['Lit Queen size', 'Salle de douche privative', 'Vue imprenable', 'Mobilier chiné'], images: ['DIANE · lit', 'DIANE · fenêtre vue', 'DIANE · détails'], align: 'left' },
-  { id: 'verte',   num: '02', name: 'Verte',    sub: 'La forestière',  color: '#325827', headline: "Un réveil les pieds dans le jardin.", desc: "Teintée des nuances apaisantes de la nature, elle enveloppe ses hôtes dans une atmosphère douce et ressourçante. Son atout exclusif : une porte donnant directement accès au jardin.", features: ['Lit double spring box', 'Accès direct jardin', 'Salle de douche privative', 'Lumière naturelle'], images: ['VERTE · lit', 'VERTE · porte jardin', 'VERTE · salle de bain'], align: 'right' },
-  { id: 'ane',     num: '03', name: "L'Âne",    sub: 'La rustique',    color: '#5A4A3A', headline: "Le charme brut de la pierre et du chêne.", desc: "La chambre de L'Âne porte le caractère rustique de la maison ardennaise : poutres apparentes, textures franches et atmosphère minérale. Deux lits simples offrent une souplesse d'aménagement idéale.", features: ['2 lits simples', 'Poutres apparentes', 'Ambiance minérale', 'Flexibilité couchage'], images: ['ÂNE · poutres', 'ÂNE · lits', 'ÂNE · détail pierre'], align: 'left' },
-  { id: 'chapelle',num: '04', name: 'Chapelle', sub: 'La méditative',  color: '#3A4A5A', headline: "Le silence, la pierre, la lumière.", desc: "Inspirée de la contemplation, la chambre Chapelle offre une atmosphère d'une sérénité rare. Pierre, textures sobres et lumière tamisée composent un écrin propice au repos profond.", features: ['Lit double', 'Salle de bain privative', 'Atmosphère pierre', 'Sérénité absolue'], images: ['CHAPELLE · lit', 'CHAPELLE · lumière', 'CHAPELLE · pierre'], align: 'right' },
+  { id: 'verte',    num: '01', name: 'Verte',    color: '#325827', img: '/assets/quatreChambres/ChambreVerte.webp',             desc: "Teintée des nuances apaisantes de la nature, elle enveloppe ses hôtes dans une atmosphère douce et ressourçante. Son atout exclusif ? Une porte donnant directement accès au jardin et à la campagne environnante, pour un réveil en pleine nature. Dotée d'un lit double spring box et d'une salle de douche privative, cette chambre allie lumière naturelle et horizons verdoyants.", features: ['Lit Queen size', 'Salle de douche privative', 'Accès direct jardin'], images: ['/assets/quatreChambres/verte1.webp', '/assets/quatreChambres/verte2.webp'], align: 'left' },
+  { id: 'ane',      num: '02', name: "L'Âne",    color: '#5A4A3A', img: '/assets/quatreChambres/ChambreAne.webp',              desc: "Avec ses tons profonds et chaleureux, cette chambre est un véritable refuge de tranquillité, elle invite à la détente et au repos. Son lit double équipé de deux matelas ainsi que sa salle de bain privative avec baignoire assurent un confort optimal.", features: ['Lit Queen size', 'Salle de bain privative avec baignoire', 'Vue imprenable'], images: ['/assets/quatreChambres/ane1.webp', '/assets/quatreChambres/ane2.webp'], align: 'right' },
+  { id: 'chapelle', num: '03', name: 'Chapelle', color: '#3A4A5A', img: '/assets/quatreChambres/Chambre-Chapelle-scaled.webp', desc: "Spacieuse et pensée pour le bien-être, cette chambre située au rez-de-chaussée offre un lit double équipé d'un sur-matelas pour des nuits tout en douceur. Ses teintes ocres, inspirées des paysages naturels, créent une atmosphère chaleureuse et enveloppante. Dotée d'une salle de douche privative et de nombreux rangements, elle est idéale pour un séjour alliant confort et sérénité.", features: ['Lit Queen size', 'Salle de douche privative', 'Rez-de-chaussée'], images: ['/assets/quatreChambres/chapelle1.webp', '/assets/quatreChambres/chapelle3.webp'], align: 'left' },
+  { id: 'diane',    num: '04', name: 'Diane',    color: '#6B4226', img: '/assets/quatreChambres/ChambreDiane.webp',             desc: "Sa grande fenêtre panoramique vous plonge dans un décor naturel où chaque matin, le lever du soleil illumine délicatement la pièce. Aménagée d'un lit double au matelas à mémoire de forme, cette chambre est idéale pour un séjour ressourçant. Sa salle de douche privative allie confort et intimité.", features: ['Lit Queen size', 'Salle de douche privative', 'Vue imprenable'], images: ['/assets/quatreChambres/diane2.webp', '/assets/quatreChambres/diane3.webp'], align: 'right' },
 ];
 
 function RoomImages({ room }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-      <div className="ph" data-label={room.images[0]} style={{ aspectRatio: '4/3', borderRadius: 4 }}></div>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
-        <div className="ph" data-label={room.images[1]} style={{ aspectRatio: '1/1', borderRadius: 4 }}></div>
-        <div className="ph" data-label={room.images[2]} style={{ aspectRatio: '1/1', borderRadius: 4 }}></div>
+      <div style={{ aspectRatio: '16/9', borderRadius: 4, overflow: 'hidden' }}>
+        <img src={room.img} alt={room.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+        {room.images.map((img, i) =>
+          img.startsWith('/') ? (
+            <div key={i} style={{ aspectRatio: '3/2', borderRadius: 4, overflow: 'hidden' }}>
+              <img src={img} alt={room.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+            </div>
+          ) : (
+            <div key={i} className="ph" data-label={img} style={{ aspectRatio: '3/2', borderRadius: 4 }}></div>
+          )
+        )}
       </div>
     </div>
   );
 }
 
 function RoomSection({ room, index }) {
+  const bp = useBreakpoint();
   const isLeft = room.align === 'left';
+  const isMobile = bp !== 'desktop';
+  const cols = isMobile ? '1fr' : (isLeft ? '1.3fr 1fr' : '1fr 1.3fr');
+  const pad = isMobile ? '60px 20px' : bp === 'tablet' ? '60px 32px' : '80px 48px';
   return (
-    <section id={room.id} style={{ padding: '160px 48px', background: index % 2 === 0 ? 'var(--paper)' : 'var(--cream)' }}>
-      <div style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gridTemplateColumns: isLeft ? '1.3fr 1fr' : '1fr 1.3fr', gap: 80, alignItems: 'center' }}>
-        {isLeft && <RoomImages room={room} />}
+    <section id={room.id} className="gite-section" style={{ padding: pad, background: index % 2 === 0 ? 'var(--paper)' : 'var(--cream)' }}>
+      <div className="gite-room-grid" style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gridTemplateColumns: cols, gap: isMobile ? 32 : 80, alignItems: 'center' }}>
+        {!isMobile && isLeft && <RoomImages room={room} />}
         <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 28 }}>
-            <div className="sec-num">· {room.num} ·</div>
-            <div style={{ width: 32, height: 1, background: 'var(--line)' }}></div>
-            <div className="serif" style={{ fontSize: 16, fontStyle: 'italic', color: room.color }}>{room.sub}</div>
-          </div>
-          <h2 className="serif" style={{ fontSize: 'clamp(48px, 6vw, 88px)', lineHeight: 0.95, fontWeight: 400, marginBottom: 8, letterSpacing: '-0.02em' }}>{room.name}</h2>
-          <p className="serif" style={{ fontSize: 28, lineHeight: 1.2, fontStyle: 'italic', color: room.color, marginBottom: 32, maxWidth: 460 }}>{room.headline}</p>
+          <div className="sec-num" style={{ marginBottom: 20 }}>· {room.num} ·</div>
+          <h2 className="serif" style={{ fontSize: isMobile ? 'clamp(36px, 8vw, 56px)' : 'clamp(48px, 6vw, 88px)', lineHeight: 0.95, fontWeight: 400, marginBottom: 28, letterSpacing: '-0.02em', color: room.color }}>{room.name}</h2>
           <p style={{ fontSize: 16, lineHeight: 1.7, color: 'var(--ink-soft)', maxWidth: 480, marginBottom: 36 }}>{room.desc}</p>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 0, border: '1px solid var(--line)', marginBottom: 36 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', border: '1px solid var(--line)', marginBottom: 36 }}>
             {room.features.map((f, i) => (
-              <div key={i} style={{ padding: '18px 20px', borderRight: i % 2 === 0 ? '1px solid var(--line)' : 'none', borderBottom: i < 2 ? '1px solid var(--line)' : 'none', fontSize: 14, display: 'flex', alignItems: 'center', gap: 10 }}>
+              <div key={i} style={{ padding: '16px 20px', borderBottom: i < room.features.length - 1 ? '1px solid var(--line)' : 'none', fontSize: 14, display: 'flex', alignItems: 'center', gap: 10 }}>
                 <span style={{ width: 6, height: 6, borderRadius: '50%', background: room.color, flexShrink: 0 }}></span>
                 {f}
               </div>
             ))}
           </div>
-          <Link to="/#book" className="btn-primary" style={{ background: room.color }}>Réserver cette chambre →</Link>
+          <Link to="/#book" className="btn-primary" style={{ background: room.color }}>Réserver →</Link>
         </div>
-        {!isLeft && <RoomImages room={room} />}
+        {isMobile && <RoomImages room={room} />}
+        {!isMobile && !isLeft && <RoomImages room={room} />}
       </div>
     </section>
   );
 }
 
 function RoomsIntro() {
+  const bp = useBreakpoint();
   return (
-    <section style={{ padding: '120px 48px 0', background: 'var(--paper)', textAlign: 'center' }}>
+    <section style={{ padding: bp === 'mobile' ? '40px 20px 0' : bp === 'tablet' ? '60px 32px 0' : '80px 48px 0', background: 'var(--paper)', textAlign: 'center' }}>
       <div style={{ maxWidth: 900, margin: '0 auto' }}>
         <div className="sec-num" style={{ marginBottom: 20 }}>· 02 — NOS CHAMBRES ·</div>
-        <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 80px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 32 }}>
+        <h2 className="serif" style={{ fontSize: bp === 'mobile' ? 'clamp(33px, 5vw, 80px)' : 'clamp(40px, 5vw, 80px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 32 }}>
           Quatre chambres, quatre atmosphères.
         </h2>
         <p style={{ fontSize: 17, color: 'var(--ink-soft)', lineHeight: 1.6, maxWidth: 600, margin: '0 auto 48px' }}>
@@ -168,33 +203,207 @@ function RoomsIntro() {
   );
 }
 
-function Amenities() {
-  const groups = [
-    { title: 'Cuisine & Repas', items: [{ name: 'Cuisine La Cornue', detail: 'Four, plaques, hotte aspirante de qualité professionnelle.' }, { name: 'Quooker & Nespresso', detail: 'Eau bouillante instantanée et café de qualité à volonté.' }, { name: 'Lave-vaisselle', detail: 'Grand format pour les séjours en groupe.' }, { name: 'Service traiteur', detail: 'Repas sur-mesure avec produits locaux, sur demande.' }] },
-    { title: 'Confort & Détente', items: [{ name: 'Feu ouvert', detail: 'Bois fourni, pour des soirées au coin du feu.' }, { name: 'TV écran plat', detail: 'Dans le salon pour les moments de détente.' }, { name: 'Kicker & jeux', detail: 'Baby-foot et jeux de société pour petits et grands.' }, { name: 'Séances de Reiki', detail: "Soins énergétiques d'origine japonaise, sur réservation." }] },
-    { title: 'Pratique', items: [{ name: 'Linge complet', detail: 'Draps de lit, draps de bain et linge de maison inclus.' }, { name: 'Charges comprises', detail: 'Électricité, eau, chauffage, bois et nettoyage final.' }, { name: 'Équipement bébé', detail: 'Lit, table à langer et chaise haute sur demande.' }, { name: 'Parking privé', detail: 'Quatre places de stationnement sur la propriété.' }] },
+function GiteValues() {
+  const bp = useBreakpoint();
+  const values = [
+    { title: 'Calme & Sérénité',          desc: "Trussogne est l'endroit idéal pour une parenthèse apaisante." },
+    { title: 'Charme & Quiétude',         desc: "Chaque espace a été conçu pour maximiser la vue époustouflante." },
+    { title: 'Un cadre unique',            desc: "Les intérieurs vous séduiront par leur atmosphère chaleureuse et accueillante." },
+    { title: 'Des extérieurs magnifiques', desc: "Un cadre naturel d'exception pour des moments uniques." },
   ];
   return (
-    <section id="equipements" style={{ padding: '160px 48px', background: 'var(--green)', color: 'var(--paper)' }}>
+    <section style={{ padding: bp === 'mobile' ? '60px 20px' : bp === 'tablet' ? '80px 32px' : '100px 48px', background: 'var(--cream)' }}>
+      <div style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gridTemplateColumns: bp === 'mobile' ? '1fr' : bp === 'tablet' ? '1fr 1fr' : 'repeat(4, 1fr)', gap: bp === 'mobile' ? 32 : 40 }}>
+        {values.map((v, i) => (
+          <div key={i} style={{ paddingTop: 24, borderTop: '1px solid var(--line)' }}>
+            <div className="mono-label" style={{ color: 'var(--green)', marginBottom: 16 }}>0{i + 1}</div>
+            <h3 className="serif" style={{ fontSize: 22, fontWeight: 400, lineHeight: 1.2, marginBottom: 12 }}>{v.title}</h3>
+            <p style={{ fontSize: 15, lineHeight: 1.6, color: 'var(--ink-soft)' }}>{v.desc}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function GiteActivities() {
+  const bp = useBreakpoint();
+  const items = [
+    { name: 'Domaine de Chevetogne',       meta: '12 km · parc 550 ha',   desc: 'Parc naturel belge offrant jardins, étangs, sentiers et aires de jeux.', tag: 'Nature & jeux', img: '/assets/alentours/chevetogne.webp' },
+    { name: "Royal Golf Château d'Ardenne", meta: '5 min · 18 trous',      desc: "Parcours historique alliant prestige et nature ardennaise.", tag: 'Sport', img: '/assets/alentours/gold.webp' },
+    { name: 'Château de Vêves',             meta: '15 km · XIIIᵉ siècle', desc: 'Forteresse médiévale féerique, joyau architectural posé au-dessus de la vallée.', tag: 'Patrimoine', img: '/assets/alentours/veveve.webp' },
+    { name: 'Promenades à Houyet',          meta: 'Au pied du gîte',       desc: 'Sentiers le long de la Lesse, panoramas saisissants.', tag: 'Marche & VTT', img: '/assets/alentours/houyet-1.webp' },
+  ];
+  const [tab, setTab] = useState(0);
+  return (
+    <section style={{ padding: bp === 'mobile' ? '40px 20px 60px' : bp === 'tablet' ? '60px 32px 80px' : '80px 48px 120px', background: 'var(--green)', color: 'var(--paper)' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto' }}>
-        <div className="sec-num" style={{ marginBottom: 20, color: 'rgba(244,239,230,0.6)' }}>· 03 — ÉQUIPEMENTS ·</div>
-        <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 80px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 80, maxWidth: 800 }}>
-          Tout est prévu. <span style={{ opacity: 0.6 }}>Vous n'avez qu'à arriver.</span>
+        <div className="sec-num" style={{ marginBottom: 20, color: 'rgba(244,239,230,0.7)' }}>· ALENTOURS ·</div>
+        <h2 className="serif" style={{ fontSize: 'clamp(28px, 3vw, 48px)', lineHeight: 1.1, fontWeight: 400, marginBottom: 24, maxWidth: 640 }}>
+          Un environnement <span style={{ opacity: 0.6 }}>à couper le souffle</span>, à quelques minutes de la porte.
         </h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 64 }}>
-          {groups.map((g, gi) => (
-            <div key={gi}>
-              <h3 className="serif" style={{ fontSize: 32, fontWeight: 500, paddingBottom: 20, borderBottom: '1px solid rgba(244,239,230,0.2)', marginBottom: 0 }}>{g.title}</h3>
-              {g.items.map((item, ii) => (
-                <div key={ii} style={{ padding: '24px 0', borderBottom: ii < g.items.length - 1 ? '1px solid rgba(244,239,230,0.1)' : 'none' }}>
-                  <div style={{ fontSize: 15, fontWeight: 500, marginBottom: 6 }}>{item.name}</div>
-                  <div style={{ fontSize: 13, lineHeight: 1.5, color: 'rgba(244,239,230,0.7)' }}>{item.detail}</div>
-                </div>
-              ))}
+        <div className="tab-strip" style={{ borderColor: 'rgba(244,239,230,0.18)', marginBottom: 32, marginLeft: -12, flexWrap: 'wrap' }}>
+          {items.map((it, i) => (
+            <button key={i} className={'tab-btn' + (tab === i ? ' active' : '')} onClick={() => setTab(i)}
+              style={{ color: tab === i ? 'var(--paper)' : 'rgba(244,239,230,0.55)' }}>
+              <span style={{ marginRight: 10, opacity: 0.6 }}>0{i+1}</span> {it.name}
+            </button>
+          ))}
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: bp === 'desktop' ? '1.3fr 1fr' : '1fr', gap: bp === 'desktop' ? 64 : 40, alignItems: 'center' }}>
+          <div style={{ aspectRatio: '4/3', borderRadius: 4, overflow: 'hidden' }}>
+            <img src={items[tab].img} alt={items[tab].name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'opacity 0.4s' }} />
+          </div>
+          <div>
+            <div style={{ display: 'inline-flex', padding: '6px 14px', borderRadius: 100, border: '1px solid rgba(244,239,230,0.3)', fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 24 }}>{items[tab].tag}</div>
+            <h3 className="serif" style={{ fontSize: 36, lineHeight: 1.1, fontWeight: 400, marginBottom: 16 }}>{items[tab].name}</h3>
+            <div className="mono-label" style={{ color: 'rgba(244,239,230,0.6)', marginBottom: 24 }}>{items[tab].meta}</div>
+            <p style={{ fontSize: 18, lineHeight: 1.6, color: 'rgba(244,239,230,0.85)' }}>{items[tab].desc}</p>
+          </div>
+        </div>
+        <div style={{ textAlign: 'center', marginTop: 64 }}>
+          <Link to="/activites" className="btn-ghost" style={{ borderColor: 'rgba(244,239,230,0.35)', color: 'var(--paper)' }}>Voir toutes les activités →</Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function GiteReviews() {
+  const bp = useBreakpoint();
+  const reviews = [
+    { name: 'Sophie du Fontbaré',     locale: 'FR', text: 'Endroit paradisiaque. Maison ultra confortable. Calme, nature, balades. Cocon de rêve pour se ressourcer. Foncez.' },
+    { name: 'Monika Steinel',          locale: 'EN', text: 'Wonderful location, the view must be one of the nicest in Belgium. The house is well-appointed and well-equipped. Recommend wholeheartedly.' },
+    { name: 'Julie Van Bockxelaere',   locale: 'NL', text: 'Het vakantiehuis in Trussogne is absoluut een aanrader. De ligging is adembenemend en het huis zelf is ruim en comfortabel.' },
+    { name: 'Anne-Françoise Cecoster', locale: 'FR', text: "Top endroit ! La vue est époustouflante et le gîte ultra confort. Situé à 5 min du golf d'Ardennes." },
+    { name: 'Ernest Baele',            locale: 'FR', text: "Reçus de manière très chaleureuse. La maison est de grande qualité avec une vue magnifique. Nous y retournerons avec plaisir." },
+    { name: 'Zoé Palacio',             locale: 'FR', text: "En famille ou entre amis, il fait bon à Trussogne ! Raffinement et bon goût de la décoration." },
+    { name: 'Kelley Steeves',          locale: 'EN', text: 'Trussogne is a piece of heaven. Beautiful property, incredible view. We will be back.' },
+    { name: 'Geert Coppens',           locale: 'NL', text: 'Fantastic location. Tastefully decorated with all modern amenities. Lovely fireplace and beautiful outdoor facilities.' },
+  ];
+  const trackRef = useRef(null);
+  const scroll = (dir) => { if (trackRef.current) trackRef.current.scrollBy({ left: dir * 480, behavior: 'smooth' }); };
+  const innerPad = bp === 'mobile' ? '0 20px' : bp === 'tablet' ? '0 32px' : '0 48px';
+  return (
+    <section style={{ padding: bp === 'mobile' ? '80px 0' : '120px 0', background: 'var(--paper)' }}>
+      <div style={{ maxWidth: 1280, margin: '0 auto', padding: innerPad }}>
+        <div className="sec-num" style={{ marginBottom: 20 }}>· AVIS ·</div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 56, gap: 48, flexWrap: 'wrap' }}>
+          <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 1.05, fontWeight: 400, maxWidth: 720 }}>
+            Ce que disent <span style={{ color: 'var(--green)' }}>nos voyageurs.</span>
+          </h2>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <div className="serif" style={{ fontSize: 48, lineHeight: 1, color: 'var(--green)' }}>4.97</div>
+              <div className="mono-label" style={{ color: 'var(--ink-soft)' }}>moyenne · 80+ avis</div>
             </div>
+            <div style={{ display: 'flex', gap: 8 }}>
+              <button onClick={() => scroll(-1)} style={{ width: 48, height: 48, borderRadius: '50%', border: '1px solid var(--line)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>←</button>
+              <button onClick={() => scroll(1)} style={{ width: 48, height: 48, borderRadius: '50%', border: '1px solid var(--line)', background: 'var(--green)', color: 'var(--paper)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>→</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style={{ maxWidth: 1280, margin: '0 auto', padding: innerPad }}>
+        <div ref={trackRef} className="review-track" style={{ display: 'flex', gap: 24, overflowX: 'auto', padding: '24px 0' }}>
+          {reviews.map((r, i) => (
+            <article key={i} className="review-card" style={{
+              flex: bp === 'mobile' ? '0 0 300px' : bp === 'tablet' ? '0 0 360px' : '0 0 460px',
+              background: i % 3 === 0 ? 'var(--green)' : 'var(--paper)',
+              color: i % 3 === 0 ? 'var(--paper)' : 'var(--ink)',
+              border: i % 3 === 0 ? 'none' : '1px solid var(--line)',
+              padding: bp === 'mobile' ? '28px 24px' : '40px 36px',
+              display: 'flex', flexDirection: 'column', minHeight: 340, borderRadius: 4
+            }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 28 }}>
+                <span className="serif" style={{ fontSize: 56, lineHeight: 0.6, fontStyle: 'italic', opacity: 0.5 }}>"</span>
+                <span className="mono-label" style={{ opacity: 0.65 }}>{r.locale}</span>
+              </div>
+              <p className="serif" style={{ fontSize: 22, lineHeight: 1.4, fontWeight: 400, flex: 1, fontStyle: 'italic' }}>{r.text}</p>
+              <div style={{ marginTop: 32, paddingTop: 20, borderTop: '1px solid ' + (i % 3 === 0 ? 'rgba(244,239,230,0.2)' : 'var(--line)') }}>
+                <div style={{ fontSize: 14, fontWeight: 500 }}>{r.name}</div>
+                <div className="mono-label" style={{ marginTop: 4, opacity: 0.6 }}>Voyageur·euse vérifié·e</div>
+              </div>
+            </article>
           ))}
         </div>
       </div>
+    </section>
+  );
+}
+
+const MOSAIC = [
+  { src: '/assets/photo1.webp',                                    caption: 'La maison ardennaise' },
+  { src: '/assets/quatreChambres/ChambreDiane.webp',               caption: 'Chambre Diane' },
+  { src: '/assets/quatreSaisons/printemps.webp',                   caption: 'Printemps à Trussogne' },
+  { src: '/assets/quatreChambres/ChambreVerte.webp',               caption: 'Chambre Verte' },
+  { src: '/assets/Marcassins-Trussogne.webp',                      caption: 'Marcassins dans la prairie' },
+  { src: '/assets/quatreChambres/ChambreAne.webp',                 caption: "Chambre de l'Âne" },
+  { src: '/assets/quatreSaisons/ete.webp',                         caption: 'Été ardennais' },
+  { src: '/assets/quatreChambres/Chambre-Chapelle-scaled.webp',    caption: 'Chambre Chapelle' },
+  { src: '/assets/Photo-Lievres-amoureux-Tru.webp',               caption: 'Lièvres à Trussogne' },
+  { src: '/assets/quatreSaisons/brume.webp',                       caption: 'Brume automnale' },
+  { src: '/assets/alentours/chevetogne.webp',                      caption: 'Domaine de Chevetogne' },
+  { src: '/assets/quatreSaisons/hiver1.webp',                      caption: 'Hiver sous la neige' },
+];
+
+function GiteMosaic() {
+  const [lbIndex, setLbIndex] = useState(null);
+
+  const nav = (dir) => setLbIndex(prev => {
+    const next = prev + dir;
+    if (next < 0) return MOSAIC.length - 1;
+    if (next >= MOSAIC.length) return 0;
+    return next;
+  });
+
+  useEffect(() => {
+    if (lbIndex === null) return;
+    const fn = (e) => {
+      if (e.key === 'Escape') setLbIndex(null);
+      if (e.key === 'ArrowRight') nav(1);
+      if (e.key === 'ArrowLeft') nav(-1);
+    };
+    window.addEventListener('keydown', fn);
+    return () => window.removeEventListener('keydown', fn);
+  }, [lbIndex]);
+
+  return (
+    <section style={{ background: 'var(--paper)', padding: '64px 0 80px' }}>
+      <div style={{ padding: '0 48px', marginBottom: 48 }}>
+        <div className="sec-num" style={{ marginBottom: 16 }}>· 01 — LE GÎTE ·</div>
+        <h2 className="serif" style={{ fontSize: 'clamp(32px, 3.5vw, 52px)', lineHeight: 1.05, fontWeight: 400, maxWidth: 640 }}>
+          Un lieu d'exception où <span style={{ color: 'var(--green)' }}>confort et nature</span> se rencontrent.
+        </h2>
+      </div>
+      <div className="gallery-grid" style={{ padding: '0 48px' }}>
+        {MOSAIC.map((p, i) => (
+          <div key={i} className="gallery-item" onClick={() => setLbIndex(i)}
+            style={{ animation: `fadeUp 0.6s ease ${i * 0.04}s both` }}>
+            <img src={p.src} alt={p.caption} loading="lazy" />
+            <div className="overlay">
+              <div className="serif" style={{ fontSize: 18, fontStyle: 'italic', color: 'var(--paper)' }}>{p.caption}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {lbIndex !== null && (
+        <div className="lightbox" onClick={() => setLbIndex(null)}>
+          <button className="lb-close" onClick={() => setLbIndex(null)}>✕</button>
+          <button className="lb-nav lb-prev" onClick={(e) => { e.stopPropagation(); nav(-1); }}>←</button>
+          <button className="lb-nav lb-next" onClick={(e) => { e.stopPropagation(); nav(1); }}>→</button>
+          <div onClick={(e) => e.stopPropagation()} style={{ textAlign: 'center' }}>
+            <img src={MOSAIC[lbIndex].src} alt={MOSAIC[lbIndex].caption} />
+            <div style={{ marginTop: 20 }}>
+              <div className="serif" style={{ fontSize: 22, fontStyle: 'italic', marginBottom: 6, color: 'var(--paper)' }}>{MOSAIC[lbIndex].caption}</div>
+              <div className="mono-label" style={{ color: 'rgba(244,239,230,0.4)' }}>{lbIndex + 1} / {MOSAIC.length}</div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <style>{`@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }`}</style>
     </section>
   );
 }
@@ -211,27 +420,12 @@ export default function Gite() {
     <>
       <Nav scrolled={scrolled} />
       <GiteHero />
-      <Overview />
+      <GiteMosaic />
       <RoomsIntro />
       {ROOMS.map((r, i) => <RoomSection key={r.id} room={r} index={i} />)}
-      <Amenities />
-      <section style={{ padding: '160px 48px', background: 'var(--cream-warm)', textAlign: 'center' }}>
-        <div style={{ maxWidth: 800, margin: '0 auto' }}>
-          <div style={{ width: 80, height: 80, borderRadius: '50%', border: '1px solid var(--line)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: 36 }}>
-            <LeafIcon size={32} />
-          </div>
-          <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 80px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 28 }}>
-            Votre évasion <span style={{ color: 'var(--green)' }}>vous attend.</span>
-          </h2>
-          <p style={{ fontSize: 17, lineHeight: 1.6, color: 'var(--ink-soft)', maxWidth: 520, margin: '0 auto 44px' }}>
-            Réservez en direct — pas d'intermédiaire, pas de surprise.
-          </p>
-          <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link to="/#book" className="btn-primary" style={{ fontSize: 16, padding: '22px 36px' }}>Réserver en direct →</Link>
-            <a href="tel:+32476222707" className="btn-ghost">+32 476 222 707</a>
-          </div>
-        </div>
-      </section>
+      <GiteValues />
+      <GiteActivities />
+      <GiteReviews />
       <Footer />
     </>
   );

@@ -5,9 +5,9 @@ import Footer from '../components/Footer';
 
 function ContactHero() {
   return (
-    <section style={{ padding: '180px 48px 120px', background: 'var(--paper)' }}>
+    <section className="ct-hero" style={{ padding: '180px 48px 120px', background: 'var(--paper)' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'end' }}>
+        <div className="ct-hero-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'end' }}>
           <div>
             <div className="mono-label" style={{ color: 'var(--ink-soft)', marginBottom: 24 }}>· Nous contacter ·</div>
             <h1 className="serif" style={{ fontSize: 'clamp(56px, 7vw, 110px)', lineHeight: 0.95, fontWeight: 400 }}>
@@ -34,8 +34,8 @@ function InfoCards() {
   ];
 
   return (
-    <section style={{ padding: '0 48px 120px', background: 'var(--paper)' }}>
-      <div style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 0, border: '1px solid var(--line)' }}>
+    <section className="ct-section" style={{ padding: '0 48px 120px', background: 'var(--paper)' }}>
+      <div className="ct-cards-grid" style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 0, border: '1px solid var(--line)' }}>
         {cards.map((c, i) => (
           <a key={i} href={c.href} target={c.href.startsWith('http') ? '_blank' : undefined} rel={c.href.startsWith('http') ? 'noopener' : undefined}
             style={{ borderRight: i < 3 ? '1px solid var(--line)' : 'none', display: 'flex', flexDirection: 'column', gap: 16, padding: '40px 36px', textDecoration: 'none', color: 'inherit', transition: 'background 0.3s ease' }}>
@@ -55,15 +55,15 @@ function FormAndMap() {
   const [subject, setSubject] = useState('reservation');
 
   return (
-    <section style={{ padding: '0 48px 160px', background: 'var(--paper)' }}>
-      <div style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 0 }}>
-        <div style={{ background: 'var(--cream)', padding: 56, borderRight: '1px solid var(--line)' }}>
+    <section className="ct-section" style={{ padding: '0 48px 160px', background: 'var(--paper)' }}>
+      <div className="ct-form-grid" style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 0 }}>
+        <div className="ct-form-panel" style={{ background: 'var(--cream)', padding: 56, borderRight: '1px solid var(--line)' }}>
           {!submitted ? (
             <>
               <div className="sec-num" style={{ marginBottom: 16 }}>· FORMULAIRE ·</div>
               <h2 className="serif" style={{ fontSize: 44, lineHeight: 1.05, fontWeight: 400, marginBottom: 12 }}>Écrivez-nous.</h2>
               <p style={{ fontSize: 15, color: 'var(--ink-soft)', lineHeight: 1.6, marginBottom: 40 }}>Remplissez le formulaire et Sandra vous répondra personnellement.</p>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginBottom: 24 }}>
+              <div className="ct-name-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginBottom: 24 }}>
                 <div className="field"><label>Prénom</label><input type="text" placeholder="Votre prénom" /></div>
                 <div className="field"><label>Nom</label><input type="text" placeholder="Votre nom" /></div>
               </div>
@@ -80,7 +80,7 @@ function FormAndMap() {
                 </select>
               </div>
               {subject === 'reservation' && (
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 24, marginBottom: 24 }}>
+                <div className="ct-date-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 24, marginBottom: 24 }}>
                   <div className="field"><label>Arrivée</label><input type="date" /></div>
                   <div className="field"><label>Départ</label><input type="date" /></div>
                   <div className="field"><label>Voyageurs</label><select>{[2,3,4,5,6,7,8,9].map(n => <option key={n} value={n}>{n} pers.</option>)}</select></div>
@@ -132,9 +132,9 @@ function Directions() {
     { from: 'Liège', time: '± 1h15', road: 'E25 → E411 direction Namur → Houyet', dist: '95 km' },
   ];
   return (
-    <section style={{ padding: '120px 48px 160px', background: 'var(--cream)' }}>
+    <section className="ct-section" style={{ padding: '120px 48px 160px', background: 'var(--cream)' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.4fr', gap: 96 }}>
+        <div className="ct-directions-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1.4fr', gap: 96 }}>
           <div>
             <div className="sec-num" style={{ marginBottom: 20 }}>· COMMENT VENIR ·</div>
             <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 24 }}>
@@ -150,7 +150,7 @@ function Directions() {
           </div>
           <div>
             {routes.map((r, i) => (
-              <div key={i} style={{ display: 'grid', gridTemplateColumns: '140px 1fr 80px', gap: 24, alignItems: 'center', padding: '28px 0', borderBottom: i < routes.length - 1 ? '1px solid var(--line)' : 'none' }}>
+              <div key={i} className="ct-route-row" style={{ display: 'grid', gridTemplateColumns: '140px 1fr 80px', gap: 24, alignItems: 'center', padding: '28px 0', borderBottom: i < routes.length - 1 ? '1px solid var(--line)' : 'none' }}>
                 <div className="serif" style={{ fontSize: 32, lineHeight: 1, fontWeight: 500 }}>{r.from}</div>
                 <div>
                   <div style={{ fontSize: 14, color: 'var(--ink-soft)', marginBottom: 4 }}>{r.road}</div>
@@ -178,7 +178,7 @@ function FAQ() {
   const [open, setOpen] = useState(null);
 
   return (
-    <section style={{ padding: '160px 48px', background: 'var(--paper)' }}>
+    <section className="ct-section" style={{ padding: '160px 48px', background: 'var(--paper)' }}>
       <div style={{ maxWidth: 900, margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: 72 }}>
           <div className="sec-num" style={{ marginBottom: 20 }}>· FAQ ·</div>

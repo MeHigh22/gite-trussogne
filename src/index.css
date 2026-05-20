@@ -181,19 +181,17 @@ img { display: block; max-width: 100%; }
 }
 
 /* Tab strip */
-.tab-strip { display: flex; gap: 0; border-bottom: 1px solid var(--line); }
+.tab-strip { display: flex; gap: 0; }
 .tab-btn {
   padding: 18px 24px;
-  border-bottom: 2px solid transparent;
-  margin-bottom: -1px;
   font-size: 13px;
   letter-spacing: 0.06em;
   color: var(--ink-soft);
-  transition: all 0.3s ease;
+  transition: color 0.3s ease;
   text-transform: uppercase;
   font-weight: 500;
 }
-.tab-btn.active { color: var(--green); border-bottom-color: var(--green); }
+.tab-btn.active { color: var(--green); }
 .tab-btn:hover { color: var(--ink); }
 
 /* Booking pill */
@@ -343,4 +341,249 @@ img { display: block; max-width: 100%; }
 @keyframes fadein {
   from { opacity: 0; transform: translateY(8px) translateX(-50%); }
   to   { opacity: 1; transform: translateY(0) translateX(-50%); }
+}
+
+/* ─── Gite page — 1024px ─────────────────────────────────── */
+@media (max-width: 1024px) {
+  .gite-section { padding-left: 32px !important; padding-right: 32px !important; }
+  .gite-hero    { padding-top: 120px !important; padding-bottom: 80px !important; }
+  .gite-hero-grid { gap: 48px !important; }
+  .gite-overview-grid { gap: 56px !important; }
+  .gite-room-grid { gap: 48px !important; }
+  .gite-amenities-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 40px !important;
+  }
+}
+
+/* ─── Gite page — 768px ──────────────────────────────────── */
+@media (max-width: 768px) {
+  .gite-section { padding-left: 24px !important; padding-right: 24px !important; }
+  .gite-hero    { padding-top: 100px !important; padding-bottom: 60px !important; }
+
+  .gite-hero-grid {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+
+  .gite-hero-stats { grid-template-columns: repeat(2, 1fr) !important; }
+  .gite-stat-item  { border-right: none !important; padding-left: 0 !important; }
+  .gite-stat-item:nth-child(1),
+  .gite-stat-item:nth-child(2) { border-bottom: 1px solid var(--line) !important; }
+  .gite-stat-item:nth-child(odd) { border-right: 1px solid var(--line) !important; }
+
+  .gite-overview-grid {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+
+  .gite-room-grid {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+  .gite-room-grid > div:first-child { order: 1; }
+  .gite-room-grid > div:last-child  { order: 2; }
+
+  .gite-amenities-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+}
+
+/* ─── Gite page — 480px ──────────────────────────────────── */
+@media (max-width: 480px) {
+  .gite-section { padding-left: 20px !important; padding-right: 20px !important; }
+  .gite-hero    { padding-top: 88px !important; padding-bottom: 48px !important; }
+
+  .gite-hero-stats { grid-template-columns: 1fr !important; }
+  .gite-stat-item {
+    border-right: none !important;
+    border-bottom: 1px solid var(--line) !important;
+    padding-left: 0 !important;
+  }
+  .gite-stat-item:last-child { border-bottom: none !important; }
+  .gite-stat-item:nth-child(odd) { border-right: none !important; }
+
+  .btn-primary, .btn-ghost { width: 100%; justify-content: center; }
+}
+
+/* ─── Activités page — 1024px ───────────────────────────── */
+@media (max-width: 1024px) {
+  .act-hero    { padding-left: 32px !important; padding-right: 32px !important; padding-top: 140px !important; }
+  .act-section { padding-left: 32px !important; padding-right: 32px !important; }
+
+  /* Activities grid: 3 → 2 cols */
+  .act-grid { grid-template-columns: repeat(2, 1fr) !important; }
+
+  /* Restaurant sticky sidebar: loosen gap */
+  .act-resto-grid { gap: 56px !important; }
+}
+
+/* ─── Activités page — 768px ────────────────────────────── */
+@media (max-width: 768px) {
+  .act-hero    { padding-left: 24px !important; padding-right: 24px !important; padding-top: 120px !important; padding-bottom: 72px !important; }
+  .act-section { padding-left: 24px !important; padding-right: 24px !important; }
+
+  /* Hero stats: flex row → 2×2 wrap */
+  .act-hero-stats { gap: 32px 40px !important; flex-wrap: wrap !important; }
+
+  /* Activities grid: 2 → 1 col */
+  .act-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+
+  /* Restaurants: side-by-side → stacked */
+  .act-resto-grid {
+    grid-template-columns: 1fr !important;
+    gap: 48px !important;
+  }
+  /* Remove sticky on mobile — it causes scroll issues */
+  .act-resto-grid > div:first-child { position: static !important; }
+}
+
+/* ─── Activités page — 480px ────────────────────────────── */
+@media (max-width: 480px) {
+  .act-hero    { padding-left: 20px !important; padding-right: 20px !important; }
+  .act-section { padding-left: 20px !important; padding-right: 20px !important; }
+
+  /* Hero stats: 2 per row → each on its own line */
+  .act-hero-stats { gap: 24px 0 !important; flex-direction: column !important; }
+
+  /* Restaurant rows: hide thumbnail image to save space */
+  .act-resto-grid .ph[style*="width: 120px"] { display: none !important; }
+}
+
+/* ─── Galerie page — 1024px ─────────────────────────────── */
+@media (max-width: 1024px) {
+  .gal-hero    { padding-left: 32px !important; padding-right: 32px !important; }
+  .gal-filters { padding-left: 32px !important; padding-right: 32px !important; }
+  .gal-cta     { padding-left: 32px !important; padding-right: 32px !important; }
+  .gal-footer  { padding-left: 32px !important; padding-right: 32px !important; }
+  .gallery-grid { padding: 0 32px !important; columns: 3 !important; }
+}
+
+/* ─── Galerie page — 768px ──────────────────────────────── */
+@media (max-width: 768px) {
+  .gal-hero    { padding: 120px 24px 72px !important; }
+  .gal-filters { padding-left: 24px !important; padding-right: 24px !important; padding-bottom: 40px !important; }
+  .gal-cta     { padding: 80px 24px !important; }
+  .gal-footer  { padding: 48px 24px 32px !important; }
+
+  /* Gallery: 3 → 2 cols */
+  .gallery-grid { padding: 0 24px !important; columns: 2 !important; }
+}
+
+/* ─── Galerie page — 480px ──────────────────────────────── */
+@media (max-width: 480px) {
+  .gal-hero    { padding: 100px 20px 56px !important; }
+  .gal-filters { padding-left: 20px !important; padding-right: 20px !important; }
+  .gal-cta     { padding: 60px 20px !important; }
+  .gal-footer  { padding: 40px 20px 28px !important; }
+
+  /* Gallery: 2 → 1 col */
+  .gallery-grid { padding: 0 20px !important; columns: 1 !important; }
+}
+
+/* ─── À Propos page — 1024px ────────────────────────────── */
+@media (max-width: 1024px) {
+  .ap-hero    { padding-left: 32px !important; padding-right: 32px !important; padding-top: 140px !important; }
+  .ap-section { padding-left: 32px !important; padding-right: 32px !important; }
+  .ap-hero-grid  { gap: 48px !important; }
+  .ap-story-grid { gap: 56px !important; }
+  .ap-pillar-row { gap: 48px !important; }
+}
+
+/* ─── À Propos page — 768px ─────────────────────────────── */
+@media (max-width: 768px) {
+  .ap-hero    { padding: 120px 24px 80px !important; min-height: unset !important; }
+  .ap-section { padding-left: 24px !important; padding-right: 24px !important; }
+
+  /* Hero: stack to single column */
+  .ap-hero-grid {
+    grid-template-columns: 1fr !important;
+    gap: 48px !important;
+  }
+
+  /* Story: single column, image block above text */
+  .ap-story-grid {
+    grid-template-columns: 1fr !important;
+    gap: 48px !important;
+  }
+  /* Remove sticky on the image column */
+  .ap-story-grid > div:first-child { position: static !important; }
+
+  /* Pillars: single column, image always after text */
+  .ap-pillar-row {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+    padding: 56px 0 !important;
+  }
+  .ap-pillar-row > div:first-child { order: 1; }
+  .ap-pillar-row > div:last-child  { order: 2; }
+}
+
+/* ─── À Propos page — 480px ─────────────────────────────── */
+@media (max-width: 480px) {
+  .ap-hero    { padding: 100px 20px 60px !important; }
+  .ap-section { padding-left: 20px !important; padding-right: 20px !important; }
+  .ap-pillar-row { padding: 40px 0 !important; }
+
+  .btn-primary, .btn-ghost { width: 100%; justify-content: center; }
+}
+
+/* ─── Contact page — 1024px ─────────────────────────────── */
+@media (max-width: 1024px) {
+  .ct-hero    { padding-left: 32px !important; padding-right: 32px !important; padding-top: 140px !important; }
+  .ct-section { padding-left: 32px !important; padding-right: 32px !important; }
+  .ct-hero-grid { gap: 48px !important; }
+
+  /* Info cards: 4 → 2 cols */
+  .ct-cards-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .ct-cards-grid > a:nth-child(2) { border-right: none !important; }
+  .ct-cards-grid > a:nth-child(1),
+  .ct-cards-grid > a:nth-child(2) { border-bottom: 1px solid var(--line) !important; }
+
+  /* Directions grid: tighten gap */
+  .ct-directions-grid { gap: 56px !important; }
+}
+
+/* ─── Contact page — 768px ──────────────────────────────── */
+@media (max-width: 768px) {
+  .ct-hero    { padding: 120px 24px 72px !important; }
+  .ct-section { padding-left: 24px !important; padding-right: 24px !important; }
+
+  /* Hero: stack */
+  .ct-hero-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+
+  /* Info cards: 4 → 1 col */
+  .ct-cards-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .ct-cards-grid > a { border-right: none !important; border-bottom: 1px solid var(--line) !important; }
+  .ct-cards-grid > a:last-child { border-bottom: none !important; }
+
+  /* Form + map: stack vertically */
+  .ct-form-grid { grid-template-columns: 1fr !important; }
+  .ct-form-panel { padding: 32px !important; border-right: none !important; border-bottom: 1px solid var(--line) !important; }
+
+  /* Name fields: 2 → 1 col */
+  .ct-name-grid { grid-template-columns: 1fr !important; }
+
+  /* Date fields: 3 → 1 col */
+  .ct-date-grid { grid-template-columns: 1fr !important; }
+
+  /* Directions: single column */
+  .ct-directions-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
+
+  /* Route rows: simplify 3-col to 2-col (hide distance) */
+  .ct-route-row { grid-template-columns: 120px 1fr !important; }
+  .ct-route-row > .mono-label:last-child { display: none !important; }
+}
+
+/* ─── Contact page — 480px ──────────────────────────────── */
+@media (max-width: 480px) {
+  .ct-hero    { padding: 100px 20px 56px !important; }
+  .ct-section { padding-left: 20px !important; padding-right: 20px !important; }
+  .ct-form-panel { padding: 24px !important; }
+
+  /* Route rows: fully stack */
+  .ct-route-row { grid-template-columns: 1fr !important; gap: 8px !important; }
 }

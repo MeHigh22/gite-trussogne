@@ -5,9 +5,9 @@ import Footer from '../components/Footer';
 
 function AboutHero() {
   return (
-    <section style={{ minHeight: '85vh', padding: '180px 48px 120px', display: 'flex', alignItems: 'center', background: 'var(--paper)', position: 'relative' }}>
+    <section className="ap-hero" style={{ minHeight: '85vh', padding: '180px 48px 120px', display: 'flex', alignItems: 'center', background: 'var(--paper)', position: 'relative' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto', width: '100%' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 80, alignItems: 'center' }}>
+        <div className="ap-hero-grid" style={{ display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 80, alignItems: 'center' }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 36 }}>
               <span style={{ width: 64, height: 64, borderRadius: '50%', border: '1px solid var(--line)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -47,9 +47,9 @@ function AboutHero() {
 
 function Story() {
   return (
-    <section style={{ padding: '160px 48px', background: 'var(--cream)' }}>
+    <section className="ap-section" style={{ padding: '160px 48px', background: 'var(--cream)' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.3fr', gap: 96, alignItems: 'start' }}>
+        <div className="ap-story-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1.3fr', gap: 96, alignItems: 'start' }}>
           <div style={{ position: 'sticky', top: 140, display: 'flex', flexDirection: 'column', gap: 16 }}>
             <img src="/assets/Chambre-Chapelle-scaled.webp" alt="Chambre Chapelle" style={{ aspectRatio: '4/3', borderRadius: 4, width: '100%', objectFit: 'cover' }} />
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
@@ -88,7 +88,7 @@ function Pillars() {
   ];
 
   return (
-    <section id="philosophie" style={{ padding: '160px 48px', background: 'var(--paper)' }}>
+    <section id="philosophie" className="ap-section" style={{ padding: '160px 48px', background: 'var(--paper)' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: 96 }}>
           <div className="sec-num" style={{ marginBottom: 20 }}>· 02 — NOTRE PHILOSOPHIE ·</div>
@@ -98,7 +98,7 @@ function Pillars() {
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
           {pillars.map((p, i) => (
-            <div key={i} style={{ display: 'grid', gridTemplateColumns: i % 2 === 0 ? '1.3fr 1fr' : '1fr 1.3fr', gap: 80, alignItems: 'center', padding: '80px 0', borderBottom: i < pillars.length - 1 ? '1px solid var(--line)' : 'none' }}>
+            <div key={i} className="ap-pillar-row" style={{ display: 'grid', gridTemplateColumns: i % 2 === 0 ? '1.3fr 1fr' : '1fr 1.3fr', gap: 80, alignItems: 'center', padding: '80px 0', borderBottom: i < pillars.length - 1 ? '1px solid var(--line)' : 'none' }}>
               {i % 2 === 0 && <div className="ph" data-label={p.img} style={{ aspectRatio: '16/10', borderRadius: 4 }}></div>}
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 24 }}>
@@ -119,7 +119,7 @@ function Pillars() {
 
 function Manifesto() {
   return (
-    <section style={{ padding: '120px 48px', background: 'var(--green)', color: 'var(--paper)', textAlign: 'center' }}>
+    <section className="ap-section" style={{ padding: '120px 48px', background: 'var(--green)', color: 'var(--paper)', textAlign: 'center' }}>
       <div style={{ maxWidth: 900, margin: '0 auto' }}>
         <div className="serif" style={{ fontSize: 'clamp(36px, 5vw, 64px)', lineHeight: 1.15, fontStyle: 'italic', fontWeight: 400 }}>
           Trussogne — là où la nature et le confort se rencontrent pour créer des moments d'exception.
@@ -144,7 +144,7 @@ export default function APropos() {
       <Story />
       <Pillars />
       <Manifesto />
-      <section style={{ padding: '160px 48px', background: 'var(--paper)', textAlign: 'center' }}>
+      <section className="ap-section" style={{ padding: '160px 48px', background: 'var(--paper)', textAlign: 'center' }}>
         <div style={{ maxWidth: 700, margin: '0 auto' }}>
           <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 80px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 28 }}>
             Vivez l'expérience Trussogne.

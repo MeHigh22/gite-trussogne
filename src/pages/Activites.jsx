@@ -47,7 +47,7 @@ const RESTAURANTS = [
 
 function ActHero() {
   return (
-    <section style={{ minHeight: '70vh', padding: '180px 48px 120px', display: 'flex', alignItems: 'center', background: 'var(--green)', color: 'var(--paper)', position: 'relative', overflow: 'hidden' }}>
+    <section className="act-hero" style={{ minHeight: '70vh', padding: '180px 48px 120px', display: 'flex', alignItems: 'center', background: 'var(--green)', color: 'var(--paper)', position: 'relative', overflow: 'hidden' }}>
       <div className="serif" style={{ position: 'absolute', right: -40, top: '50%', transform: 'translateY(-50%)', fontSize: 'min(50vw, 600px)', lineHeight: 0.8, fontStyle: 'italic', color: 'rgba(244,239,230,0.04)', userSelect: 'none', pointerEvents: 'none' }}>30+</div>
       <div style={{ maxWidth: 1280, margin: '0 auto', width: '100%', position: 'relative', zIndex: 1 }}>
         <div style={{ maxWidth: 800 }}>
@@ -59,7 +59,7 @@ function ActHero() {
             Nature, patrimoine, aventure et gastronomie — les Ardennes belges regorgent de trésors à découvrir, à quelques minutes de votre porte.
           </p>
         </div>
-        <div style={{ display: 'flex', gap: 64, marginTop: 80, paddingTop: 40, borderTop: '1px solid rgba(244,239,230,0.15)' }}>
+        <div className="act-hero-stats" style={{ display: 'flex', gap: 64, marginTop: 80, paddingTop: 40, borderTop: '1px solid rgba(244,239,230,0.15)' }}>
           {[{ n: '30+', label: 'Activités' }, { n: '10', label: 'Restaurants' }, { n: '5 min', label: 'Le plus proche' }, { n: '550 ha', label: 'Chevetogne' }].map((s, i) => (
             <div key={i}>
               <div className="serif" style={{ fontSize: 40, lineHeight: 1 }}>{s.n}</div>
@@ -77,7 +77,7 @@ function ActivitiesSection() {
   const filtered = filter === 'all' ? ACTIVITIES : ACTIVITIES.filter(a => a.cat === filter);
 
   return (
-    <section id="activites" style={{ padding: '120px 48px 160px', background: 'var(--paper)' }}>
+    <section id="activites" className="act-section" style={{ padding: '120px 48px 160px', background: 'var(--paper)' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 48, gap: 32, flexWrap: 'wrap' }}>
           <div>
@@ -100,7 +100,7 @@ function ActivitiesSection() {
             </button>
           ))}
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '48px 28px' }}>
+        <div className="act-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '48px 28px' }}>
           {filtered.map((act) => (
             <article key={act.name}>
               <div className="ph" data-label={act.img} style={{ aspectRatio: '4/3', borderRadius: 4 }}></div>
@@ -122,9 +122,9 @@ function ActivitiesSection() {
 
 function RestaurantsSection() {
   return (
-    <section id="restaurants" style={{ padding: '160px 48px', background: 'var(--cream)' }}>
+    <section id="restaurants" className="act-section" style={{ padding: '160px 48px', background: 'var(--cream)' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.6fr', gap: 96 }}>
+        <div className="act-resto-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1.6fr', gap: 96 }}>
           <div style={{ position: 'sticky', top: 140, alignSelf: 'start' }}>
             <div className="sec-num" style={{ marginBottom: 20 }}>· GASTRONOMIE ·</div>
             <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 24 }}>
@@ -171,7 +171,7 @@ export default function Activites() {
       <ActHero />
       <ActivitiesSection />
       <RestaurantsSection />
-      <section style={{ padding: '120px 48px', background: 'var(--green)', color: 'var(--paper)', textAlign: 'center' }}>
+      <section className="act-section" style={{ padding: '120px 48px', background: 'var(--green)', color: 'var(--paper)', textAlign: 'center' }}>
         <div style={{ maxWidth: 800, margin: '0 auto' }}>
           <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 80px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 32 }}>
             Votre évasion <span style={{ opacity: 0.6 }}>vous attend.</span>

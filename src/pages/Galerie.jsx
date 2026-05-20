@@ -93,7 +93,7 @@ export default function Galerie() {
       <Nav scrolled={scrolled} dark />
 
       {/* Hero */}
-      <section style={{ padding: '180px 48px 100px', textAlign: 'center' }}>
+      <section className="gal-hero" style={{ padding: '180px 48px 100px', textAlign: 'center' }}>
         <div style={{ maxWidth: 800, margin: '0 auto' }}>
           <div className="mono-label" style={{ color: 'rgba(244,239,230,0.45)', marginBottom: 24 }}>· Gîte de Trussogne · Houyet, Ardennes belges ·</div>
           <h1 className="serif" style={{ fontSize: 'clamp(56px, 8vw, 120px)', lineHeight: 0.95, fontWeight: 400, marginBottom: 24 }}>
@@ -106,7 +106,7 @@ export default function Galerie() {
       </section>
 
       {/* Filters */}
-      <div style={{ display: 'flex', gap: 10, justifyContent: 'center', padding: '0 48px 56px', flexWrap: 'wrap' }}>
+      <div className="gal-filters" style={{ display: 'flex', gap: 10, justifyContent: 'center', padding: '0 48px 56px', flexWrap: 'wrap' }}>
         {FILTERS.map(f => (
           <button key={f.id} className={'gal-filter' + (filter === f.id ? ' active' : '')} onClick={() => { setFilter(f.id); setLbIndex(null); }}>
             {f.label}
@@ -133,7 +133,7 @@ export default function Galerie() {
       </div>
 
       {/* CTA */}
-      <section style={{ padding: '120px 48px', textAlign: 'center', borderTop: '1px solid rgba(244,239,230,0.08)' }}>
+      <section className="gal-cta" style={{ padding: '120px 48px', textAlign: 'center', borderTop: '1px solid rgba(244,239,230,0.08)' }}>
         <div style={{ maxWidth: 700, margin: '0 auto' }}>
           <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 32 }}>
             Réservez votre parenthèse.
@@ -146,7 +146,7 @@ export default function Galerie() {
       </section>
 
       {/* Footer */}
-      <footer style={{ padding: '64px 48px 40px', borderTop: '1px solid rgba(244,239,230,0.08)' }}>
+      <footer className="gal-footer" style={{ padding: '64px 48px 40px', borderTop: '1px solid rgba(244,239,230,0.08)' }}>
         <div style={{ maxWidth: 1280, margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 24 }}>
           <span className="serif" style={{ fontSize: 32, fontStyle: 'italic' }}>Trussogne <span style={{ fontSize: 13, color: 'rgba(244,239,230,0.35)', fontStyle: 'normal', fontFamily: 'DM Sans, sans-serif' }}>· Galerie</span></span>
           <div style={{ display: 'flex', gap: 32, fontSize: 13, color: 'rgba(244,239,230,0.6)' }}>
