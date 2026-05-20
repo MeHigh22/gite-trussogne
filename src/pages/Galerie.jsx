@@ -136,7 +136,7 @@ export default function Galerie() {
       <section style={{ padding: '120px 48px', textAlign: 'center', borderTop: '1px solid rgba(244,239,230,0.08)' }}>
         <div style={{ maxWidth: 700, margin: '0 auto' }}>
           <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 32 }}>
-            Réservez votre <span style={{ textDecoration: 'underline', textDecorationColor: 'var(--green-soft)', textUnderlineOffset: '6px', textDecorationThickness: '2px' }}>parenthèse.</span>
+            Réservez votre parenthèse.
           </h2>
           <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link to="/#book" className="btn-primary" style={{ fontSize: 16, padding: '22px 36px' }}>Réserver en direct →</Link>

@@ -143,11 +143,11 @@ function Story() {
   return (
     <section id="story" style={{ padding: '160px 48px', background: 'var(--paper)' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: 96, alignItems: 'center' }}>
-        <div className="ph" data-label="PORTRAIT · les hôtes" style={{ aspectRatio: '4/5', borderRadius: 4 }}></div>
+        <img src="/assets/Chambre-Chapelle-scaled.webp" alt="Chambre Chapelle" style={{ aspectRatio: '4/5', borderRadius: 4, width: '100%', objectFit: 'cover' }} />
         <div>
           <div className="sec-num" style={{ marginBottom: 20 }}>· 02 — NOTRE HISTOIRE ·</div>
           <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 1.05, marginBottom: 32, fontWeight: 400 }}>
-            Le fruit d'un rêve, devenu <span style={{ textDecoration: 'underline', textDecorationColor: 'var(--green)', textUnderlineOffset: '6px', textDecorationThickness: '2px' }}>havre de paix</span>.
+            Le fruit d'un rêve, devenu havre de paix.
           </h2>
           <p style={{ fontSize: 18, lineHeight: 1.7, color: 'var(--ink-soft)', marginBottom: 24, maxWidth: 560 }}>
             Nichée au cœur d'un environnement naturel préservé à Houyet dans nos Ardennes, notre propriété est née d'une envie simple : créer un lieu où le temps ralentit, où l'on respire profondément, et où la beauté discrète de la région se révèle au fil des heures.
@@ -218,10 +218,10 @@ function GiteSection() {
 
 function Chambres() {
   const rooms = [
-    { name: 'Diane',   sub: 'La cynégétique',   beds: 'Lit double · vue jardin',   img: 'CHAMBRE · DIANE' },
-    { name: 'Verte',   sub: 'La forestière',    beds: 'Lit double · velours sapin', img: 'CHAMBRE · VERTE' },
-    { name: "L'Âne",   sub: 'La rustique',      beds: '2 lits simples · poutres',  img: 'CHAMBRE · ÂNE' },
-    { name: 'Chapelle',sub: 'La méditative',    beds: 'Lit double · pierre',       img: 'CHAMBRE · CHAPELLE' },
+    { name: 'Diane',   sub: 'La cynégétique',   beds: 'Lit double · vue jardin',   img: '/assets/quatreChambres/ChambreDiane.webp' },
+    { name: 'Verte',   sub: 'La forestière',    beds: 'Lit double · velours sapin', img: '/assets/quatreChambres/ChambreVerte.webp' },
+    { name: "L'Âne",   sub: 'La rustique',      beds: '2 lits simples · poutres',  img: '/assets/quatreChambres/ChambreAne.webp' },
+    { name: 'Chapelle',sub: 'La méditative',    beds: 'Lit double · pierre',       img: '/assets/quatreChambres/Chambre-Chapelle-scaled.webp' },
   ];
   const [active, setActive] = useState(0);
   return (
@@ -230,7 +230,7 @@ function Chambres() {
         <div className="sec-num" style={{ marginBottom: 20 }}>· 04 — CHAMBRES ·</div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 64, gap: 48, flexWrap: 'wrap' }}>
           <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 1.05, fontWeight: 400, maxWidth: 720 }}>
-            Quatre chambres, <span style={{ textDecoration: 'underline', textDecorationColor: 'var(--green)', textUnderlineOffset: '6px', textDecorationThickness: '2px' }}>quatre atmosphères.</span>
+            Quatre chambres, quatre atmosphères.
           </h2>
           <p style={{ fontSize: 16, color: 'var(--ink-soft)', maxWidth: 320, lineHeight: 1.6 }}>
             Décorées avec soin, chacune respire son propre caractère.
@@ -239,11 +239,13 @@ function Chambres() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 24 }}>
           {rooms.map((r, i) => (
             <div key={i} className="room-card" onMouseEnter={() => setActive(i)} style={{ cursor: 'pointer' }}>
-              <div className="ph" data-label={r.img} style={{
-                aspectRatio: '16/9', borderRadius: 4, marginBottom: 16,
+              <div style={{
+                aspectRatio: '16/9', borderRadius: 4, marginBottom: 16, overflow: 'hidden',
                 outline: active === i ? '1px solid var(--green)' : 'none',
                 outlineOffset: 6, transition: 'outline 0.3s'
-              }}></div>
+              }}>
+                <img src={r.img} alt={r.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+              </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
                 <h3 className="serif" style={{ fontSize: 28, fontWeight: 500 }}>{r.name}</h3>
                 <span className="mono-label" style={{ color: 'var(--ink-soft)' }}>0{i+1}</span>
@@ -323,7 +325,7 @@ function Extras() {
           <div>
             <div className="ph" data-label="TRAITEUR · table" style={{ aspectRatio: '5/3', borderRadius: 4, marginBottom: 32 }}></div>
             <h3 className="serif" style={{ fontSize: 40, lineHeight: 1.1, fontWeight: 400, marginBottom: 16 }}>
-              Service <span style={{ textDecoration: 'underline', textDecorationColor: 'var(--green)', textUnderlineOffset: '4px', textDecorationThickness: '2px' }}>traiteur</span>
+              Service traiteur
             </h3>
             <p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--ink-soft)' }}>
               Repas gourmands sur mesure, créations culinaires préparées avec des produits locaux et de saison.
@@ -418,7 +420,7 @@ function Booking() {
         <div>
           <div className="sec-num" style={{ marginBottom: 20 }}>· 08 — RÉSERVATION ·</div>
           <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 32 }}>
-            Réservez en <span style={{ textDecoration: 'underline', textDecorationColor: 'var(--green)', textUnderlineOffset: '6px', textDecorationThickness: '2px' }}>direct.</span>
+            Réservez en direct.
           </h2>
           <p style={{ fontSize: 17, lineHeight: 1.6, color: 'var(--ink-soft)', maxWidth: 460, marginBottom: 48 }}>
             Pas d'intermédiaire, pas de surprise. Tarifs établis pour 6 à 9 personnes.

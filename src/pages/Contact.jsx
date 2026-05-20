@@ -11,7 +11,7 @@ function ContactHero() {
           <div>
             <div className="mono-label" style={{ color: 'var(--ink-soft)', marginBottom: 24 }}>· Nous contacter ·</div>
             <h1 className="serif" style={{ fontSize: 'clamp(56px, 7vw, 110px)', lineHeight: 0.95, fontWeight: 400 }}>
-              Parlons de votre<br /><span style={{ textDecoration: 'underline', textDecorationColor: 'var(--green)', textUnderlineOffset: '6px', textDecorationThickness: '2px' }}>séjour.</span>
+              Parlons de votre<br />séjour.
             </h1>
           </div>
           <div>
@@ -183,7 +183,7 @@ function FAQ() {
         <div style={{ textAlign: 'center', marginBottom: 72 }}>
           <div className="sec-num" style={{ marginBottom: 20 }}>· FAQ ·</div>
           <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 1.05, fontWeight: 400 }}>
-            Questions <span style={{ textDecoration: 'underline', textDecorationColor: 'var(--green)', textUnderlineOffset: '6px', textDecorationThickness: '2px' }}>fréquentes.</span>
+            Questions fréquentes.
           </h2>
         </div>
         {faqs.map((faq, i) => (

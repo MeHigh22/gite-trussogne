@@ -51,7 +51,7 @@ function Story() {
       <div style={{ maxWidth: 1280, margin: '0 auto' }}>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.3fr', gap: 96, alignItems: 'start' }}>
           <div style={{ position: 'sticky', top: 140, display: 'flex', flexDirection: 'column', gap: 16 }}>
-            <div className="ph" data-label="MAISON · construction" style={{ aspectRatio: '4/3', borderRadius: 4 }}></div>
+            <img src="/assets/Chambre-Chapelle-scaled.webp" alt="Chambre Chapelle" style={{ aspectRatio: '4/3', borderRadius: 4, width: '100%', objectFit: 'cover' }} />
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
               <div className="ph" data-label="DÉTAIL · pierre" style={{ aspectRatio: '1/1', borderRadius: 4 }}></div>
               <div className="ph" data-label="JARDIN · vue" style={{ aspectRatio: '1/1', borderRadius: 4 }}></div>
@@ -60,7 +60,7 @@ function Story() {
           <div>
             <div className="sec-num" style={{ marginBottom: 20 }}>· 01 — NOTRE HISTOIRE ·</div>
             <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 40 }}>
-              Le fruit d'un rêve, devenu <span style={{ textDecoration: 'underline', textDecorationColor: 'var(--green)', textUnderlineOffset: '6px', textDecorationThickness: '2px' }}>havre de paix.</span>
+              Le fruit d'un rêve, devenu havre de paix.
             </h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
               <p style={{ fontSize: 17, lineHeight: 1.75, color: 'var(--ink-soft)' }}>Située dans un écrin de verdure à Houyet, ce gîte est le fruit d'un rêve : un havre de paix où le temps s'arrête. En famille ou entre amis, reconnectez-vous à l'essentiel dans le calme d'un jardin avec vue sur la beauté naturelle.</p>
@@ -147,7 +147,7 @@ export default function APropos() {
       <section style={{ padding: '160px 48px', background: 'var(--paper)', textAlign: 'center' }}>
         <div style={{ maxWidth: 700, margin: '0 auto' }}>
           <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 80px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 28 }}>
-            Vivez l'expérience <span style={{ textDecoration: 'underline', textDecorationColor: 'var(--green)', textUnderlineOffset: '6px', textDecorationThickness: '2px' }}>Trussogne.</span>
+            Vivez l'expérience Trussogne.
           </h2>
           <p style={{ fontSize: 17, lineHeight: 1.6, color: 'var(--ink-soft)', maxWidth: 480, margin: '0 auto 44px' }}>
             Réservez en direct pour un séjour authentique dans les Ardennes belges. Sandra vous attend.

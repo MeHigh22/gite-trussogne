@@ -28,7 +28,7 @@ function GiteHero() {
               </div>
             </div>
             <h1 className="serif" style={{ fontSize: 'clamp(56px, 7vw, 110px)', lineHeight: 0.95, letterSpacing: '-0.02em', fontWeight: 400, marginBottom: 28 }}>
-              Votre<br /><span style={{ textDecoration: 'underline', textDecorationColor: 'var(--green)', textUnderlineOffset: '6px', textDecorationThickness: '2px' }}>parenthèse</span><br />enchantée.
+              Votre<br />parenthèse<br />enchantée.
             </h1>
             <p style={{ fontSize: 18, lineHeight: 1.6, color: 'var(--ink-soft)', maxWidth: 440, marginBottom: 44 }}>
               Gîte de caractère pouvant accueillir jusqu'à 9 personnes dans un cadre naturel d'exception. Niché au cœur d'un environnement préservé, Trussogne offre un espace authentique pour des moments inoubliables.
@@ -150,7 +150,7 @@ function RoomsIntro() {
       <div style={{ maxWidth: 900, margin: '0 auto' }}>
         <div className="sec-num" style={{ marginBottom: 20 }}>· 02 — NOS CHAMBRES ·</div>
         <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 80px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 32 }}>
-          Quatre chambres, <span style={{ textDecoration: 'underline', textDecorationColor: 'var(--green)', textUnderlineOffset: '6px', textDecorationThickness: '2px' }}>quatre atmosphères.</span>
+          Quatre chambres, quatre atmosphères.
         </h2>
         <p style={{ fontSize: 17, color: 'var(--ink-soft)', lineHeight: 1.6, maxWidth: 600, margin: '0 auto 48px' }}>
           Décorées avec soin, chacune respire son propre caractère — du romantisme feutré au minimalisme rustique.

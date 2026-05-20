@@ -128,7 +128,7 @@ function RestaurantsSection() {
           <div style={{ position: 'sticky', top: 140, alignSelf: 'start' }}>
             <div className="sec-num" style={{ marginBottom: 20 }}>· GASTRONOMIE ·</div>
             <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 24 }}>
-              Nos adresses <span style={{ textDecoration: 'underline', textDecorationColor: 'var(--green)', textUnderlineOffset: '6px', textDecorationThickness: '2px' }}>gourmandes.</span>
+              Nos adresses gourmandes.
             </h2>
             <p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--ink-soft)', marginBottom: 32 }}>
               Des tables authentiques, du bistrot convivial au gastronomique étoilé.
