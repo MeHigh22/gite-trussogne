@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import Nav from '../components/Nav';
+import Footer from '../components/Footer';
 import { ELLOHA_URL } from '../components/BookingWidget';
 
 const PHOTOS = [
@@ -98,10 +99,10 @@ export default function Galerie() {
       <Nav scrolled={scrolled} dark />
 
       {/* Hero */}
-      <section className="gal-hero" style={{ padding: '180px 48px 100px', textAlign: 'center' }}>
+      <section className="gal-hero" style={{ padding: '120px 48px 60px', textAlign: 'center' }}>
         <div style={{ maxWidth: 800, margin: '0 auto' }}>
-          <div className="mono-label" style={{ color: 'rgba(244,239,230,0.45)', marginBottom: 24 }}>· Gîte de Trussogne · Houyet, Ardennes belges ·</div>
-          <h1 className="serif" style={{ fontSize: 'clamp(56px, 8vw, 120px)', lineHeight: 0.95, fontWeight: 400, marginBottom: 24 }}>
+
+          <h1 className="serif" style={{ fontSize: 'clamp(48px, 6vw, 86px)', lineHeight: 0.95, fontWeight: 400, marginBottom: 24 }}>
             <span style={{ color: 'var(--green-soft)' }}>Galerie</span> photos.
           </h1>
           <p style={{ fontSize: 17, lineHeight: 1.6, color: 'rgba(244,239,230,0.6)', maxWidth: 480, margin: '0 auto' }}>
@@ -138,34 +139,19 @@ export default function Galerie() {
       </div>
 
       {/* CTA */}
-      <section className="gal-cta" style={{ padding: '120px 48px', textAlign: 'center', borderTop: '1px solid rgba(244,239,230,0.08)' }}>
+      <section className="gal-cta" style={{ padding: '60px 48px', textAlign: 'center', borderTop: '1px solid rgba(244,239,230,0.08)' }}>
         <div style={{ maxWidth: 700, margin: '0 auto' }}>
-          <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 32 }}>
+          <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 32 }}>
             Réservez votre parenthèse.
           </h2>
           <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a href={ELLOHA_URL} target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ fontSize: 16, padding: '22px 36px' }}>Réserver en direct →</a>
-            <Link to="/" className="btn-ghost" style={{ borderColor: 'rgba(244,239,230,0.25)', color: 'rgba(244,239,230,0.8)' }}>Retour à l'accueil</Link>
+            <a href={ELLOHA_URL} target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ fontSize: 15, padding: '16px 28px' }}>Réserver en direct</a>
+            <Link to="/" className="btn-ghost" style={{ fontSize: 15, padding: '16px 24px', borderColor: 'rgba(244,239,230,0.25)', color: 'rgba(244,239,230,0.8)' }}>Retour à l'accueil</Link>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="gal-footer" style={{ padding: '64px 48px 40px', borderTop: '1px solid rgba(244,239,230,0.08)' }}>
-        <div style={{ maxWidth: 1280, margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 24 }}>
-          <span className="serif" style={{ fontSize: 32, fontStyle: 'italic' }}>Trussogne <span style={{ fontSize: 13, color: 'rgba(244,239,230,0.35)', fontStyle: 'normal', fontFamily: 'DM Sans, sans-serif' }}>· Galerie</span></span>
-          <div style={{ display: 'flex', gap: 32, fontSize: 13, color: 'rgba(244,239,230,0.6)' }}>
-            <Link to="/" className="ulink">Accueil</Link>
-            <Link to="/le-gite" className="ulink">Le gîte</Link>
-            <Link to="/activites" className="ulink">Activités</Link>
-            <a href={ELLOHA_URL} target="_blank" rel="noopener noreferrer" className="ulink">Réserver</a>
-          </div>
-        </div>
-        <div style={{ maxWidth: 1280, margin: '28px auto 0', paddingTop: 28, borderTop: '1px solid rgba(244,239,230,0.08)', display: 'flex', justifyContent: 'space-between', fontSize: 12, color: 'rgba(244,239,230,0.25)', flexWrap: 'wrap', gap: 16 }}>
-          <span>© 2026 Gîte de Trussogne · Tous droits réservés</span>
-          <span className="mono-label">Grande Trussogne, 9C · 5561 Houyet, BE</span>
-        </div>
-      </footer>
+      <Footer />
 
       {lbIndex !== null && <Lightbox photos={filtered} index={lbIndex} onClose={() => setLbIndex(null)} onNav={navLb} />}
 

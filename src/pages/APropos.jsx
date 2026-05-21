@@ -34,7 +34,7 @@ function AboutHero() {
       <div style={{ display: 'grid', gridTemplateColumns: bp === 'desktop' ? '2fr 3fr' : '1fr', gap: 40, alignItems: 'center', minHeight: 'calc(100vh - 220px)' }}>
         <div>
           <h1 className="serif" style={{
-            fontSize: bp === 'mobile' ? 'clamp(36px, 9vw, 52px)' : 'clamp(48px, 5.5vw, 88px)',
+            fontSize: bp === 'mobile' ? 'clamp(36px, 8vw, 46px)' : 'clamp(48px, 6vw, 86px)',
             lineHeight: 0.95,
             letterSpacing: '-0.02em',
             fontWeight: 400,
@@ -43,19 +43,19 @@ function AboutHero() {
             À propos<br />de <span style={{ color: 'var(--green)' }}>Trussogne.</span>
           </h1>
 
-          <p style={{ fontSize: 18, lineHeight: 1.5, color: 'var(--ink-soft)', marginBottom: 20 }}>
+          <p style={{ fontSize: bp === 'mobile' ? 14 : 18, lineHeight: 1.5, color: 'var(--ink-soft)', marginBottom: 20 }}>
             Trussogne est né d'une passion pour l'authenticité et d'un profond respect pour la nature des Ardennes. Notre bâtisse, bien que neuve, incarne le caractère d'antan tout en offrant le confort moderne que nos hôtes méritent.
           </p>
-          <p style={{ fontSize: 18, lineHeight: 1.5, color: 'var(--ink-soft)', marginBottom: 20 }}>
+          <p style={{ fontSize: bp === 'mobile' ? 14 : 18, lineHeight: 1.5, color: 'var(--ink-soft)', marginBottom: 20 }}>
             Située dans un écrin de verdure à Houyet, ce gîte est le fruit d'un rêve : un havre de paix où le temps s'arrête. En famille ou entre amis, reconnectez-vous à l'essentiel dans le calme d'un jardin avec vue sur la beauté naturelle qui nous entoure.
           </p>
-          <p style={{ fontSize: 18, lineHeight: 1.5, color: 'var(--ink-soft)', marginBottom: bp === 'mobile' ? 24 : 44 }}>
+          <p style={{ fontSize: bp === 'mobile' ? 14 : 18, lineHeight: 1.5, color: 'var(--ink-soft)', marginBottom: bp === 'mobile' ? 24 : 44 }}>
             Chaque matériau a été choisi avec soin, chaque espace pensé pour maximiser la lumière et le lien avec la nature environnante.
           </p>
 
           <div style={{ display: 'flex', gap: 14, alignItems: 'center', flexWrap: bp === 'mobile' ? 'nowrap' : 'wrap' }}>
             <a href="#philosophie" className="btn-primary" style={bp === 'mobile' ? { padding: '9px 14px', fontSize: 13 } : {}}>
-              {bp === 'mobile' ? 'Notre philosophie' : 'Notre philosophie →'}
+              {bp === 'mobile' ? 'Notre philosophie' : 'Notre philosophie'}
             </a>
             <Link to="/le-gite" className="btn-ghost" style={bp === 'mobile' ? { padding: '8px 12px', fontSize: 13 } : {}}>Découvrir le gîte</Link>
           </div>
@@ -124,29 +124,33 @@ function Pillars() {
   ];
 
   return (
-    <section id="philosophie" className="ap-section" style={{ padding: bp === 'mobile' ? '60px 20px' : bp === 'tablet' ? '80px 32px' : '160px 48px', background: 'var(--paper)' }}>
+    <section id="philosophie" className="ap-section" style={{ padding: bp === 'mobile' ? '40px 20px' : bp === 'tablet' ? '60px 32px' : '80px 48px', background: 'var(--paper)' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto' }}>
-        <div style={{ textAlign: 'center', marginBottom: 96 }}>
+        <div style={{ textAlign: 'center', marginBottom: bp === 'mobile' ? 32 : 96 }}>
           <div className="sec-num" style={{ marginBottom: 20 }}>· 01 — NOTRE PHILOSOPHIE ·</div>
-          <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 80px)', lineHeight: 1.05, fontWeight: 400, maxWidth: 800, margin: '0 auto', marginBottom: 40 }}>
+          <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400, maxWidth: 800, margin: '0 auto', marginBottom: 40 }}>
             Le luxe véritable réside dans la <span style={{ color: 'var(--green)' }}>simplicité</span> et l'authenticité.
           </h2>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
-          {pillars.map((p, i) => (
-            <div key={i} className="ap-pillar-row" style={{ display: 'grid', gridTemplateColumns: i % 2 === 0 ? '1.3fr 1fr' : '1fr 1.3fr', gap: 80, alignItems: 'center', padding: '80px 0', borderBottom: i < pillars.length - 1 ? '1px solid var(--line)' : 'none' }}>
-              {i % 2 === 0 && <div style={{ aspectRatio: '16/10', borderRadius: 4, overflow: 'hidden' }}><img src={p.img} alt={p.alt} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} /></div>}
+          {pillars.map((p, i) => {
+            const imageEl = <div style={{ aspectRatio: '16/10', borderRadius: 4, overflow: 'hidden' }}><img src={p.img} alt={p.alt} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} /></div>;
+            const textEl = (
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 24 }}>
                   <div style={{ width: 64, height: 64, borderRadius: '50%', border: '1px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{p.icon}</div>
                   <div className="sec-num">· {p.num} ·</div>
                 </div>
-                <h3 className="serif" style={{ fontSize: 40, lineHeight: 1.1, fontWeight: 400, marginBottom: 20 }}>{p.title}</h3>
+                <h3 className="serif" style={{ fontSize: 22, lineHeight: 1.1, fontWeight: 400, marginBottom: 20 }}>{p.title}</h3>
                 <p style={{ fontSize: 16, lineHeight: 1.7, color: 'var(--ink-soft)', maxWidth: 480 }}>{p.desc}</p>
               </div>
-              {i % 2 !== 0 && <div style={{ aspectRatio: '16/10', borderRadius: 4, overflow: 'hidden' }}><img src={p.img} alt={p.alt} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} /></div>}
-            </div>
-          ))}
+            );
+            return (
+              <div key={i} className="ap-pillar-row" style={{ display: 'grid', gridTemplateColumns: bp === 'mobile' ? '1fr' : i % 2 === 0 ? '1.3fr 1fr' : '1fr 1.3fr', gap: bp === 'mobile' ? 32 : 80, alignItems: 'center', padding: bp === 'mobile' ? '40px 0' : '80px 0', borderBottom: i < pillars.length - 1 ? '1px solid var(--line)' : 'none' }}>
+                {bp === 'mobile' ? <>{textEl}{imageEl}</> : i % 2 === 0 ? <>{imageEl}{textEl}</> : <>{textEl}{imageEl}</>}
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -155,10 +159,10 @@ function Pillars() {
 
 function Engagement() {
   return (
-    <section className="ap-section" style={{ padding: '160px 48px', background: 'var(--cream)' }}>
+    <section className="ap-section" style={{ padding: '80px 48px', background: 'var(--cream)' }}>
       <div style={{ maxWidth: 860, margin: '0 auto' }}>
         <div className="sec-num" style={{ marginBottom: 20 }}>· 02 — NOTRE ENGAGEMENT ·</div>
-        <h2 className="serif" style={{ fontSize: 'clamp(36px, 4vw, 64px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 48 }}>
+        <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 48 }}>
           Chaque détail pensé <span style={{ color: 'var(--green)' }}>pour vous.</span>
         </h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
@@ -191,10 +195,10 @@ function Reviews() {
   const innerPad = bp === 'mobile' ? '0 20px' : bp === 'tablet' ? '0 32px' : '0 48px';
 
   return (
-    <section style={{ padding: bp === 'mobile' ? '80px 0' : '160px 0', background: 'var(--paper)' }}>
+    <section style={{ padding: bp === 'mobile' ? '40px 0' : '80px 0', background: 'var(--paper)' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto', padding: innerPad }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 56, gap: 48, flexWrap: 'wrap' }}>
-          <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 1.05, fontWeight: 400, maxWidth: 720 }}>
+          <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400, maxWidth: 720 }}>
             Ce que disent <span style={{ color: 'var(--green)' }}>nos voyageurs.</span>
           </h2>
           <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
@@ -253,14 +257,14 @@ export default function APropos() {
       <Pillars />
       <Engagement />
       <Reviews />
-      <section className="ap-section" style={{ padding: '160px 48px', background: 'var(--paper)', textAlign: 'center' }}>
+      <section className="ap-section" style={{ padding: '80px 48px', background: 'var(--paper)', textAlign: 'center' }}>
         <div style={{ maxWidth: 700, margin: '0 auto' }}>
-          <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 80px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 28 }}>
+          <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 28 }}>
             Réserver maintenant.
           </h2>
           <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a href={ELLOHA_URL} target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ fontSize: 16, padding: '22px 36px' }}>Réserver en direct →</a>
-            <Link to="/contact" className="btn-ghost">Nous contacter</Link>
+            <a href={ELLOHA_URL} target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ fontSize: 15, padding: '16px 28px' }}>Réserver en direct</a>
+            <Link to="/contact" className="btn-ghost" style={{ fontSize: 15, padding: '16px 24px' }}>Nous contacter</Link>
           </div>
         </div>
       </section>

@@ -49,7 +49,7 @@ function GiteHero() {
       <div style={{ display: 'grid', gridTemplateColumns: bp === 'desktop' ? '2fr 3fr' : '1fr', gap: 40, alignItems: 'center', minHeight: 'calc(100vh - 220px)' }}>
         <div>
           <h1 className="serif" style={{
-            fontSize: bp === 'mobile' ? 'clamp(36px, 9vw, 52px)' : 'clamp(48px, 5.5vw, 88px)',
+            fontSize: bp === 'mobile' ? 'clamp(36px, 8vw, 46px)' : 'clamp(48px, 6vw, 86px)',
             lineHeight: 0.95,
             letterSpacing: '-0.02em',
             fontWeight: 400,
@@ -58,13 +58,13 @@ function GiteHero() {
             Votre<br />parenthèse<br /><span style={{ color: 'var(--green)' }}>enchantée.</span>
           </h1>
 
-          <p style={{ fontSize: 18, lineHeight: 1.5, color: 'var(--ink-soft)', marginBottom: bp === 'mobile' ? 24 : 44 }}>
+          <p style={{ fontSize: bp === 'mobile' ? 14 : 18, lineHeight: 1.5, color: 'var(--ink-soft)', marginBottom: bp === 'mobile' ? 24 : 44 }}>
             Gîte de caractère pouvant accueillir jusqu'à 9 personnes dans un cadre naturel d'exception. Niché au cœur d'un environnement préservé, Trussogne offre un espace authentique pour des moments inoubliables.
           </p>
 
           <div style={{ display: 'flex', gap: 14, alignItems: 'center', flexWrap: bp === 'mobile' ? 'nowrap' : 'wrap' }}>
             <a href="#diane" className="btn-primary" style={bp === 'mobile' ? { padding: '9px 14px', fontSize: 13 } : {}}>
-              {bp === 'mobile' ? 'Voir les chambres' : 'Découvrir les chambres →'}
+              {bp === 'mobile' ? 'Voir les chambres' : 'Découvrir les chambres'}
             </a>
             <a href={ELLOHA_URL} target="_blank" rel="noopener noreferrer" className="btn-ghost" style={bp === 'mobile' ? { padding: '8px 12px', fontSize: 13 } : {}}>Réserver en direct</a>
           </div>
@@ -170,7 +170,7 @@ function RoomSection({ room, index }) {
         {!isMobile && isLeft && <RoomImages room={room} />}
         <div>
           <div className="sec-num" style={{ marginBottom: 20 }}>· {room.num} ·</div>
-          <h2 className="serif" style={{ fontSize: isMobile ? 'clamp(36px, 8vw, 56px)' : 'clamp(48px, 6vw, 88px)', lineHeight: 0.95, fontWeight: 400, marginBottom: 28, letterSpacing: '-0.02em', color: room.color }}>{room.name}</h2>
+          <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 0.95, fontWeight: 400, marginBottom: 28, letterSpacing: '-0.02em', color: room.color }}>{room.name}</h2>
           <p style={{ fontSize: 16, lineHeight: 1.7, color: 'var(--ink-soft)', maxWidth: 480, marginBottom: 36 }}>{room.desc}</p>
           <div style={{ display: 'flex', flexDirection: 'column', border: '1px solid var(--line)', marginBottom: 36 }}>
             {room.features.map((f, i) => (
@@ -180,7 +180,7 @@ function RoomSection({ room, index }) {
               </div>
             ))}
           </div>
-          <a href={ELLOHA_URL} target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ background: room.color }}>Réserver →</a>
+          <a href={ELLOHA_URL} target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ background: room.color }}>Réserver</a>
         </div>
         {isMobile && <RoomImages room={room} />}
         {!isMobile && !isLeft && <RoomImages room={room} />}
@@ -195,7 +195,7 @@ function RoomsIntro() {
     <section style={{ padding: bp === 'mobile' ? '40px 20px 0' : bp === 'tablet' ? '60px 32px 0' : '80px 48px 0', background: 'var(--paper)', textAlign: 'center' }}>
       <div style={{ maxWidth: 900, margin: '0 auto' }}>
         <div className="sec-num" style={{ marginBottom: 20 }}>· 02 — NOS CHAMBRES ·</div>
-        <h2 className="serif" style={{ fontSize: bp === 'mobile' ? 'clamp(33px, 5vw, 80px)' : 'clamp(40px, 5vw, 80px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 32 }}>
+        <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 32 }}>
           Quatre chambres, quatre atmosphères.
         </h2>
         <p style={{ fontSize: 17, color: 'var(--ink-soft)', lineHeight: 1.6, maxWidth: 600, margin: '0 auto 48px' }}>
@@ -247,10 +247,10 @@ function GiteActivities() {
   ];
   const [tab, setTab] = useState(0);
   return (
-    <section style={{ padding: bp === 'mobile' ? '40px 20px 60px' : bp === 'tablet' ? '60px 32px 80px' : '80px 48px 120px', background: 'var(--green)', color: 'var(--paper)' }}>
+    <section style={{ padding: bp === 'mobile' ? '40px 20px 60px' : bp === 'tablet' ? '60px 32px 80px' : '80px 48px', background: 'var(--green)', color: 'var(--paper)' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto' }}>
         <div className="sec-num" style={{ marginBottom: 20, color: 'rgba(244,239,230,0.7)' }}>· ALENTOURS ·</div>
-        <h2 className="serif" style={{ fontSize: 'clamp(28px, 3vw, 48px)', lineHeight: 1.1, fontWeight: 400, marginBottom: 24, maxWidth: 640 }}>
+        <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.1, fontWeight: 400, marginBottom: 24, maxWidth: 900 }}>
           Un environnement <span style={{ opacity: 0.6 }}>à couper le souffle</span>, à quelques minutes de la porte.
         </h2>
         <div className="tab-strip" style={{ borderColor: 'rgba(244,239,230,0.18)', marginBottom: 32, marginLeft: -12, flexWrap: 'wrap' }}>
@@ -273,7 +273,7 @@ function GiteActivities() {
           </div>
         </div>
         <div style={{ textAlign: 'center', marginTop: 64 }}>
-          <Link to="/activites" className="btn-ghost" style={{ borderColor: 'rgba(244,239,230,0.35)', color: 'var(--paper)' }}>Voir toutes les activités →</Link>
+          <Link to="/activites" className="btn-ghost" style={{ borderColor: 'rgba(244,239,230,0.35)', color: 'var(--paper)' }}>Voir toutes les activités</Link>
         </div>
       </div>
     </section>
@@ -296,11 +296,11 @@ function GiteReviews() {
   const scroll = (dir) => { if (trackRef.current) trackRef.current.scrollBy({ left: dir * 480, behavior: 'smooth' }); };
   const innerPad = bp === 'mobile' ? '0 20px' : bp === 'tablet' ? '0 32px' : '0 48px';
   return (
-    <section style={{ padding: bp === 'mobile' ? '80px 0' : '120px 0', background: 'var(--paper)' }}>
+    <section style={{ padding: bp === 'mobile' ? '40px 0' : '60px 0', background: 'var(--paper)' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto', padding: innerPad }}>
         <div className="sec-num" style={{ marginBottom: 20 }}>· AVIS ·</div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 56, gap: 48, flexWrap: 'wrap' }}>
-          <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 1.05, fontWeight: 400, maxWidth: 720 }}>
+          <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400, maxWidth: 720 }}>
             Ce que disent <span style={{ color: 'var(--green)' }}>nos voyageurs.</span>
           </h2>
           <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
@@ -383,7 +383,7 @@ function GiteMosaic() {
     <section style={{ background: 'var(--paper)', padding: '64px 0 80px' }}>
       <div style={{ padding: '0 48px', marginBottom: 48 }}>
         <div className="sec-num" style={{ marginBottom: 16 }}>· 01 — LE GÎTE ·</div>
-        <h2 className="serif" style={{ fontSize: 'clamp(32px, 3.5vw, 52px)', lineHeight: 1.05, fontWeight: 400, maxWidth: 640 }}>
+        <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400, maxWidth: 640 }}>
           Un lieu d'exception où <span style={{ color: 'var(--green)' }}>confort et nature</span> se rencontrent.
         </h2>
       </div>

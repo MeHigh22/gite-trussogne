@@ -5,12 +5,12 @@ import Footer from '../components/Footer';
 
 function ContactHero() {
   return (
-    <section className="ct-hero" style={{ padding: '180px 48px 120px', background: 'var(--paper)' }}>
+    <section className="ct-hero" style={{ padding: '120px 48px 80px', background: 'var(--paper)' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto' }}>
         <div className="ct-hero-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'end' }}>
           <div>
             <div className="mono-label" style={{ color: 'var(--ink-soft)', marginBottom: 24 }}>· Nous contacter ·</div>
-            <h1 className="serif" style={{ fontSize: 'clamp(56px, 7vw, 110px)', lineHeight: 0.95, fontWeight: 400 }}>
+            <h1 className="serif" style={{ fontSize: 'clamp(48px, 6vw, 86px)', lineHeight: 0.95, fontWeight: 400 }}>
               Parlons de votre<br />séjour.
             </h1>
           </div>
@@ -34,7 +34,7 @@ function InfoCards() {
   ];
 
   return (
-    <section className="ct-section" style={{ padding: '0 48px 120px', background: 'var(--paper)' }}>
+    <section className="ct-section" style={{ padding: '0 48px 60px', background: 'var(--paper)' }}>
       <div className="ct-cards-grid" style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 0, border: '1px solid var(--line)' }}>
         {cards.map((c, i) => (
           <a key={i} href={c.href} target={c.href.startsWith('http') ? '_blank' : undefined} rel={c.href.startsWith('http') ? 'noopener' : undefined}
@@ -55,13 +55,13 @@ function FormAndMap() {
   const [subject, setSubject] = useState('reservation');
 
   return (
-    <section className="ct-section" style={{ padding: '0 48px 160px', background: 'var(--paper)' }}>
+    <section className="ct-section" style={{ padding: '0 48px 80px', background: 'var(--paper)' }}>
       <div className="ct-form-grid" style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 0 }}>
         <div className="ct-form-panel" style={{ background: 'var(--cream)', padding: 56, borderRight: '1px solid var(--line)' }}>
           {!submitted ? (
             <>
               <div className="sec-num" style={{ marginBottom: 16 }}>· FORMULAIRE ·</div>
-              <h2 className="serif" style={{ fontSize: 44, lineHeight: 1.05, fontWeight: 400, marginBottom: 12 }}>Écrivez-nous.</h2>
+              <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 12 }}>Écrivez-nous.</h2>
               <p style={{ fontSize: 15, color: 'var(--ink-soft)', lineHeight: 1.6, marginBottom: 40 }}>Remplissez le formulaire et Sandra vous répondra personnellement.</p>
               <div className="ct-name-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginBottom: 24 }}>
                 <div className="field"><label>Prénom</label><input type="text" placeholder="Votre prénom" /></div>
@@ -87,7 +87,7 @@ function FormAndMap() {
                 </div>
               )}
               <div className="field" style={{ marginBottom: 36 }}><label>Message</label><textarea rows="4" placeholder="Parlez-nous de votre projet de séjour…"></textarea></div>
-              <button className="btn-primary" style={{ width: '100%', justifyContent: 'center' }} onClick={() => setSubmitted(true)}>Envoyer le message →</button>
+              <button className="btn-primary" style={{ width: '100%', justifyContent: 'center' }} onClick={() => setSubmitted(true)}>Envoyer le message</button>
             </>
           ) : (
             <div style={{ textAlign: 'center', padding: '80px 0' }}>
@@ -132,12 +132,12 @@ function Directions() {
     { from: 'Liège', time: '± 1h15', road: 'E25 → E411 direction Namur → Houyet', dist: '95 km' },
   ];
   return (
-    <section className="ct-section" style={{ padding: '120px 48px 160px', background: 'var(--cream)' }}>
+    <section className="ct-section" style={{ padding: '60px 48px 80px', background: 'var(--cream)' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto' }}>
         <div className="ct-directions-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1.4fr', gap: 96 }}>
           <div>
             <div className="sec-num" style={{ marginBottom: 20 }}>· COMMENT VENIR ·</div>
-            <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 24 }}>
+            <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 24 }}>
               Nous <span style={{ color: 'var(--green)' }}>trouver.</span>
             </h2>
             <p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--ink-soft)', marginBottom: 36 }}>
@@ -178,11 +178,11 @@ function FAQ() {
   const [open, setOpen] = useState(null);
 
   return (
-    <section className="ct-section" style={{ padding: '160px 48px', background: 'var(--paper)' }}>
+    <section className="ct-section" style={{ padding: '80px 48px', background: 'var(--paper)' }}>
       <div style={{ maxWidth: 900, margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: 72 }}>
           <div className="sec-num" style={{ marginBottom: 20 }}>· FAQ ·</div>
-          <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 1.05, fontWeight: 400 }}>
+          <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400 }}>
             Questions fréquentes.
           </h2>
         </div>

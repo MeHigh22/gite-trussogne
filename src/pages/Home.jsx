@@ -43,7 +43,7 @@ function Hero() {
       <div style={{ display: 'grid', gridTemplateColumns: bp === 'desktop' ? '2fr 3fr' : '1fr', gap: 40, alignItems: 'center', minHeight: 'calc(100vh - 220px)' }}>
         <div>
           <h1 className="serif" style={{
-            fontSize: bp === 'mobile' ? 'clamp(36px, 9vw, 52px)' : 'clamp(48px, 5.5vw, 88px)',
+            fontSize: bp === 'mobile' ? 'clamp(36px, 8vw, 46px)' : 'clamp(48px, 6vw, 86px)',
             lineHeight: 0.95,
             letterSpacing: '-0.02em',
             fontWeight: 400,
@@ -54,13 +54,13 @@ function Hero() {
             silence <span style={{ opacity: 0.4 }}>&amp;&nbsp;espace.</span>
           </h1>
 
-          <p style={{ fontSize: 18, lineHeight: 1.5, color: 'var(--ink-soft)', marginBottom: bp === 'mobile' ? 24 : 44 }}>
+          <p style={{ fontSize: bp === 'mobile' ? 14 : 18, lineHeight: 1.5, color: 'var(--ink-soft)', marginBottom: bp === 'mobile' ? 24 : 44 }}>
             Niché au cœur des Ardennes belges à Houyet, un havre de paix pour 6 à 9 personnes, où le temps semble s'arrêter et où l'on se reconnecte à l'essentiel.
           </p>
 
           <div style={{ display: 'flex', gap: 14, alignItems: 'center', flexWrap: bp === 'mobile' ? 'nowrap' : 'wrap' }}>
             <a href={ELLOHA_URL} target="_blank" rel="noopener noreferrer" className="btn-primary" style={bp === 'mobile' ? { padding: '9px 14px', fontSize: 13 } : {}}>
-              {bp === 'mobile' ? 'Réserver en direct' : <span>Réserver en direct →</span>}
+              {bp === 'mobile' ? 'Réserver en direct' : <span>Réserver en direct</span>}
             </a>
             <a href="#story" className="btn-ghost" style={bp === 'mobile' ? { padding: '8px 12px', fontSize: 13 } : {}}>Découvrir le lieu</a>
           </div>
@@ -149,7 +149,7 @@ function Sensory() {
 
         <div style={{ position: 'absolute', top: 0, left: 0, right: 0, padding: bp === 'desktop' ? '80px 48px 0' : '60px 24px 0' }}>
           <div className="sec-num" style={{ marginBottom: 16, color: '#fff' }}>· UNE EXPÉRIENCE SENSORIELLE ·</div>
-          <h2 className="serif" style={{ fontSize: 'clamp(40px, 5.5vw, 80px)', lineHeight: 1.0, fontWeight: 400, color: '#fff' }}>
+          <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.0, fontWeight: 400, color: '#fff' }}>
             Quatre saisons, un lieu.
           </h2>
         </div>
@@ -186,12 +186,12 @@ function Sensory() {
 function Story() {
   const bp = useBreakpoint();
   return (
-    <section id="story" style={{ padding: bp === 'mobile' ? '60px 20px' : bp === 'tablet' ? '80px 32px' : '160px 48px', background: 'var(--paper)' }}>
+    <section id="story" style={{ padding: bp === 'mobile' ? '40px 20px' : bp === 'tablet' ? '60px 32px' : '80px 48px', background: 'var(--paper)' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gridTemplateColumns: bp === 'desktop' ? '1fr 1.2fr' : '1fr', gap: bp === 'mobile' ? 32 : bp === 'tablet' ? 48 : 96, alignItems: 'center' }}>
         <img src="/assets/ane-trussogne.webp" alt="L'âne de Trussogne" style={{ aspectRatio: '4/5', borderRadius: 4, width: '100%', objectFit: 'cover' }} />
         <div>
           <div className="sec-num" style={{ marginBottom: 20 }}>· 02 — NOTRE HISTOIRE ·</div>
-          <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 1.05, marginBottom: 32, fontWeight: 400 }}>
+          <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, marginBottom: 32, fontWeight: 400 }}>
             Le fruit d'un rêve, devenu havre de paix.
           </h2>
           <p style={{ fontSize: 18, lineHeight: 1.7, color: 'var(--ink-soft)', marginBottom: 24, maxWidth: 560 }}>
@@ -202,7 +202,7 @@ function Story() {
           </p>
           <div style={{ marginTop: 56, display: 'flex', gap: 64, flexWrap: 'wrap' }}>
             <div>
-              <div className="serif" style={{ fontSize: 56, color: 'var(--green)', lineHeight: 1 }}>Sandra</div>
+              <div className="serif" style={{ fontSize: 40, color: 'var(--green)', lineHeight: 1 }}>Sandra</div>
               <div className="mono-label" style={{ marginTop: 8, color: 'var(--ink-soft)' }}>Votre hôtesse</div>
             </div>
             <div style={{ borderLeft: '1px solid var(--line)', paddingLeft: 32, alignSelf: 'center' }}>
@@ -229,12 +229,12 @@ function GiteSection() {
   ];
   const cols = bp === 'desktop' ? 3 : bp === 'tablet' ? 2 : 1;
   return (
-    <section id="gite" style={{ padding: bp === 'mobile' ? '60px 20px' : bp === 'tablet' ? '80px 32px' : '160px 48px', background: 'var(--cream)' }}>
+    <section id="gite" style={{ padding: bp === 'mobile' ? '40px 20px' : bp === 'tablet' ? '60px 32px' : '80px 48px', background: 'var(--cream)' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 80, gap: 48, flexWrap: 'wrap' }}>
           <div>
             <div className="sec-num" style={{ marginBottom: 20 }}>· 03 — LE GÎTE ·</div>
-            <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 1.05, fontWeight: 400, maxWidth: 720 }}>
+            <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400, maxWidth: 720 }}>
               Tout est prévu. <span style={{ color: 'var(--green)' }}>Vous n'avez qu'à arriver.</span>
             </h2>
           </div>
@@ -256,7 +256,7 @@ function GiteSection() {
           ))}
         </div>
         <div style={{ textAlign: 'center', marginTop: 48 }}>
-          <Link to="/le-gite" className="btn-ghost">Voir le gîte en détail →</Link>
+          <Link to="/le-gite" className="btn-ghost">Voir le gîte en détail</Link>
         </div>
       </div>
     </section>
@@ -273,11 +273,11 @@ function Chambres() {
   ];
   const [active, setActive] = useState(0);
   return (
-    <section id="chambres" style={{ padding: bp === 'mobile' ? '60px 20px' : bp === 'tablet' ? '80px 32px' : '160px 48px', background: 'var(--paper)' }}>
+    <section id="chambres" style={{ padding: bp === 'mobile' ? '40px 20px' : bp === 'tablet' ? '60px 32px' : '80px 48px', background: 'var(--paper)' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto' }}>
         <div className="sec-num" style={{ marginBottom: 20 }}>· 04 — CHAMBRES ·</div>
         <div style={{ marginBottom: 64 }}>
-          <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 1.05, fontWeight: 400, maxWidth: 720 }}>
+          <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400, maxWidth: 720 }}>
             Quatre chambres, quatre atmosphères.
           </h2>
         </div>
@@ -310,10 +310,10 @@ function ActivitiesPreview() {
   ];
   const [tab, setTab] = useState(0);
   return (
-    <section id="alentours" style={{ padding: bp === 'mobile' ? '40px 20px 60px' : bp === 'tablet' ? '60px 32px 80px' : '80px 48px 120px', background: 'var(--green)', color: 'var(--paper)' }}>
+    <section id="alentours" style={{ padding: bp === 'mobile' ? '40px 20px 60px' : bp === 'tablet' ? '60px 32px 80px' : '80px 48px', background: 'var(--green)', color: 'var(--paper)' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto' }}>
         <div className="sec-num" style={{ marginBottom: 20, color: 'rgba(244,239,230,0.7)' }}>· 05 — ALENTOURS ·</div>
-        <h2 className="serif" style={{ fontSize: 'clamp(28px, 3vw, 48px)', lineHeight: 1.1, fontWeight: 400, marginBottom: 24, maxWidth: 640 }}>
+        <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.1, fontWeight: 400, marginBottom: 24, maxWidth: 900 }}>
           Un environnement <span style={{ opacity: 0.6 }}>à couper le souffle</span>, à quelques minutes de la porte.
         </h2>
         <div className="tab-strip" style={{ borderColor: 'rgba(244,239,230,0.18)', marginBottom: 32, marginLeft: -12, flexWrap: 'wrap' }}>
@@ -339,7 +339,7 @@ function ActivitiesPreview() {
         </div>
         <div style={{ textAlign: 'center', marginTop: 64 }}>
           <Link to="/activites" className="btn-ghost" style={{ borderColor: 'rgba(244,239,230,0.35)', color: 'var(--paper)' }}>
-            Voir toutes les activités →
+            Voir toutes les activités
           </Link>
         </div>
       </div>
@@ -350,10 +350,10 @@ function ActivitiesPreview() {
 function Extras() {
   const bp = useBreakpoint();
   return (
-    <section style={{ padding: bp === 'mobile' ? '60px 20px' : bp === 'tablet' ? '80px 32px' : '160px 48px', background: 'var(--cream-warm)' }}>
+    <section style={{ padding: bp === 'mobile' ? '40px 20px' : bp === 'tablet' ? '60px 32px' : '80px 48px', background: 'var(--cream-warm)' }}>
       <div style={{ maxWidth: 1080, margin: '0 auto', textAlign: 'center' }}>
         <div className="sec-num" style={{ marginBottom: 20 }}>· 06 — NOS PETITS PLUS ·</div>
-        <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 96 }}>
+        <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 96 }}>
           Pour aller plus loin.
         </h2>
         <div style={{ display: 'grid', gridTemplateColumns: bp === 'mobile' ? '1fr' : '1fr 1fr', gap: bp === 'mobile' ? 40 : 56, textAlign: 'left' }}>
@@ -381,7 +381,7 @@ function Extras() {
           </div>
         </div>
         <Link to="/contact" className="btn-ghost" style={{ marginTop: 64 }}>
-          Demander une proposition sur-mesure →
+          Demander une proposition sur-mesure
         </Link>
       </div>
     </section>
@@ -409,11 +409,11 @@ function Reviews() {
   const innerPad = bp === 'mobile' ? '0 20px' : bp === 'tablet' ? '0 32px' : '0 48px';
 
   return (
-    <section id="avis" style={{ padding: bp === 'mobile' ? '80px 0' : '160px 0', background: 'var(--paper)' }}>
+    <section id="avis" style={{ padding: bp === 'mobile' ? '40px 0' : '80px 0', background: 'var(--paper)' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto', padding: innerPad }}>
         <div className="sec-num" style={{ marginBottom: 20 }}>· 07 — AVIS ·</div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 56, gap: 48, flexWrap: 'wrap' }}>
-          <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 1.05, fontWeight: 400, maxWidth: 720 }}>
+          <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400, maxWidth: 720 }}>
             Ce que disent <span style={{ color: 'var(--green)' }}>nos voyageurs.</span>
           </h2>
           <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
@@ -460,18 +460,18 @@ function Reviews() {
 function Booking() {
   const bp = useBreakpoint();
   return (
-    <section id="book" style={{ padding: bp === 'mobile' ? '60px 20px' : bp === 'tablet' ? '80px 32px' : '160px 48px', background: 'var(--cream)' }}>
+    <section id="book" style={{ padding: bp === 'mobile' ? '40px 20px' : bp === 'tablet' ? '60px 32px' : '80px 48px', background: 'var(--cream)' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gridTemplateColumns: bp === 'desktop' ? '1fr 1fr' : '1fr', gap: bp === 'desktop' ? 96 : 48, alignItems: 'center' }}>
         <div>
           <div className="sec-num" style={{ marginBottom: 20 }}>· 08 — RÉSERVATION ·</div>
-          <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 32 }}>
+          <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 32 }}>
             Réservez en direct.
           </h2>
           <p style={{ fontSize: 17, lineHeight: 1.6, color: 'var(--ink-soft)', maxWidth: 460, marginBottom: 48 }}>
             Réservez directement via notre système de réservation. Tarifs établis pour 6 à 9 personnes.
           </p>
           <a href="https://reservation.elloha.com/?idPublication=854566e1-2fb8-485c-abbd-fbf732e92e88&idoi=fcd24dc1-911a-41a4-a5cd-c8588ad41007&TypeOi=3&searchFirstAvailableDates=1&culture=fr-FR" target="_blank" rel="noopener noreferrer" className="btn-primary">
-            Voir les disponibilités →
+            Voir les disponibilités
           </a>
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 28 }}>

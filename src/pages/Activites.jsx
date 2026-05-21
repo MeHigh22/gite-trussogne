@@ -91,16 +91,16 @@ function ActHero() {
       <div style={{ display: 'grid', gridTemplateColumns: bp === 'desktop' ? '2fr 3fr' : '1fr', gap: 40, alignItems: 'center', minHeight: 'calc(100vh - 220px)' }}>
         <div>
           <h1 className="serif" style={{
-            fontSize: bp === 'mobile' ? 'clamp(36px, 9vw, 52px)' : 'clamp(48px, 5.5vw, 88px)',
+            fontSize: bp === 'mobile' ? 'clamp(36px, 8vw, 46px)' : 'clamp(48px, 6vw, 86px)',
             lineHeight: 0.95, letterSpacing: '-0.02em', fontWeight: 400, marginBottom: 24,
           }}>
             Activités &<br /><span style={{ color: 'var(--green)' }}>alentours.</span>
           </h1>
-          <p style={{ fontSize: 18, lineHeight: 1.5, color: 'var(--ink-soft)', marginBottom: bp === 'mobile' ? 24 : 44, maxWidth: 440 }}>
+          <p style={{ fontSize: bp === 'mobile' ? 14 : 18, lineHeight: 1.5, color: 'var(--ink-soft)', marginBottom: bp === 'mobile' ? 24 : 44, maxWidth: 440 }}>
             Nature, patrimoine, aventure et gastronomie — les Ardennes belges regorgent de trésors à découvrir, à quelques minutes de votre porte.
           </p>
           <div style={{ display: 'flex', gap: 14, alignItems: 'center', flexWrap: 'wrap' }}>
-            <a href="#activites" className="btn-primary" style={bp === 'mobile' ? { padding: '9px 14px', fontSize: 13 } : {}}>Voir les activités →</a>
+            <a href="#activites" className="btn-primary" style={bp === 'mobile' ? { padding: '9px 14px', fontSize: 13 } : {}}>Voir les activités</a>
             <a href="#restaurants" className="btn-ghost" style={bp === 'mobile' ? { padding: '8px 12px', fontSize: 13 } : {}}>Restaurants</a>
           </div>
 
@@ -159,12 +159,12 @@ function ActivitiesSection() {
   const filtered = filter === 'all' ? ACTIVITIES : ACTIVITIES.filter(a => a.cat === filter);
 
   return (
-    <section id="activites" className="act-section" style={{ padding: '120px 48px 160px', background: 'var(--paper)' }}>
+    <section id="activites" className="act-section" style={{ padding: '60px 48px 80px', background: 'var(--paper)' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 48, gap: 32, flexWrap: 'wrap' }}>
           <div>
             <div className="sec-num" style={{ marginBottom: 16 }}>· DÉCOUVRIR ·</div>
-            <h2 className="serif" style={{ fontSize: 'clamp(36px, 4.5vw, 64px)', lineHeight: 1.05, fontWeight: 400 }}>
+            <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400 }}>
               {filtered.length} activités<span style={{ color: 'var(--green)' }}> à découvrir.</span>
             </h2>
           </div>
@@ -226,12 +226,12 @@ function ActivitiesSection() {
 
 function RestaurantsSection() {
   return (
-    <section id="restaurants" className="act-section" style={{ padding: '120px 48px 160px', background: 'var(--cream)' }}>
+    <section id="restaurants" className="act-section" style={{ padding: '60px 48px 80px', background: 'var(--cream)' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 48, gap: 32, flexWrap: 'wrap' }}>
           <div>
             <div className="sec-num" style={{ marginBottom: 16 }}>· GASTRONOMIE ·</div>
-            <h2 className="serif" style={{ fontSize: 'clamp(36px, 4.5vw, 64px)', lineHeight: 1.05, fontWeight: 400 }}>
+            <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400 }}>
               {RESTAURANTS.length} adresses<span style={{ color: 'var(--green)' }}> gourmandes.</span>
             </h2>
           </div>
@@ -280,10 +280,10 @@ function RestaurantsSection() {
 function PetitsPlus() {
   const bp = useBreakpoint();
   return (
-    <section style={{ padding: bp === 'mobile' ? '60px 20px' : bp === 'tablet' ? '80px 32px' : '160px 48px', background: 'var(--cream)' }}>
+    <section style={{ padding: bp === 'mobile' ? '40px 20px' : bp === 'tablet' ? '60px 32px' : '80px 48px', background: 'var(--cream)' }}>
       <div style={{ maxWidth: 1080, margin: '0 auto', textAlign: 'center' }}>
         <div className="sec-num" style={{ marginBottom: 20 }}>· NOS PETITS PLUS ·</div>
-        <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 96 }}>
+        <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 96 }}>
           Pour aller plus loin.
         </h2>
         <div style={{ display: 'grid', gridTemplateColumns: bp === 'mobile' ? '1fr' : '1fr 1fr', gap: bp === 'mobile' ? 40 : 56, textAlign: 'left' }}>
@@ -311,7 +311,7 @@ function PetitsPlus() {
           </div>
         </div>
         <Link to="/contact" className="btn-ghost" style={{ marginTop: 64 }}>
-          Demander une proposition sur-mesure →
+          Demander une proposition sur-mesure
         </Link>
       </div>
     </section>
@@ -333,14 +333,14 @@ export default function Activites() {
       <ActivitiesSection />
       <RestaurantsSection />
       <PetitsPlus />
-      <section className="act-section" style={{ padding: '120px 48px', background: 'var(--green)', color: 'var(--paper)', textAlign: 'center' }}>
+      <section className="act-section" style={{ padding: '60px 48px', background: 'var(--green)', color: 'var(--paper)', textAlign: 'center' }}>
         <div style={{ maxWidth: 800, margin: '0 auto' }}>
-          <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 80px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 32 }}>
+          <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 32 }}>
             Votre évasion <span style={{ opacity: 0.6 }}>vous attend.</span>
           </h2>
           <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a href={ELLOHA_URL} target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ background: 'var(--paper)', color: 'var(--green)', fontSize: 16, padding: '22px 36px' }}>Réserver en direct →</a>
-            <Link to="/" className="btn-ghost" style={{ borderColor: 'rgba(244,239,230,0.3)', color: 'var(--paper)' }}>Retour à l'accueil</Link>
+            <a href={ELLOHA_URL} target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ background: 'var(--paper)', color: 'var(--green)', fontSize: 15, padding: '16px 28px' }}>Réserver en direct</a>
+            <Link to="/" className="btn-ghost" style={{ fontSize: 15, padding: '16px 24px', borderColor: 'rgba(244,239,230,0.3)', color: 'var(--paper)' }}>Retour à l'accueil</Link>
           </div>
         </div>
       </section>
