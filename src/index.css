@@ -239,10 +239,10 @@ img { display: block; max-width: 100%; }
   .nav-desktop { display: none !important; }
 }
 
-/* Galerie page dark background */
+/* Galerie page */
 .galerie-page {
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--paper);
+  color: var(--ink);
   min-height: 100vh;
 }
 
@@ -283,16 +283,16 @@ img { display: block; max-width: 100%; }
 .gal-filter {
   padding: 10px 20px;
   border-radius: 100px;
-  border: 1px solid rgba(244,239,230,0.18);
+  border: 1px solid var(--line);
   font-size: 12px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(244,239,230,0.6);
+  color: var(--ink-soft);
   background: transparent;
   cursor: pointer;
   transition: all 0.3s ease;
 }
-.gal-filter:hover { color: var(--paper); border-color: rgba(244,239,230,0.4); }
+.gal-filter:hover { color: var(--paper); border-color: var(--green); background: var(--green); }
 .gal-filter.active {
   background: var(--green);
   color: var(--paper);

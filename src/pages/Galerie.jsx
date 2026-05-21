@@ -96,16 +96,16 @@ export default function Galerie() {
 
   return (
     <div className="galerie-page">
-      <Nav scrolled={scrolled} dark />
+      <Nav scrolled={scrolled} />
 
       {/* Hero */}
       <section className="gal-hero" style={{ padding: '120px 48px 60px', textAlign: 'center' }}>
         <div style={{ maxWidth: 800, margin: '0 auto' }}>
 
           <h1 className="serif" style={{ fontSize: 'clamp(48px, 6vw, 86px)', lineHeight: 0.95, fontWeight: 400, marginBottom: 24 }}>
-            <span style={{ color: 'var(--green-soft)' }}>Galerie</span> photos.
+            <span style={{ color: 'var(--green)' }}>Galerie</span> photos.
           </h1>
-          <p style={{ fontSize: 17, lineHeight: 1.6, color: 'rgba(244,239,230,0.6)', maxWidth: 480, margin: '0 auto' }}>
+          <p style={{ fontSize: 17, lineHeight: 1.6, color: 'var(--ink-soft)', maxWidth: 480, margin: '0 auto' }}>
             Découvrez Trussogne en images — les espaces, la nature, les détails qui font le charme de ce lieu d'exception.
           </p>
         </div>
@@ -118,7 +118,7 @@ export default function Galerie() {
             {f.label}
           </button>
         ))}
-        <span className="mono-label" style={{ alignSelf: 'center', marginLeft: 16, color: 'rgba(244,239,230,0.35)' }}>
+        <span className="mono-label" style={{ alignSelf: 'center', marginLeft: 16, color: 'var(--ink-soft)', opacity: 0.5 }}>
           {filtered.length} photo{filtered.length > 1 ? 's' : ''}
         </span>
       </div>
@@ -139,14 +139,14 @@ export default function Galerie() {
       </div>
 
       {/* CTA */}
-      <section className="gal-cta" style={{ padding: '60px 48px', textAlign: 'center', borderTop: '1px solid rgba(244,239,230,0.08)' }}>
+      <section className="gal-cta" style={{ padding: '60px 48px', textAlign: 'center', borderTop: '1px solid var(--line)' }}>
         <div style={{ maxWidth: 700, margin: '0 auto' }}>
           <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 32 }}>
             Réservez votre parenthèse.
           </h2>
           <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
             <a href={ELLOHA_URL} target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ fontSize: 15, padding: '16px 28px' }}>Réserver en direct</a>
-            <Link to="/" className="btn-ghost" style={{ fontSize: 15, padding: '16px 24px', borderColor: 'rgba(244,239,230,0.25)', color: 'rgba(244,239,230,0.8)' }}>Retour à l'accueil</Link>
+            <Link to="/" className="btn-ghost" style={{ fontSize: 15, padding: '16px 24px' }}>Retour à l'accueil</Link>
           </div>
         </div>
       </section>

@@ -7,19 +7,10 @@ function ContactHero() {
   return (
     <section className="ct-hero" style={{ padding: '120px 48px 80px', background: 'var(--paper)' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto' }}>
-        <div className="ct-hero-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'end' }}>
-          <div>
-            <div className="mono-label" style={{ color: 'var(--ink-soft)', marginBottom: 24 }}>· Nous contacter ·</div>
-            <h1 className="serif" style={{ fontSize: 'clamp(48px, 6vw, 86px)', lineHeight: 0.95, fontWeight: 400 }}>
-              Parlons de votre<br />séjour.
-            </h1>
-          </div>
-          <div>
-            <p style={{ fontSize: 18, lineHeight: 1.6, color: 'var(--ink-soft)', maxWidth: 440 }}>
-              Une question sur le gîte, la disponibilité ou nos services ? Sandra vous répond personnellement dans les 24 heures.
-            </p>
-          </div>
-        </div>
+        <div className="mono-label" style={{ color: 'var(--ink-soft)', marginBottom: 24 }}>· Nous contacter ·</div>
+        <h1 className="serif" style={{ fontSize: 'clamp(48px, 6vw, 86px)', lineHeight: 0.95, fontWeight: 400 }}>
+          Parlons de votre <span style={{ color: 'var(--green)' }}>séjour.</span>
+        </h1>
       </div>
     </section>
   );
@@ -29,8 +20,8 @@ function InfoCards() {
   const cards = [
     { icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--green)" strokeWidth="1.4"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>, label: 'Téléphone', value: '+32 476 222 707', sub: 'Du lundi au samedi, 9h–19h', href: 'tel:+32476222707' },
     { icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--green)" strokeWidth="1.4"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>, label: 'Email', value: 'trussogne@gmail.com', sub: 'Réponse sous 24 heures', href: 'mailto:trussogne@gmail.com' },
-    { icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--green)" strokeWidth="1.4"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>, label: 'Adresse', value: 'Grande Trussogne, 9C', sub: '5561 Houyet, Belgique', href: 'https://maps.google.com/?q=Grande+Trussogne+9C+5561+Houyet' },
-    { icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--green)" strokeWidth="1.4"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>, label: 'Réseaux', value: 'Instagram & Facebook', sub: '@trussogne', href: '#' },
+    { icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--green)" strokeWidth="1.4"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>, label: 'Adresse', value: 'Grande Trussogne, 9C', sub: '5561 Houyet, Belgique', href: 'https://www.google.com/maps/place/?q=place_id:ChIJ52xMq2PHwUcRXcEK6ROKYFs' },
+    { icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--green)" strokeWidth="1.4"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>, label: 'Réseaux', value: 'Instagram', sub: '@trussogne', href: 'https://www.instagram.com/trussogne/' },
   ];
 
   return (
@@ -52,7 +43,7 @@ function InfoCards() {
 
 function FormAndMap() {
   const [submitted, setSubmitted] = useState(false);
-  const [subject, setSubject] = useState('reservation');
+  const [subject, setSubject] = useState('info');
 
   return (
     <section className="ct-section" style={{ padding: '0 48px 80px', background: 'var(--paper)' }}>
@@ -61,8 +52,7 @@ function FormAndMap() {
           {!submitted ? (
             <>
               <div className="sec-num" style={{ marginBottom: 16 }}>· FORMULAIRE ·</div>
-              <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 12 }}>Écrivez-nous.</h2>
-              <p style={{ fontSize: 15, color: 'var(--ink-soft)', lineHeight: 1.6, marginBottom: 40 }}>Remplissez le formulaire et Sandra vous répondra personnellement.</p>
+              <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 40 }}>Écrivez-nous.</h2>
               <div className="ct-name-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginBottom: 24 }}>
                 <div className="field"><label>Prénom</label><input type="text" placeholder="Votre prénom" /></div>
                 <div className="field"><label>Nom</label><input type="text" placeholder="Votre nom" /></div>
@@ -72,21 +62,20 @@ function FormAndMap() {
               <div className="field" style={{ marginBottom: 24 }}>
                 <label>Sujet</label>
                 <select value={subject} onChange={(e) => setSubject(e.target.value)}>
-                  <option value="reservation">Demande de réservation</option>
                   <option value="info">Information générale</option>
+                  <option value="disponibilite">Disponibilités & tarifs</option>
                   <option value="reiki">Séance de Reiki</option>
                   <option value="traiteur">Service traiteur</option>
                   <option value="autre">Autre</option>
                 </select>
               </div>
-              {subject === 'reservation' && (
-                <div className="ct-date-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 24, marginBottom: 24 }}>
-                  <div className="field"><label>Arrivée</label><input type="date" /></div>
-                  <div className="field"><label>Départ</label><input type="date" /></div>
-                  <div className="field"><label>Voyageurs</label><select>{[2,3,4,5,6,7,8,9].map(n => <option key={n} value={n}>{n} pers.</option>)}</select></div>
-                </div>
-              )}
-              <div className="field" style={{ marginBottom: 36 }}><label>Message</label><textarea rows="4" placeholder="Parlez-nous de votre projet de séjour…"></textarea></div>
+              <div className="field" style={{ marginBottom: 24 }}><label>Message</label><textarea rows="5" placeholder="Comment pouvons-nous vous aider ?"></textarea></div>
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12, marginBottom: 36 }}>
+                <input type="checkbox" id="rgpd" style={{ marginTop: 3, accentColor: 'var(--green)', flexShrink: 0 }} />
+                <label htmlFor="rgpd" style={{ fontSize: 13, color: 'var(--ink-soft)', lineHeight: 1.5, cursor: 'pointer' }}>
+                  J'accepte que le gîte Trussogne collecte et traite mes données conformément à sa <Link to="/conditions-generales" style={{ color: 'var(--green)', textDecoration: 'underline' }}>charte RGPD</Link>.
+                </label>
+              </div>
               <button className="btn-primary" style={{ width: '100%', justifyContent: 'center' }} onClick={() => setSubmitted(true)}>Envoyer le message</button>
             </>
           ) : (
@@ -106,7 +95,7 @@ function FormAndMap() {
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <div style={{ flex: 1, minHeight: 400 }}>
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10200!2d5.0!3d50.183!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c1a9c9d5c9e8f3%3A0x4e0c0e0e0e0e0e0e!2sHouyet%2C%20Belgium!5e0!3m2!1sfr!2sbe!4v1700000000000!5m2!1sfr!2sbe"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2500!2d5.0889!3d50.2064!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c1c763ab4ccae7%3A0x5b638a13e90ac15d!2sGite%20de%20Trussogne%20-%20Vakantiehuis%2C%20Ardennes!5e0!3m2!1sfr!2sbe!4v1700000000000!5m2!1sfr!2sbe"
               width="100%" height="100%" style={{ border: 'none', display: 'block', minHeight: 400 }}
               loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="Localisation Trussogne"
             ></iframe>
@@ -126,10 +115,10 @@ function FormAndMap() {
 
 function Directions() {
   const routes = [
-    { from: 'Bruxelles', time: '± 1h30', road: 'E411 direction Namur → sortie Achêne → Houyet', dist: '110 km' },
-    { from: 'Namur', time: '± 45 min', road: 'N94 direction Dinant → Houyet', dist: '55 km' },
-    { from: 'Luxembourg', time: '± 1h45', road: 'E411 direction Namur → sortie Wellin → Houyet', dist: '130 km' },
-    { from: 'Liège', time: '± 1h15', road: 'E25 → E411 direction Namur → Houyet', dist: '95 km' },
+    { from: 'Bruxelles', time: '± 1h15', road: 'E411 direction Namur → sortie Achêne → Houyet', dist: '102 km' },
+    { from: 'Namur', time: '± 35 min', road: 'N94 direction Dinant → Houyet', dist: '45 km' },
+    { from: 'Luxembourg', time: '± 1h15', road: 'E411 direction Namur → sortie Wellin → Houyet', dist: '125 km' },
+    { from: 'Liège', time: '± 1h', road: 'E25 → E411 direction Namur → Houyet', dist: '80 km' },
   ];
   return (
     <section className="ct-section" style={{ padding: '60px 48px 80px', background: 'var(--cream)' }}>
@@ -143,15 +132,11 @@ function Directions() {
             <p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--ink-soft)', marginBottom: 36 }}>
               Trussogne se situe à Houyet, au cœur des Ardennes belges.
             </p>
-            <div style={{ background: 'var(--paper)', padding: 28, border: '1px solid var(--line)' }}>
-              <div className="mono-label" style={{ color: 'var(--green)', marginBottom: 12 }}>Parking</div>
-              <p style={{ fontSize: 14, lineHeight: 1.6, color: 'var(--ink-soft)' }}>Parking privé pour 4 véhicules. GPS : Grande Trussogne, 9C — 5561 Houyet.</p>
-            </div>
           </div>
           <div>
             {routes.map((r, i) => (
-              <div key={i} className="ct-route-row" style={{ display: 'grid', gridTemplateColumns: '140px 1fr 80px', gap: 24, alignItems: 'center', padding: '28px 0', borderBottom: i < routes.length - 1 ? '1px solid var(--line)' : 'none' }}>
-                <div className="serif" style={{ fontSize: 32, lineHeight: 1, fontWeight: 500 }}>{r.from}</div>
+              <div key={i} className="ct-route-row" style={{ display: 'grid', gridTemplateColumns: '160px 1fr 80px', gap: 24, alignItems: 'center', padding: '28px 0', borderBottom: i < routes.length - 1 ? '1px solid var(--line)' : 'none' }}>
+                <div className="serif" style={{ fontSize: 22, lineHeight: 1.1, fontWeight: 400 }}>{r.from}</div>
                 <div>
                   <div style={{ fontSize: 14, color: 'var(--ink-soft)', marginBottom: 4 }}>{r.road}</div>
                   <div className="mono-label" style={{ color: 'var(--green)' }}>{r.time}</div>

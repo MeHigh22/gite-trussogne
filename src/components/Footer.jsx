@@ -97,7 +97,7 @@ export default function Footer() {
           <div>
             <div className="mono-label" style={{ marginBottom: 20, color: 'rgba(244,239,230,0.5)' }}>Suivez-nous</div>
             <img src="/assets/footer/Design-sans-titre-38.webp" alt="Carte de Belgique" style={{ width: '100%', maxWidth: 160, opacity: 0.7, marginBottom: 20 }} />
-            <a href="#" aria-label="Instagram" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 40, height: 40, borderRadius: '50%', border: '1px solid rgba(244,239,230,0.25)', transition: 'border-color 0.2s, background 0.2s' }}
+            <a href="https://www.instagram.com/trussogne/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 40, height: 40, borderRadius: '50%', border: '1px solid rgba(244,239,230,0.25)', transition: 'border-color 0.2s, background 0.2s' }}
               onMouseEnter={e => e.currentTarget.style.background = 'rgba(244,239,230,0.1)'}
               onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">

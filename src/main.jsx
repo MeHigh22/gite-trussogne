@@ -9,6 +9,7 @@ import Activites from './pages/Activites';
 import APropos  from './pages/APropos';
 import Galerie  from './pages/Galerie';
 import Contact  from './pages/Contact';
+import ConditionsGenerales from './pages/ConditionsGenerales';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -27,6 +28,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/a-propos"  element={<APropos />} />
         <Route path="/galerie"   element={<Galerie />} />
         <Route path="/contact"   element={<Contact />} />
+        <Route path="/conditions-generales" element={<ConditionsGenerales />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>
