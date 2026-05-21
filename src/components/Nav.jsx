@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { ELLOHA_URL } from './BookingWidget';
 
 function useIsMobile() {
   const [mobile, setMobile] = useState(() => window.innerWidth <= 900);
@@ -73,9 +74,9 @@ export default function Nav({ scrolled, dark = false }) {
             <span style={{ display: 'block', width: 22, height: 1.5, background: menuOpen ? 'var(--green)' : (dark ? 'var(--paper)' : 'var(--ink)'), transition: 'transform 0.3s', transform: menuOpen ? 'translateY(-6.5px) rotate(-45deg)' : 'none' }} />
           </button>
         ) : (
-          <Link to="/#book" className="btn-primary" style={{ padding: '12px 22px', fontSize: 13 }}>
+          <a href={ELLOHA_URL} target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ padding: '12px 22px', fontSize: 13 }}>
             Réserver <span style={{ fontSize: 14 }}>→</span>
-          </Link>
+          </a>
         )}
       </nav>
 
@@ -96,9 +97,9 @@ export default function Nav({ scrolled, dark = false }) {
               {label}
             </Link>
           ))}
-          <Link to="/#book" className="btn-primary" onClick={() => setMenuOpen(false)} style={{ marginTop: 40, justifyContent: 'center' }}>
+          <a href={ELLOHA_URL} target="_blank" rel="noopener noreferrer" className="btn-primary" onClick={() => setMenuOpen(false)} style={{ marginTop: 40, justifyContent: 'center' }}>
             Réserver →
-          </Link>
+          </a>
         </div>
       )}
     </>

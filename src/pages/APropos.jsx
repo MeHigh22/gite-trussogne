@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
+import { ELLOHA_URL } from '../components/BookingWidget';
 
 function useBreakpoint() {
   const [bp, setBp] = useState(() => {
@@ -62,30 +63,28 @@ function AboutHero() {
           {bp !== 'desktop' && (
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: 'auto auto', gap: 8, marginTop: 32 }}>
               <div style={{ borderRadius: 4, overflow: 'hidden', aspectRatio: '1/1' }}>
-                <img src="/assets/quatreChambres/ChambreDiane.webp" alt="Chambre Diane" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                <img src="/assets/a-propos/dejeuner.webp" alt="Déjeuner à Trussogne" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
               </div>
               <div style={{ borderRadius: 4, overflow: 'hidden', aspectRatio: '1/1' }}>
-                <img src="/assets/Chambre-Chapelle-scaled.webp" alt="Chambre Chapelle" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                <img src="/assets/a-propos/interieur.webp" alt="Intérieur du gîte" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
               </div>
               <div style={{ borderRadius: 4, overflow: 'hidden', aspectRatio: '16/9', gridColumn: '1 / -1' }}>
-                <img src="/assets/photo1.webp" alt="Trussogne, Ardennes" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                <img src="/assets/a-propos/gitecharme.webp" alt="Charme du gîte de Trussogne" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
               </div>
             </div>
           )}
         </div>
 
         {bp === 'desktop' && (
-          <div style={{ height: 'min(720px, 80vh)', display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr 1.5fr', gap: 12 }}>
-            {/* Two small images on top */}
+          <div style={{ height: 'min(720px, 80vh)', display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr 1fr', gap: 12 }}>
             <div style={{ borderRadius: 4, overflow: 'hidden' }}>
-              <img src="/assets/quatreChambres/ChambreDiane.webp" alt="Chambre Diane" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img src="/assets/a-propos/dejeuner.webp" alt="Déjeuner à Trussogne" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
             <div style={{ borderRadius: 4, overflow: 'hidden' }}>
-              <img src="/assets/Chambre-Chapelle-scaled.webp" alt="Chambre Chapelle" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img src="/assets/a-propos/interieur.webp" alt="Intérieur du gîte" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
-            {/* Big wide image spanning full width at the bottom */}
             <div style={{ borderRadius: 4, overflow: 'hidden', gridColumn: '1 / -1' }}>
-              <img src="/assets/photo1.webp" alt="Trussogne, Ardennes" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img src="/assets/a-propos/gitecharme.webp" alt="Charme du gîte de Trussogne" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center bottom' }} />
             </div>
           </div>
         )}
@@ -260,7 +259,7 @@ export default function APropos() {
             Réserver maintenant.
           </h2>
           <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link to="/#book" className="btn-primary" style={{ fontSize: 16, padding: '22px 36px' }}>Réserver en direct →</Link>
+            <a href={ELLOHA_URL} target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ fontSize: 16, padding: '22px 36px' }}>Réserver en direct →</a>
             <Link to="/contact" className="btn-ghost">Nous contacter</Link>
           </div>
         </div>

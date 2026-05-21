@@ -1,30 +1,36 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import Nav from '../components/Nav';
+import { ELLOHA_URL } from '../components/BookingWidget';
 
 const PHOTOS = [
-  { src: 'https://images.unsplash.com/photo-1510798831971-661eb04b3739?w=800&q=80', cat: 'exterieur', caption: 'Maison ardennaise au crépuscule' },
-  { src: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=600&q=80', cat: 'exterieur', caption: 'Vallée brumeuse au matin' },
-  { src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80', cat: 'nature', caption: 'Panorama sur les collines' },
-  { src: 'https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=800&q=80', cat: 'exterieur', caption: 'Façade en pierre et volets bois' },
-  { src: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80', cat: 'interieur', caption: 'Salon lumineux, feu ouvert' },
-  { src: 'https://images.unsplash.com/photo-1616137466211-f939a420be84?w=800&q=80', cat: 'interieur', caption: 'Cuisine équipée, plan de travail bois' },
-  { src: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=600&q=80', cat: 'interieur', caption: 'Chambre Diane — atmosphère feutrée' },
-  { src: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80', cat: 'interieur', caption: 'Salle de bain, pierre naturelle' },
-  { src: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&q=80', cat: 'nature', caption: 'Forêt de sapins, lumière filtrée' },
-  { src: 'https://images.unsplash.com/photo-1472396961693-142e6e269027?w=600&q=80', cat: 'nature', caption: 'Cerfs dans la brume matinale' },
-  { src: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=80', cat: 'nature', caption: 'Vallée de la Lesse au lever du soleil' },
-  { src: 'https://images.unsplash.com/photo-1476231682828-37e571bc172f?w=600&q=80', cat: 'nature', caption: 'Sentier forestier en automne' },
-  { src: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&q=80', cat: 'details', caption: 'Table dressée, lumière douce' },
-  { src: 'https://images.unsplash.com/photo-1416339306562-f3d12fefd36f?w=800&q=80', cat: 'nature', caption: 'Collines verdoyantes, ciel d\'été' },
-  { src: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80', cat: 'exterieur', caption: 'Terrasse et vue sur la vallée' },
-  { src: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80', cat: 'exterieur', caption: 'Jardin et façade arrière' },
-  { src: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80', cat: 'interieur', caption: 'Chambre Verte — accès jardin' },
-  { src: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800&q=80', cat: 'nature', caption: 'Prairie au petit matin' },
-  { src: 'https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=800&q=80', cat: 'interieur', caption: 'Poutres apparentes, lit douillet' },
-  { src: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=80', cat: 'nature', caption: 'Sommet au-dessus des nuages' },
-  { src: 'https://images.unsplash.com/photo-1600585153490-76fb20a32601?w=800&q=80', cat: 'details', caption: 'Coin lecture, plaid et thé' },
-  { src: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=600&q=80', cat: 'exterieur', caption: 'Allée d\'arbres en automne' },
+  // Extérieur & Gîte
+  { src: '/assets/photo1.webp',                              cat: 'exterieur', caption: 'Le gîte de Trussogne' },
+  { src: '/assets/le-gite/le-gite.webp',                    cat: 'exterieur', caption: 'Façade du gîte' },
+  { src: '/assets/le-gite/le-gite-2.webp',                  cat: 'exterieur', caption: 'Le gîte — vue d\'ensemble' },
+  { src: '/assets/le-gite/le-gite-3.webp',                  cat: 'exterieur', caption: 'Le gîte — détail extérieur' },
+  { src: '/assets/Chambre-Chapelle-scaled.webp',             cat: 'exterieur', caption: 'Vue sur la chapelle' },
+  // Nature & Saisons
+  { src: '/assets/quatreSaisons/brume.webp',                 cat: 'nature', caption: 'Brume matinale sur la vallée' },
+  { src: '/assets/quatreSaisons/ete.webp',                   cat: 'nature', caption: 'Été à Trussogne' },
+  { src: '/assets/quatreSaisons/hiver1.webp',                cat: 'nature', caption: 'Hiver en Ardennes' },
+  { src: '/assets/quatreSaisons/printemps.webp',             cat: 'nature', caption: 'Printemps en fleurs' },
+  { src: '/assets/Marcassins-Trussogne.webp',                cat: 'nature', caption: 'Marcassins à Trussogne' },
+  { src: '/assets/Photo-Lievres-amoureux-Tru.webp',          cat: 'nature', caption: 'Lièvres amoureux' },
+  { src: '/assets/ane-trussogne.webp',                       cat: 'nature', caption: "L'âne de Trussogne" },
+  // Chambres
+  { src: '/assets/quatreChambres/Chambre-Chapelle-scaled.webp', cat: 'interieur', caption: 'Chambre Chapelle' },
+  { src: '/assets/quatreChambres/chapelle1.webp',            cat: 'interieur', caption: 'Chambre Chapelle — détail' },
+  { src: '/assets/quatreChambres/chapelle3.webp',            cat: 'interieur', caption: 'Chambre Chapelle — ambiance' },
+  { src: '/assets/quatreChambres/ChambreAne.webp',           cat: 'interieur', caption: 'Chambre de l\'Âne' },
+  { src: '/assets/quatreChambres/ane1.webp',                 cat: 'interieur', caption: 'Chambre de l\'Âne — vue' },
+  { src: '/assets/quatreChambres/ane2.webp',                 cat: 'interieur', caption: 'Chambre de l\'Âne — détail' },
+  { src: '/assets/quatreChambres/ChambreDiane.webp',         cat: 'interieur', caption: 'Chambre Diane' },
+  { src: '/assets/quatreChambres/diane2.webp',               cat: 'interieur', caption: 'Chambre Diane — ambiance' },
+  { src: '/assets/quatreChambres/diane3.webp',               cat: 'interieur', caption: 'Chambre Diane — détail' },
+  { src: '/assets/quatreChambres/ChambreVerte.webp',         cat: 'interieur', caption: 'Chambre Verte' },
+  { src: '/assets/quatreChambres/verte1.webp',               cat: 'interieur', caption: 'Chambre Verte — vue' },
+  { src: '/assets/quatreChambres/verte2.webp',               cat: 'interieur', caption: 'Chambre Verte — détail' },
 ];
 
 const FILTERS = [
@@ -138,7 +144,7 @@ export default function Galerie() {
             Réservez votre parenthèse.
           </h2>
           <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link to="/#book" className="btn-primary" style={{ fontSize: 16, padding: '22px 36px' }}>Réserver en direct →</Link>
+            <a href={ELLOHA_URL} target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ fontSize: 16, padding: '22px 36px' }}>Réserver en direct →</a>
             <Link to="/" className="btn-ghost" style={{ borderColor: 'rgba(244,239,230,0.25)', color: 'rgba(244,239,230,0.8)' }}>Retour à l'accueil</Link>
           </div>
         </div>
@@ -152,7 +158,7 @@ export default function Galerie() {
             <Link to="/" className="ulink">Accueil</Link>
             <Link to="/le-gite" className="ulink">Le gîte</Link>
             <Link to="/activites" className="ulink">Activités</Link>
-            <Link to="/#book" className="ulink">Réserver</Link>
+            <a href={ELLOHA_URL} target="_blank" rel="noopener noreferrer" className="ulink">Réserver</a>
           </div>
         </div>
         <div style={{ maxWidth: 1280, margin: '28px auto 0', paddingTop: 28, borderTop: '1px solid rgba(244,239,230,0.08)', display: 'flex', justifyContent: 'space-between', fontSize: 12, color: 'rgba(244,239,230,0.25)', flexWrap: 'wrap', gap: 16 }}>

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
+import BookingWidgetCore, { ELLOHA_URL } from '../components/BookingWidget';
 
 function useBreakpoint() {
   const [bp, setBp] = useState(() => {
@@ -65,20 +66,20 @@ function GiteHero() {
             <a href="#diane" className="btn-primary" style={bp === 'mobile' ? { padding: '9px 14px', fontSize: 13 } : {}}>
               {bp === 'mobile' ? 'Voir les chambres' : 'Découvrir les chambres →'}
             </a>
-            <Link to="/#book" className="btn-ghost" style={bp === 'mobile' ? { padding: '8px 12px', fontSize: 13 } : {}}>Réserver en direct</Link>
+            <a href={ELLOHA_URL} target="_blank" rel="noopener noreferrer" className="btn-ghost" style={bp === 'mobile' ? { padding: '8px 12px', fontSize: 13 } : {}}>Réserver en direct</a>
           </div>
 
           {bp !== 'desktop' && (
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginTop: 32, height: 260 }}>
               <div style={{ borderRadius: 4, overflow: 'hidden' }}>
-                <img src="/assets/photo1.webp" alt="Maison ardennaise" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                <img src="/assets/le-gite/le-gite-2.webp" alt="Le gîte de Trussogne" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
               </div>
               <div style={{ display: 'grid', gridTemplateRows: '1fr 1fr', gap: 8 }}>
                 <div style={{ borderRadius: 4, overflow: 'hidden' }}>
-                  <img src="/assets/Marcassins-Trussogne.webp" alt="Marcassins à Trussogne" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                  <img src="/assets/le-gite/le-gite.webp" alt="Le gîte de Trussogne" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
                 </div>
                 <div style={{ borderRadius: 4, overflow: 'hidden' }}>
-                  <img src="/assets/Photo-Lievres-amoureux-Tru.webp" alt="Lièvres amoureux à Trussogne" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                  <img src="/assets/le-gite/le-gite-3.webp" alt="Le gîte de Trussogne" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
                 </div>
               </div>
             </div>
@@ -103,13 +104,13 @@ function GiteHero() {
         {bp === 'desktop' && (
           <div style={{ height: 'min(720px, 80vh)', display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr 1fr', gap: 12 }}>
             <div style={{ borderRadius: 4, overflow: 'hidden', gridRow: '1 / -1' }}>
-              <img src="/assets/photo1.webp" alt="Maison ardennaise" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img src="/assets/le-gite/le-gite-2.webp" alt="Le gîte de Trussogne" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
             <div style={{ borderRadius: 4, overflow: 'hidden' }}>
-              <img src="/assets/Marcassins-Trussogne.webp" alt="Marcassins à Trussogne" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img src="/assets/le-gite/le-gite.webp" alt="Le gîte de Trussogne" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
             <div style={{ borderRadius: 4, overflow: 'hidden' }}>
-              <img src="/assets/Photo-Lievres-amoureux-Tru.webp" alt="Lièvres amoureux à Trussogne" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img src="/assets/le-gite/le-gite-3.webp" alt="Le gîte de Trussogne" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
           </div>
         )}
@@ -118,6 +119,16 @@ function GiteHero() {
   );
 }
 
+function BookingWidget() {
+  const bp = useBreakpoint();
+  return (
+    <section style={{ background: 'var(--paper)', padding: bp === 'mobile' ? '24px 16px 32px' : bp === 'tablet' ? '32px 32px 40px' : '32px 48px 40px' }}>
+      {bp !== 'mobile' && <div className="mono-label" style={{ color: 'var(--ink-soft)', textAlign: 'center', marginBottom: 16 }}>· Vérifiez les disponibilités ·</div>}
+      {bp === 'mobile' && <div className="mono-label" style={{ color: 'var(--ink-soft)', textAlign: 'center', marginBottom: 16 }}>· Vérifiez les disponibilités ·</div>}
+      <BookingWidgetCore />
+    </section>
+  );
+}
 
 const ROOMS = [
   { id: 'verte',    num: '01', name: 'Verte',    color: '#325827', img: '/assets/quatreChambres/ChambreVerte.webp',             desc: "Teintée des nuances apaisantes de la nature, elle enveloppe ses hôtes dans une atmosphère douce et ressourçante. Son atout exclusif ? Une porte donnant directement accès au jardin et à la campagne environnante, pour un réveil en pleine nature. Dotée d'un lit double spring box et d'une salle de douche privative, cette chambre allie lumière naturelle et horizons verdoyants.", features: ['Lit Queen size', 'Salle de douche privative', 'Accès direct jardin'], images: ['/assets/quatreChambres/verte1.webp', '/assets/quatreChambres/verte2.webp'], align: 'left' },
@@ -169,7 +180,7 @@ function RoomSection({ room, index }) {
               </div>
             ))}
           </div>
-          <Link to="/#book" className="btn-primary" style={{ background: room.color }}>Réserver →</Link>
+          <a href={ELLOHA_URL} target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ background: room.color }}>Réserver →</a>
         </div>
         {isMobile && <RoomImages room={room} />}
         {!isMobile && !isLeft && <RoomImages room={room} />}
@@ -420,6 +431,7 @@ export default function Gite() {
     <>
       <Nav scrolled={scrolled} />
       <GiteHero />
+      <BookingWidget />
       <GiteMosaic />
       <RoomsIntro />
       {ROOMS.map((r, i) => <RoomSection key={r.id} room={r} index={i} />)}

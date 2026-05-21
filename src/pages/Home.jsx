@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
+import BookingWidgetCore, { buildEllohaUrl, ELLOHA_URL } from '../components/BookingWidget';
 
 function useBreakpoint() {
   const [bp, setBp] = useState(() => {
@@ -58,7 +59,7 @@ function Hero() {
           </p>
 
           <div style={{ display: 'flex', gap: 14, alignItems: 'center', flexWrap: bp === 'mobile' ? 'nowrap' : 'wrap' }}>
-            <a href="#book" className="btn-primary" style={bp === 'mobile' ? { padding: '9px 14px', fontSize: 13 } : {}}>
+            <a href={ELLOHA_URL} target="_blank" rel="noopener noreferrer" className="btn-primary" style={bp === 'mobile' ? { padding: '9px 14px', fontSize: 13 } : {}}>
               {bp === 'mobile' ? 'Réserver en direct' : <span>Réserver en direct →</span>}
             </a>
             <a href="#story" className="btn-ghost" style={bp === 'mobile' ? { padding: '8px 12px', fontSize: 13 } : {}}>Découvrir le lieu</a>
@@ -109,6 +110,15 @@ function Hero() {
           </div>
         )}
       </div>
+    </section>
+  );
+}
+
+function HomeBanner() {
+  const bp = useBreakpoint();
+  return (
+    <section style={{ background: 'var(--paper)', padding: bp === 'mobile' ? '24px 16px 32px' : bp === 'tablet' ? '32px 32px 40px' : '32px 48px 40px' }}>
+      <BookingWidgetCore />
     </section>
   );
 }
@@ -178,7 +188,7 @@ function Story() {
   return (
     <section id="story" style={{ padding: bp === 'mobile' ? '60px 20px' : bp === 'tablet' ? '80px 32px' : '160px 48px', background: 'var(--paper)' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gridTemplateColumns: bp === 'desktop' ? '1fr 1.2fr' : '1fr', gap: bp === 'mobile' ? 32 : bp === 'tablet' ? 48 : 96, alignItems: 'center' }}>
-        <img src="/assets/Chambre-Chapelle-scaled.webp" alt="Chambre Chapelle" style={{ aspectRatio: '4/5', borderRadius: 4, width: '100%', objectFit: 'cover' }} />
+        <img src="/assets/ane-trussogne.webp" alt="L'âne de Trussogne" style={{ aspectRatio: '4/5', borderRadius: 4, width: '100%', objectFit: 'cover' }} />
         <div>
           <div className="sec-num" style={{ marginBottom: 20 }}>· 02 — NOTRE HISTOIRE ·</div>
           <h2 className="serif" style={{ fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 1.05, marginBottom: 32, fontWeight: 400 }}>
@@ -458,9 +468,9 @@ function Booking() {
             Réservez en direct.
           </h2>
           <p style={{ fontSize: 17, lineHeight: 1.6, color: 'var(--ink-soft)', maxWidth: 460, marginBottom: 48 }}>
-            Pas d'intermédiaire, pas de surprise. Tarifs établis pour 6 à 9 personnes.
+            Réservez directement via notre système de réservation. Tarifs établis pour 6 à 9 personnes.
           </p>
-          <a href="https://www.elloha.com" target="_blank" rel="noopener noreferrer" className="btn-primary">
+          <a href="https://reservation.elloha.com/?idPublication=854566e1-2fb8-485c-abbd-fbf732e92e88&idoi=fcd24dc1-911a-41a4-a5cd-c8588ad41007&TypeOi=3&searchFirstAvailableDates=1&culture=fr-FR" target="_blank" rel="noopener noreferrer" className="btn-primary">
             Voir les disponibilités →
           </a>
         </div>
@@ -478,15 +488,26 @@ function Booking() {
           ))}
         </div>
       </div>
+      <div style={{ maxWidth: 1280, margin: '64px auto 0', display: 'grid', gridTemplateColumns: bp === 'mobile' ? '1fr' : bp === 'tablet' ? '1fr 1fr' : 'repeat(4, 1fr)', gap: 40 }}>
+        {[
+          { n: '01', title: 'Calme & Sérénité',          desc: "Trussogne est l'endroit idéal pour une parenthèse apaisante." },
+          { n: '02', title: 'Charme & Quiétude',          desc: "Chaque espace a été conçu pour maximiser la vue époustouflante." },
+          { n: '03', title: 'Un cadre unique',             desc: "Les intérieurs vous séduiront par leur atmosphère chaleureuse et accueillante." },
+          { n: '04', title: 'Des extérieurs magnifiques',  desc: "Un cadre naturel d'exception pour des moments uniques." },
+        ].map(({ n, title, desc }) => (
+          <div key={n} style={{ paddingTop: 24, borderTop: '1px solid var(--line)' }}>
+            <div className="mono-label" style={{ color: 'var(--green)', marginBottom: 16 }}>{n}</div>
+            <h3 className="serif" style={{ fontSize: 22, fontWeight: 400, lineHeight: 1.2, marginBottom: 12 }}>{title}</h3>
+            <p style={{ fontSize: 15, lineHeight: 1.6, color: 'var(--ink-soft)' }}>{desc}</p>
+          </div>
+        ))}
+      </div>
     </section>
   );
 }
 
 export default function Home() {
   const [scrolled, setScrolled] = useState(false);
-  const [bookVisible, setBookVisible] = useState(false);
-  const bp = useBreakpoint();
-  const bookRef = useRef(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -494,21 +515,12 @@ export default function Home() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  useEffect(() => {
-    const el = document.getElementById('book');
-    if (!el) return;
-    const obs = new IntersectionObserver(([e]) => setBookVisible(e.isIntersecting), { threshold: 0.1 });
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-
-  const showPill = scrolled && !bookVisible;
-
   return (
     <>
       <Nav scrolled={scrolled} />
       <Hero />
       <Sensory />
+      <HomeBanner />
       <Story />
       <GiteSection />
       <Chambres />
@@ -517,30 +529,6 @@ export default function Home() {
       <Reviews />
       <Booking />
       <Footer />
-
-      {showPill && (
-        <div style={{ position: 'fixed', bottom: 24, left: '50%', transform: 'translateX(-50%)', zIndex: 40, animation: 'fadein 0.4s ease' }}>
-          <div className="book-pill">
-            {bp !== 'mobile' && (
-              <>
-                <div className="seg">
-                  <div className="mono-label" style={{ color: 'var(--ink-soft)', marginBottom: 2 }}>Arrivée</div>
-                  <div style={{ fontSize: 14 }}>12 juin</div>
-                </div>
-                <div className="seg">
-                  <div className="mono-label" style={{ color: 'var(--ink-soft)', marginBottom: 2 }}>Départ</div>
-                  <div style={{ fontSize: 14 }}>15 juin</div>
-                </div>
-                <div className="seg">
-                  <div className="mono-label" style={{ color: 'var(--ink-soft)', marginBottom: 2 }}>Voyageurs</div>
-                  <div style={{ fontSize: 14 }}>8 pers.</div>
-                </div>
-              </>
-            )}
-            <a href="#book" className="btn-primary" style={{ padding: '14px 22px', fontSize: 13 }}>Vérifier →</a>
-          </div>
-        </div>
-      )}
     </>
   );
 }

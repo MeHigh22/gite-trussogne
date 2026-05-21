@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { ELLOHA_URL } from '../components/BookingWidget';
 
 function useBreakpoint() {
   const [bp, setBp] = useState(() => {
@@ -338,7 +339,7 @@ export default function Activites() {
             Votre évasion <span style={{ opacity: 0.6 }}>vous attend.</span>
           </h2>
           <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link to="/#book" className="btn-primary" style={{ background: 'var(--paper)', color: 'var(--green)', fontSize: 16, padding: '22px 36px' }}>Réserver en direct →</Link>
+            <a href={ELLOHA_URL} target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ background: 'var(--paper)', color: 'var(--green)', fontSize: 16, padding: '22px 36px' }}>Réserver en direct →</a>
             <Link to="/" className="btn-ghost" style={{ borderColor: 'rgba(244,239,230,0.3)', color: 'var(--paper)' }}>Retour à l'accueil</Link>
           </div>
         </div>
