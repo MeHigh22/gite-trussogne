@@ -1,23 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ELLOHA_URL } from '../components/BookingWidget';
 
-function useBreakpoint() {
-  const [bp, setBp] = useState(() => {
-    if (window.innerWidth <= 600) return 'mobile';
-    if (window.innerWidth <= 900) return 'tablet';
-    return 'desktop';
-  });
-  useEffect(() => {
-    const fn = () => {
-      if (window.innerWidth <= 600) setBp('mobile');
-      else if (window.innerWidth <= 900) setBp('tablet');
-      else setBp('desktop');
-    };
-    window.addEventListener('resize', fn, { passive: true });
-    return () => window.removeEventListener('resize', fn);
-  }, []);
-  return bp;
-}
+
 import { Link } from 'react-router-dom';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
@@ -75,7 +59,6 @@ const RESTAURANTS = [
 ];
 
 function ActHero() {
-  const bp = useBreakpoint();
   const stats = [
     { n: '30+',    label: 'Activités' },
     { n: '10',     label: 'Restaurants' },
@@ -83,42 +66,31 @@ function ActHero() {
     { n: '550 ha', label: 'Chevetogne' },
   ];
   return (
-    <section style={{
-      minHeight: '100vh',
-      padding: bp === 'mobile' ? '80px 20px 40px' : bp === 'tablet' ? '90px 32px 60px' : '140px 48px 80px',
-      background: 'var(--paper)',
-    }}>
-      <div style={{ display: 'grid', gridTemplateColumns: bp === 'desktop' ? '2fr 3fr' : '1fr', gap: 40, alignItems: 'center', minHeight: 'calc(100vh - 220px)' }}>
+    <section className="act-hero" style={{ minHeight: '100vh', padding: '140px 48px 80px', background: 'var(--paper)' }}>
+      <div className="act-hero-grid" style={{ display: 'grid', gridTemplateColumns: '2fr 3fr', gap: 40, alignItems: 'center', minHeight: 'calc(100vh - 220px)' }}>
         <div>
-          <h1 className="serif" style={{
-            fontSize: bp === 'mobile' ? 'clamp(36px, 8vw, 46px)' : 'clamp(48px, 6vw, 86px)',
-            lineHeight: 0.95, letterSpacing: '-0.02em', fontWeight: 400, marginBottom: 24,
-          }}>
+          <h1 className="serif act-hero-h1" style={{ fontSize: 'clamp(48px, 6vw, 86px)', lineHeight: 0.95, letterSpacing: '-0.02em', fontWeight: 400, marginBottom: 24 }}>
             Activités &<br /><span style={{ color: 'var(--green)' }}>alentours.</span>
           </h1>
-          <p style={{ fontSize: bp === 'mobile' ? 14 : 18, lineHeight: 1.5, color: 'var(--ink-soft)', marginBottom: bp === 'mobile' ? 24 : 44, maxWidth: 440 }}>
+          <p className="act-hero-p" style={{ fontSize: 18, lineHeight: 1.5, color: 'var(--ink-soft)', marginBottom: 44, maxWidth: 440 }}>
             Nature, patrimoine, aventure et gastronomie — les Ardennes belges regorgent de trésors à découvrir, à quelques minutes de votre porte.
           </p>
           <div style={{ display: 'flex', gap: 14, alignItems: 'center', flexWrap: 'wrap' }}>
-            <a href="#activites" className="btn-primary" style={bp === 'mobile' ? { padding: '9px 14px', fontSize: 13 } : {}}>Voir les activités</a>
-            <a href="#restaurants" className="btn-ghost" style={bp === 'mobile' ? { padding: '8px 12px', fontSize: 13 } : {}}>Restaurants</a>
+            <a href="#activites" className="btn-primary">Voir les activités</a>
+            <a href="#restaurants" className="btn-ghost">Restaurants</a>
           </div>
 
-          {bp !== 'desktop' && (
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginTop: 32, height: 240 }}>
-              <div style={{ borderRadius: 4, overflow: 'hidden' }}>
-                <img src="/assets/alentours/chevetogne.webp" alt="Chevetogne" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-              </div>
-              <div style={{ display: 'grid', gridTemplateRows: '1fr 1fr', gap: 8 }}>
-                <div style={{ borderRadius: 4, overflow: 'hidden' }}>
-                  <img src="/assets/alentours/gold.webp" alt="Golf" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-                </div>
-                <div style={{ borderRadius: 4, overflow: 'hidden' }}>
-                  <img src="/assets/alentours/houyet-1.webp" alt="Houyet" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-                </div>
-              </div>
+          <div className="act-hero-imgs-large act-hero-imgs-mobile" style={{ display: 'none', height: 260, gridTemplateColumns: '1.4fr 1fr', gridTemplateRows: '1fr 1fr', gap: 8, marginTop: 32 }}>
+            <div style={{ borderRadius: 4, overflow: 'hidden', gridColumn: 1, gridRow: 1 }}>
+              <img src="/assets/alentours/descente_lesse_kayak_chateau_walmin.webp" alt="Kayak sur la Lesse" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
-          )}
+            <div style={{ borderRadius: 4, overflow: 'hidden', gridColumn: 1, gridRow: 2 }}>
+              <img src="/assets/alentours/CELLES_08_©_Rita_Photographie-scaled-1-1024x576.webp" alt="Celles" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            </div>
+            <div style={{ borderRadius: 4, overflow: 'hidden', gridColumn: 2, gridRow: '1 / -1' }}>
+              <img src="/assets/alentours/veveve.webp" alt="Château de Vêves" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            </div>
+          </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', marginTop: 48, borderTop: '1px solid var(--line)' }}>
             {stats.map((s, i) => (
@@ -136,19 +108,17 @@ function ActHero() {
           </div>
         </div>
 
-        {bp === 'desktop' && (
-          <div style={{ height: 'min(720px, 80vh)', display: 'grid', gridTemplateColumns: '1.4fr 1fr', gridTemplateRows: '1fr 1fr', gap: 12 }}>
-            <div style={{ borderRadius: 4, overflow: 'hidden', gridColumn: 1, gridRow: 1 }}>
-              <img src="/assets/alentours/descente_lesse_kayak_chateau_walmin.webp" alt="Kayak sur la Lesse" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            </div>
-            <div style={{ borderRadius: 4, overflow: 'hidden', gridColumn: 1, gridRow: 2 }}>
-              <img src="/assets/alentours/CELLES_08_©_Rita_Photographie-scaled-1-1024x576.webp" alt="Celles" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            </div>
-            <div style={{ borderRadius: 4, overflow: 'hidden', gridColumn: 2, gridRow: '1 / -1' }}>
-              <img src="/assets/alentours/veveve.webp" alt="Château de Vêves" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            </div>
+        <div className="act-hero-imgs-large" style={{ height: 'min(720px, 80vh)', display: 'grid', gridTemplateColumns: '1.4fr 1fr', gridTemplateRows: '1fr 1fr', gap: 12 }}>
+          <div style={{ borderRadius: 4, overflow: 'hidden', gridColumn: 1, gridRow: 1 }}>
+            <img src="/assets/alentours/descente_lesse_kayak_chateau_walmin.webp" alt="Kayak sur la Lesse" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </div>
-        )}
+          <div style={{ borderRadius: 4, overflow: 'hidden', gridColumn: 1, gridRow: 2 }}>
+            <img src="/assets/alentours/CELLES_08_©_Rita_Photographie-scaled-1-1024x576.webp" alt="Celles" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          </div>
+          <div style={{ borderRadius: 4, overflow: 'hidden', gridColumn: 2, gridRow: '1 / -1' }}>
+            <img src="/assets/alentours/veveve.webp" alt="Château de Vêves" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -278,15 +248,14 @@ function RestaurantsSection() {
 }
 
 function PetitsPlus() {
-  const bp = useBreakpoint();
   return (
-    <section style={{ padding: bp === 'mobile' ? '40px 20px' : bp === 'tablet' ? '60px 32px' : '80px 48px', background: 'var(--cream)' }}>
+    <section className="act-section" style={{ padding: '80px 48px', background: 'var(--cream)' }}>
       <div style={{ maxWidth: 1080, margin: '0 auto', textAlign: 'center' }}>
         <div className="sec-num" style={{ marginBottom: 20 }}>· NOS PETITS PLUS ·</div>
         <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 96 }}>
           Pour aller plus loin.
         </h2>
-        <div style={{ display: 'grid', gridTemplateColumns: bp === 'mobile' ? '1fr' : '1fr 1fr', gap: bp === 'mobile' ? 40 : 56, textAlign: 'left' }}>
+        <div className="act-petits-plus-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 56, textAlign: 'left' }}>
           <div>
             <div style={{ aspectRatio: '5/3', borderRadius: 4, marginBottom: 32, overflow: 'hidden' }}>
               <img src="/assets/plusLoin/reiki.jpg" alt="Séances de Reiki" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />

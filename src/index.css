@@ -412,6 +412,13 @@ img { display: block; max-width: 100%; }
   .act-hero    { padding-left: 32px !important; padding-right: 32px !important; padding-top: 140px !important; }
   .act-section { padding-left: 32px !important; padding-right: 32px !important; }
 
+  /* Hero: single column, show mobile image grid (same 3 images), hide desktop column */
+  .act-hero-grid { grid-template-columns: 1fr !important; }
+  .act-hero-imgs-large:not(.act-hero-imgs-mobile) { display: none !important; }
+  .act-hero-imgs-mobile { display: grid !important; }
+  .act-hero-h1  { font-size: clamp(40px, 6vw, 64px) !important; }
+  .act-hero-p   { font-size: 16px !important; margin-bottom: 28px !important; }
+
   /* Activities grid: 3 → 2 cols */
   .act-grid { grid-template-columns: repeat(2, 1fr) !important; }
 
@@ -437,11 +444,14 @@ img { display: block; max-width: 100%; }
   }
   /* Remove sticky on mobile — it causes scroll issues */
   .act-resto-grid > div:first-child { position: static !important; }
+
+  /* Petits plus: 2 cols → 1 col */
+  .act-petits-plus-grid { grid-template-columns: 1fr !important; }
 }
 
 /* ─── Activités page — 480px ────────────────────────────── */
 @media (max-width: 480px) {
-  .act-hero    { padding-left: 20px !important; padding-right: 20px !important; }
+  .act-hero    { padding-left: 20px !important; padding-right: 20px !important; padding-top: 100px !important; }
   .act-section { padding-left: 20px !important; padding-right: 20px !important; }
 
   /* Hero stats: 2 per row → each on its own line */
@@ -449,6 +459,9 @@ img { display: block; max-width: 100%; }
 
   /* Restaurant rows: hide thumbnail image to save space */
   .act-resto-grid .ph[style*="width: 120px"] { display: none !important; }
+
+  .act-hero-h1 { font-size: clamp(36px, 8vw, 46px) !important; }
+  .act-hero-p  { font-size: 14px !important; }
 }
 
 /* ─── Galerie page — 1024px ─────────────────────────────── */
