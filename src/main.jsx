@@ -12,10 +12,11 @@ import Contact  from './pages/Contact';
 import ConditionsGenerales from './pages/ConditionsGenerales';
 
 function ScrollToTop() {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
   useLayoutEffect(() => {
+    if (hash) return;
     window.scrollTo({ top: 0, behavior: 'instant' });
-  }, [pathname]);
+  }, [pathname, hash]);
   return null;
 }
 

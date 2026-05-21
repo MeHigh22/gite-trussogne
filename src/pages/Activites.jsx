@@ -75,7 +75,7 @@ function ActHero() {
           <p className="act-hero-p" style={{ fontSize: 18, lineHeight: 1.5, color: 'var(--ink-soft)', marginBottom: 44, maxWidth: 440 }}>
             Nature, patrimoine, aventure et gastronomie — les Ardennes belges regorgent de trésors à découvrir, à quelques minutes de votre porte.
           </p>
-          <div style={{ display: 'flex', gap: 14, alignItems: 'center', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: 14, alignItems: 'center' }}>
             <a href="#activites" className="btn-primary">Voir les activités</a>
             <a href="#restaurants" className="btn-ghost">Restaurants</a>
           </div>

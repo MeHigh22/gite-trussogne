@@ -266,10 +266,10 @@ function GiteSection() {
 function Chambres() {
   const bp = useBreakpoint();
   const rooms = [
-    { name: 'Diane',   beds: 'Lit Queen size · salle de douche privative · vue panoramique',   img: '/assets/quatreChambres/ChambreDiane.webp' },
-    { name: 'Verte',   beds: 'Lit Queen size · salle de douche privative · accès direct jardin', img: '/assets/quatreChambres/ChambreVerte.webp' },
-    { name: "L'Âne",   beds: 'Lit Queen size · salle de bain privative avec baignoire',          img: '/assets/quatreChambres/ChambreAne.webp' },
-    { name: 'Chapelle',beds: 'Lit Queen size · salle de douche privative · rez-de-chaussée',     img: '/assets/quatreChambres/Chambre-Chapelle-scaled.webp' },
+    { id: 'diane',    name: 'Diane',    beds: 'Lit Queen size · salle de douche privative · vue panoramique',    img: '/assets/quatreChambres/ChambreDiane.webp' },
+    { id: 'verte',    name: 'Verte',    beds: 'Lit Queen size · salle de douche privative · accès direct jardin', img: '/assets/quatreChambres/ChambreVerte.webp' },
+    { id: 'ane',      name: "L'Âne",   beds: 'Lit Queen size · salle de bain privative avec baignoire',           img: '/assets/quatreChambres/ChambreAne.webp' },
+    { id: 'chapelle', name: 'Chapelle', beds: 'Lit Queen size · salle de douche privative · rez-de-chaussée',     img: '/assets/quatreChambres/Chambre-Chapelle-scaled.webp' },
   ];
   const [active, setActive] = useState(0);
   return (
@@ -283,7 +283,7 @@ function Chambres() {
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: bp === 'mobile' ? '1fr' : 'repeat(2, 1fr)', gap: 24 }}>
           {rooms.map((r, i) => (
-            <div key={i} className="room-card" onMouseEnter={() => setActive(i)} style={{ cursor: 'pointer' }}>
+            <Link key={i} to={`/le-gite#${r.id}`} className="room-card" onMouseEnter={() => setActive(i)} style={{ cursor: 'pointer', textDecoration: 'none', color: 'inherit', display: 'block' }}>
               <div style={{ aspectRatio: '16/9', borderRadius: 4, marginBottom: 16, overflow: 'hidden' }}>
                 <img src={r.img} alt={r.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
               </div>
@@ -292,7 +292,7 @@ function Chambres() {
                 <span className="mono-label" style={{ color: 'var(--ink-soft)' }}>0{i+1}</span>
               </div>
               <div style={{ fontSize: 13, color: 'var(--ink-soft)' }}>{r.beds}</div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
