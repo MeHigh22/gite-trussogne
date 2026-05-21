@@ -139,10 +139,10 @@ function ActHero() {
         {bp === 'desktop' && (
           <div style={{ height: 'min(720px, 80vh)', display: 'grid', gridTemplateColumns: '1.4fr 1fr', gridTemplateRows: '1fr 1fr', gap: 12 }}>
             <div style={{ borderRadius: 4, overflow: 'hidden', gridColumn: 1, gridRow: 1 }}>
-              <img src="/assets/alentours/gold.webp" alt="Golf Château d'Ardenne" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img src="/assets/alentours/descente_lesse_kayak_chateau_walmin.webp" alt="Kayak sur la Lesse" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
             <div style={{ borderRadius: 4, overflow: 'hidden', gridColumn: 1, gridRow: 2 }}>
-              <img src="/assets/alentours/houyet-1.webp" alt="Promenades à Houyet" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img src="/assets/alentours/CELLES_08_©_Rita_Photographie-scaled-1-1024x576.webp" alt="Celles" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
             <div style={{ borderRadius: 4, overflow: 'hidden', gridColumn: 2, gridRow: '1 / -1' }}>
               <img src="/assets/alentours/veveve.webp" alt="Château de Vêves" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
