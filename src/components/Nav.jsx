@@ -74,7 +74,7 @@ export default function Nav({ scrolled, dark = false }) {
             <span style={{ display: 'block', width: 22, height: 1.5, background: menuOpen ? 'var(--green)' : (dark ? 'var(--paper)' : 'var(--ink)'), transition: 'transform 0.3s', transform: menuOpen ? 'translateY(-6.5px) rotate(-45deg)' : 'none' }} />
           </button>
         ) : (
-          <a href={ELLOHA_URL} target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ padding: '12px 22px', fontSize: 13 }}>
+          <a href={ELLOHA_URL} target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ padding: '12px 24px', fontSize: 15 }}>
             Réserver <span style={{ fontSize: 14 }}>→</span>
           </a>
         )}
