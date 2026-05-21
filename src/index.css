@@ -20,6 +20,15 @@ html, body {
   overflow-x: hidden;
 }
 
+/* Tenor Sans font preview mode */
+[data-font="tenor"], [data-font="tenor"] body {
+  font-family: 'Tenor Sans', Georgia, sans-serif;
+}
+[data-font="tenor"] .serif {
+  font-family: 'Tenor Sans', Georgia, sans-serif;
+  font-style: normal;
+}
+
 html { scroll-behavior: smooth; }
 
 .serif { font-family: 'Playfair Display', Georgia, serif; font-weight: 400; }

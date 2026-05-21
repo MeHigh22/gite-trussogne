@@ -12,10 +12,25 @@ function useIsMobile() {
   return mobile;
 }
 
+function useFontToggle() {
+  const [isTenor, setIsTenor] = useState(() => localStorage.getItem('font') === 'tenor');
+  useEffect(() => {
+    if (isTenor) {
+      document.documentElement.setAttribute('data-font', 'tenor');
+      localStorage.setItem('font', 'tenor');
+    } else {
+      document.documentElement.removeAttribute('data-font');
+      localStorage.removeItem('font');
+    }
+  }, [isTenor]);
+  return [isTenor, setIsTenor];
+}
+
 export default function Nav({ scrolled, dark = false }) {
   const { pathname } = useLocation();
   const isMobile = useIsMobile();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isTenor, setIsTenor] = useFontToggle();
 
   const bg = dark
     ? scrolled ? 'rgba(26, 31, 23, 0.92)' : 'transparent'
@@ -74,9 +89,37 @@ export default function Nav({ scrolled, dark = false }) {
             <span style={{ display: 'block', width: 22, height: 1.5, background: menuOpen ? 'var(--green)' : (dark ? 'var(--paper)' : 'var(--ink)'), transition: 'transform 0.3s', transform: menuOpen ? 'translateY(-6.5px) rotate(-45deg)' : 'none' }} />
           </button>
         ) : (
-          <a href={ELLOHA_URL} target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ padding: '12px 24px', fontSize: 15 }}>
-            Réserver <span style={{ fontSize: 14 }}>→</span>
-          </a>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <button
+              onClick={() => setIsTenor(v => !v)}
+              title={isTenor ? 'Basculer vers Playfair Display' : 'Basculer vers Tenor Sans'}
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: 6,
+                padding: '8px 14px',
+                border: '1px solid var(--line)',
+                borderRadius: 999,
+                fontSize: 11,
+                letterSpacing: '0.12em',
+                textTransform: 'uppercase',
+                color: isTenor ? 'var(--paper)' : 'var(--ink-soft)',
+                background: isTenor ? 'var(--green)' : 'transparent',
+                transition: 'all 0.25s ease',
+                cursor: 'pointer',
+              }}
+            >
+              <span style={{
+                fontSize: 13,
+                fontFamily: isTenor ? "'Tenor Sans', sans-serif" : "'Playfair Display', serif",
+                fontStyle: isTenor ? 'normal' : 'italic',
+              }}>
+                {isTenor ? 'TS' : 'PD'}
+              </span>
+              {isTenor ? 'Tenor Sans' : 'Playfair'}
+            </button>
+            <a href={ELLOHA_URL} target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ padding: '12px 24px', fontSize: 15 }}>
+              Réserver <span style={{ fontSize: 14 }}>→</span>
+            </a>
+          </div>
         )}
       </nav>
 
