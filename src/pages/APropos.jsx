@@ -203,8 +203,8 @@ function Reviews() {
           </h2>
           <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <div className="serif" style={{ fontSize: 48, lineHeight: 1, color: 'var(--green)' }}>4.97</div>
-              <div className="mono-label" style={{ color: 'var(--ink-soft)' }}>moyenne · 80+ avis</div>
+              <div className="serif" style={{ fontSize: 48, lineHeight: 1, color: 'var(--green)' }}>5.00</div>
+              <div className="mono-label" style={{ color: 'var(--ink-soft)' }}>moyenne · 17 avis</div>
             </div>
             <div style={{ display: 'flex', gap: 8 }}>
               <button onClick={() => scroll(-1)} style={{ width: 48, height: 48, borderRadius: '50%', border: '1px solid var(--line)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>←</button>
