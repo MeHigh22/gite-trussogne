@@ -20,16 +20,13 @@ html, body {
   overflow-x: hidden;
 }
 
-/* Tenor Sans font preview mode */
-[data-font="tenor"], [data-font="tenor"] body {
-  font-family: 'Tenor Sans', Georgia, sans-serif;
-}
-[data-font="tenor"] .serif {
-  font-family: 'Tenor Sans', Georgia, sans-serif;
-  font-style: normal;
-}
-
 html { scroll-behavior: smooth; }
+
+/* Hero plein écran — vh en fallback, dvh pour suivre la barre d'URL mobile */
+.page-hero {
+  height: 100vh;
+  height: 100dvh;
+}
 
 .serif { font-family: 'Playfair Display', Georgia, serif; font-weight: 400; }
 .mono-label {
@@ -219,16 +216,6 @@ img { display: block; max-width: 100%; }
 }
 .book-pill .seg:last-of-type { border-right: none; }
 
-/* Hero image grid */
-.hero-grid {
-  display: grid;
-  grid-template-columns: 1.6fr 1fr;
-  grid-template-rows: 1.6fr 1fr;
-  gap: 16px;
-  height: 100%;
-}
-.hero-grid > .h-main { grid-column: 1 / -1; }
-
 /* Sense pill */
 .sense-pill {
   display: inline-flex; align-items: center; gap: 10px;
@@ -261,6 +248,8 @@ img { display: block; max-width: 100%; }
   column-gap: 12px;
   padding: 0 48px;
 }
+/* Variante sans padding latéral : la galerie vit dans un conteneur max-width déjà paddé (page Le Gîte) */
+.gallery-grid.gallery-grid--contained { padding: 0 !important; }
 .gallery-item {
   break-inside: avoid;
   margin-bottom: 12px;
@@ -355,36 +344,12 @@ img { display: block; max-width: 100%; }
 /* ─── Gite page — 1024px ─────────────────────────────────── */
 @media (max-width: 1024px) {
   .gite-section { padding-left: 32px !important; padding-right: 32px !important; }
-  .gite-hero    { padding-top: 120px !important; padding-bottom: 80px !important; }
-  .gite-hero-grid { gap: 48px !important; }
-  .gite-overview-grid { gap: 56px !important; }
   .gite-room-grid { gap: 48px !important; }
-  .gite-amenities-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 40px !important;
-  }
 }
 
 /* ─── Gite page — 768px ──────────────────────────────────── */
 @media (max-width: 768px) {
   .gite-section { padding-left: 24px !important; padding-right: 24px !important; }
-  .gite-hero    { padding-top: 100px !important; padding-bottom: 60px !important; }
-
-  .gite-hero-grid {
-    grid-template-columns: 1fr !important;
-    gap: 40px !important;
-  }
-
-  .gite-hero-stats { grid-template-columns: repeat(2, 1fr) !important; }
-  .gite-stat-item  { border-right: none !important; padding-left: 0 !important; }
-  .gite-stat-item:nth-child(1),
-  .gite-stat-item:nth-child(2) { border-bottom: 1px solid var(--line) !important; }
-  .gite-stat-item:nth-child(odd) { border-right: 1px solid var(--line) !important; }
-
-  .gite-overview-grid {
-    grid-template-columns: 1fr !important;
-    gap: 40px !important;
-  }
 
   .gite-room-grid {
     grid-template-columns: 1fr !important;
@@ -392,41 +357,18 @@ img { display: block; max-width: 100%; }
   }
   .gite-room-grid > div:first-child { order: 1; }
   .gite-room-grid > div:last-child  { order: 2; }
-
-  .gite-amenities-grid {
-    grid-template-columns: 1fr !important;
-    gap: 32px !important;
-  }
 }
 
 /* ─── Gite page — 480px ──────────────────────────────────── */
 @media (max-width: 480px) {
   .gite-section { padding-left: 20px !important; padding-right: 20px !important; }
-  .gite-hero    { padding-top: 88px !important; padding-bottom: 48px !important; }
-
-  .gite-hero-stats { grid-template-columns: 1fr !important; }
-  .gite-stat-item {
-    border-right: none !important;
-    border-bottom: 1px solid var(--line) !important;
-    padding-left: 0 !important;
-  }
-  .gite-stat-item:last-child { border-bottom: none !important; }
-  .gite-stat-item:nth-child(odd) { border-right: none !important; }
 
   .btn-primary, .btn-ghost { width: 100%; justify-content: center; }
 }
 
 /* ─── Activités page — 1024px ───────────────────────────── */
 @media (max-width: 1024px) {
-  .act-hero    { padding-left: 32px !important; padding-right: 32px !important; padding-top: 140px !important; }
   .act-section { padding-left: 32px !important; padding-right: 32px !important; }
-
-  /* Hero: single column, show mobile image grid (same 3 images), hide desktop column */
-  .act-hero-grid { grid-template-columns: 1fr !important; }
-  .act-hero-imgs-large:not(.act-hero-imgs-mobile) { display: none !important; }
-  .act-hero-imgs-mobile { display: grid !important; }
-  .act-hero-h1  { font-size: clamp(40px, 6vw, 64px) !important; }
-  .act-hero-p   { font-size: 16px !important; margin-bottom: 28px !important; }
 
   /* Activities grid: 3 → 2 cols */
   .act-grid { grid-template-columns: repeat(2, 1fr) !important; }
@@ -437,11 +379,7 @@ img { display: block; max-width: 100%; }
 
 /* ─── Activités page — 768px ────────────────────────────── */
 @media (max-width: 768px) {
-  .act-hero    { padding-left: 24px !important; padding-right: 24px !important; padding-top: 120px !important; padding-bottom: 72px !important; }
   .act-section { padding-left: 24px !important; padding-right: 24px !important; }
-
-  /* Hero stats: flex row → 2×2 wrap */
-  .act-hero-stats { gap: 32px 40px !important; flex-wrap: wrap !important; }
 
   /* Activities grid: 2 → 1 col */
   .act-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
@@ -460,20 +398,10 @@ img { display: block; max-width: 100%; }
 
 /* ─── Activités page — 480px ────────────────────────────── */
 @media (max-width: 480px) {
-  .act-hero    { padding-left: 20px !important; padding-right: 20px !important; padding-top: 100px !important; }
   .act-section { padding-left: 20px !important; padding-right: 20px !important; }
-
-  /* Hero stats: 2 per row → each on its own line */
-  .act-hero-stats { gap: 24px 0 !important; flex-direction: column !important; }
 
   /* Restaurant rows: hide thumbnail image to save space */
   .act-resto-grid .ph[style*="width: 120px"] { display: none !important; }
-
-  .act-hero-h1 { font-size: clamp(36px, 8vw, 46px) !important; }
-  .act-hero-p  { font-size: 14px !important; }
-
-  .act-hero .btn-primary { padding: 9px 14px !important; font-size: 13px !important; }
-  .act-hero .btn-ghost   { padding: 8px 12px !important;  font-size: 13px !important; }
 }
 
 /* ─── Galerie page — 1024px ─────────────────────────────── */
@@ -509,54 +437,24 @@ img { display: block; max-width: 100%; }
 
 /* ─── À Propos page — 1024px ────────────────────────────── */
 @media (max-width: 1024px) {
-  .ap-hero    { padding-left: 32px !important; padding-right: 32px !important; padding-top: 140px !important; }
   .ap-section { padding-left: 32px !important; padding-right: 32px !important; }
-  .ap-hero-grid  { gap: 48px !important; }
-  .ap-story-grid { gap: 56px !important; }
-  .ap-pillar-row { gap: 48px !important; }
 }
 
 /* ─── À Propos page — 768px ─────────────────────────────── */
 @media (max-width: 768px) {
-  .ap-hero    { padding: 120px 24px 80px !important; min-height: unset !important; }
   .ap-section { padding-left: 24px !important; padding-right: 24px !important; }
-
-  /* Hero: stack to single column */
-  .ap-hero-grid {
-    grid-template-columns: 1fr !important;
-    gap: 48px !important;
-  }
-
-  /* Story: single column, image block above text */
-  .ap-story-grid {
-    grid-template-columns: 1fr !important;
-    gap: 48px !important;
-  }
-  /* Remove sticky on the image column */
-  .ap-story-grid > div:first-child { position: static !important; }
-
-  /* Pillars: single column, image always after text */
-  .ap-pillar-row {
-    grid-template-columns: 1fr !important;
-    gap: 32px !important;
-    padding: 56px 0 !important;
-  }
-  .ap-pillar-row > div:first-child { order: 1; }
-  .ap-pillar-row > div:last-child  { order: 2; }
 }
 
 /* ─── À Propos page — 480px ─────────────────────────────── */
 @media (max-width: 480px) {
-  .ap-hero    { padding: 100px 20px 60px !important; }
   .ap-section { padding-left: 20px !important; padding-right: 20px !important; }
-  .ap-pillar-row { padding: 40px 0 !important; }
 
   .btn-primary, .btn-ghost { width: 100%; justify-content: center; }
 }
 
 /* ─── Contact page — 1024px ─────────────────────────────── */
 @media (max-width: 1024px) {
-  .ct-hero    { padding-left: 32px !important; padding-right: 32px !important; padding-top: 140px !important; }
+  .ct-hero    { padding-left: 32px !important; padding-right: 32px !important; padding-top: 180px !important; }
   .ct-section { padding-left: 32px !important; padding-right: 32px !important; }
   .ct-hero-grid { gap: 48px !important; }
 
@@ -572,7 +470,7 @@ img { display: block; max-width: 100%; }
 
 /* ─── Contact page — 768px ──────────────────────────────── */
 @media (max-width: 768px) {
-  .ct-hero    { padding: 120px 24px 72px !important; }
+  .ct-hero    { padding: 150px 24px 72px !important; }
   .ct-section { padding-left: 24px !important; padding-right: 24px !important; }
 
   /* Hero: stack */
@@ -605,7 +503,7 @@ img { display: block; max-width: 100%; }
 
 /* ─── Contact page — 480px ──────────────────────────────── */
 @media (max-width: 480px) {
-  .ct-hero    { padding: 100px 20px 56px !important; }
+  .ct-hero    { padding: 120px 20px 56px !important; }
   .ct-section { padding-left: 20px !important; padding-right: 20px !important; }
   .ct-form-panel { padding: 24px !important; }
 

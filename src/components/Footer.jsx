@@ -38,7 +38,7 @@ export default function Footer() {
           borderBottom: '1px solid rgba(244,239,230,0.15)'
         }}>
           <div>
-            <div className="serif" style={{ fontSize: isMobile ? 40 : 56, fontStyle: 'italic', lineHeight: 1, fontWeight: 400, marginBottom: 16 }}>Trussogne</div>
+            <img src="/assets/logo.webp" alt="Trussogne" style={{ height: isMobile ? 72 : 92, marginBottom: 16, filter: 'brightness(0) invert(1)' }} />
             <p style={{ fontSize: 15, lineHeight: 1.5, color: 'rgba(244,239,230,0.7)', maxWidth: 380 }}>
               Gîte de charme dans les Ardennes belges. Un havre de paix pour 6 à 9 voyageurs.
             </p>
@@ -111,7 +111,7 @@ export default function Footer() {
 
         <div style={{
           padding: isMobile ? '32px 0 24px' : '48px 0 36px',
-          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          display: 'flex', alignItems: 'center', justifyContent: isMobile ? 'flex-start' : 'space-between',
           flexWrap: 'wrap', gap: isMobile ? 12 : 24,
           borderBottom: '1px solid rgba(244,239,230,0.15)'
         }}>

@@ -46,7 +46,7 @@ export function buildEllohaUrl({ arrival, nights, adults, kids }) {
   return 'https://reservation.elloha.com/?' + params.toString();
 }
 
-export default function BookingWidget({ wrapperStyle = {} }) {
+export default function BookingWidget({ wrapperStyle = {}, fullWidth = false }) {
   const bp = useBreakpoint();
   const today = new Date();
 
@@ -112,19 +112,18 @@ export default function BookingWidget({ wrapperStyle = {} }) {
             </button>
           </div>
         </div>
-        <div className="mono-label" style={{ color: 'var(--ink-soft)', textAlign: 'center', marginTop: 12 }}>{total} / {MAX} voyageurs</div>
       </div>
     );
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, ...wrapperStyle }}>
-      <div style={{ background: 'var(--paper)', borderRadius: 100, boxShadow: '0 20px 60px -20px rgba(31,58,24,0.25)', display: 'inline-flex', alignItems: 'center', padding: 8, border: '1px solid var(--line)' }}>
-        <div style={seg({ borderRight: '1px solid var(--line)' })}>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: fullWidth ? 'stretch' : 'center', gap: 12, ...wrapperStyle }}>
+      <div style={{ background: 'var(--paper)', borderRadius: 100, boxShadow: '0 20px 60px -20px rgba(31,58,24,0.25)', display: 'flex', width: fullWidth ? '100%' : undefined, alignItems: 'center', padding: 8, border: '1px solid var(--line)' }}>
+        <div style={seg({ borderRight: '1px solid var(--line)', flex: fullWidth ? 1 : undefined })}>
           <div className="mono-label" style={{ color: 'var(--ink-soft)' }}>Arrivée</div>
           <input type="date" value={arrival} min={fmt(today)} onChange={(e) => setArrival(e.target.value)} style={dateInput} />
         </div>
-        <div style={seg({ borderRight: '1px solid var(--line)' })}>
+        <div style={seg({ borderRight: '1px solid var(--line)', flex: fullWidth ? 1 : undefined })}>
           <div className="mono-label" style={{ color: 'var(--ink-soft)' }}>Nuits</div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             <button style={counterBtn(nights <= 1)} onClick={() => setNights(Math.max(1, nights - 1))}>−</button>
@@ -132,7 +131,7 @@ export default function BookingWidget({ wrapperStyle = {} }) {
             <button style={counterBtn(false)} onClick={() => setNights(nights + 1)}>+</button>
           </div>
         </div>
-        <div style={seg({ borderRight: '1px solid var(--line)' })}>
+        <div style={seg({ borderRight: '1px solid var(--line)', flex: fullWidth ? 1 : undefined })}>
           <div className="mono-label" style={{ color: 'var(--ink-soft)' }}>Adultes</div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             <button style={counterBtn(adults <= 1)} onClick={() => setAdults(Math.max(1, adults - 1))}>−</button>
@@ -140,7 +139,7 @@ export default function BookingWidget({ wrapperStyle = {} }) {
             <button style={counterBtn(total >= MAX)} onClick={() => total < MAX && setAdults(adults + 1)}>+</button>
           </div>
         </div>
-        <div style={seg({ borderRight: '1px solid var(--line)' })}>
+        <div style={seg({ borderRight: '1px solid var(--line)', flex: fullWidth ? 1 : undefined })}>
           <div className="mono-label" style={{ color: 'var(--ink-soft)' }}>Enfants</div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             <button style={counterBtn(kids <= 0)} onClick={() => setKids(Math.max(0, kids - 1))}>−</button>
@@ -154,7 +153,6 @@ export default function BookingWidget({ wrapperStyle = {} }) {
           </button>
         </div>
       </div>
-      <div className="mono-label" style={{ color: 'var(--ink-soft)' }}>{total} / {MAX} voyageurs</div>
     </div>
   );
 }

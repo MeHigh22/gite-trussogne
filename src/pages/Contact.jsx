@@ -5,11 +5,10 @@ import Footer from '../components/Footer';
 
 function ContactHero() {
   return (
-    <section className="ct-hero" style={{ padding: '120px 48px 80px', background: 'var(--paper)' }}>
+    <section className="ct-hero" style={{ padding: '180px 48px 80px', background: 'var(--paper)' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto' }}>
-        <div className="mono-label" style={{ color: 'var(--ink-soft)', marginBottom: 24 }}>· Nous contacter ·</div>
         <h1 className="serif" style={{ fontSize: 'clamp(48px, 6vw, 86px)', lineHeight: 0.95, fontWeight: 400 }}>
-          Parlons de votre <span style={{ color: 'var(--green)' }}>séjour.</span>
+          Parlons de votre <span style={{ color: 'var(--green)' }}>séjour</span>
         </h1>
       </div>
     </section>
@@ -52,7 +51,7 @@ function FormAndMap() {
           {!submitted ? (
             <>
               <div className="sec-num" style={{ marginBottom: 16 }}>· FORMULAIRE ·</div>
-              <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 40 }}>Écrivez-nous.</h2>
+              <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 40 }}>Écrivez-nous</h2>
               <div className="ct-name-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginBottom: 24 }}>
                 <div className="field"><label>Prénom</label><input type="text" placeholder="Votre prénom" /></div>
                 <div className="field"><label>Nom</label><input type="text" placeholder="Votre nom" /></div>
@@ -81,7 +80,7 @@ function FormAndMap() {
           ) : (
             <div style={{ textAlign: 'center', padding: '80px 0' }}>
               <div style={{ width: 72, height: 72, borderRadius: '50%', background: 'var(--green)', color: 'var(--paper)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: 32, marginBottom: 24 }}>✓</div>
-              <h3 className="serif" style={{ fontSize: 40, marginBottom: 16, fontWeight: 400 }}>Message envoyé.</h3>
+              <h3 className="serif" style={{ fontSize: 40, marginBottom: 16, fontWeight: 400 }}>Message envoyé</h3>
               <p style={{ fontSize: 16, color: 'var(--ink-soft)', maxWidth: 360, margin: '0 auto', lineHeight: 1.6 }}>Sandra revient vers vous dans les 24 heures.</p>
               <div style={{ display: 'flex', gap: 12, justifyContent: 'center', marginTop: 36, flexWrap: 'wrap' }}>
                 <Link to="/le-gite" className="btn-ghost">Le gîte</Link>
@@ -115,10 +114,12 @@ function FormAndMap() {
 
 function Directions() {
   const routes = [
-    { from: 'Bruxelles', time: '± 1h15', road: 'E411 direction Namur → sortie Achêne → Houyet', dist: '102 km' },
-    { from: 'Namur', time: '± 35 min', road: 'N94 direction Dinant → Houyet', dist: '45 km' },
-    { from: 'Luxembourg', time: '± 1h15', road: 'E411 direction Namur → sortie Wellin → Houyet', dist: '125 km' },
-    { from: 'Liège', time: '± 1h', road: 'E25 → E411 direction Namur → Houyet', dist: '80 km' },
+    { from: 'Bruxelles', time: '± 1h25', road: 'E411 direction Namur → sortie Custinne → Houyet', dist: '103 km' },
+    { from: 'Namur', time: '± 35 min', road: 'E411 direction Luxembourg → sortie Custinne → Houyet', dist: '39 km' },
+    { from: 'Liège', time: '± 1h', road: 'E25 → E42 → E411 → sortie Custinne → Houyet', dist: '95 km' },
+    { from: 'Gand', time: '± 2h15', road: 'E40 → R0 → E411 direction Namur → Houyet', dist: '159 km' },
+    { from: 'Saint-Nicolas', time: '± 2h05', road: 'E17 → E19 → E411 direction Namur → Houyet', dist: '159 km' },
+    { from: 'Rotterdam', time: '± 3h', road: 'A16/E19 → Anvers → E411 direction Namur → Houyet', dist: '234 km' },
   ];
   return (
     <section className="ct-section" style={{ padding: '60px 48px 80px', background: 'var(--cream)' }}>
@@ -127,7 +128,7 @@ function Directions() {
           <div>
             <div className="sec-num" style={{ marginBottom: 20 }}>· COMMENT VENIR ·</div>
             <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 24 }}>
-              Nous <span style={{ color: 'var(--green)' }}>trouver.</span>
+              Nous <span style={{ color: 'var(--green)' }}>trouver</span>
             </h2>
             <p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--ink-soft)', marginBottom: 36 }}>
               Trussogne se situe à Houyet, au cœur des Ardennes belges.
@@ -164,11 +165,11 @@ function FAQ() {
 
   return (
     <section className="ct-section" style={{ padding: '80px 48px', background: 'var(--paper)' }}>
-      <div style={{ maxWidth: 900, margin: '0 auto' }}>
+      <div style={{ maxWidth: 1280, margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: 72 }}>
           <div className="sec-num" style={{ marginBottom: 20 }}>· FAQ ·</div>
           <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400 }}>
-            Questions fréquentes.
+            Questions fréquentes
           </h2>
         </div>
         {faqs.map((faq, i) => (
@@ -197,7 +198,7 @@ export default function Contact() {
 
   return (
     <>
-      <Nav scrolled={scrolled} />
+      <Nav scrolled={scrolled} lightHero />
       <ContactHero />
       <InfoCards />
       <FormAndMap />

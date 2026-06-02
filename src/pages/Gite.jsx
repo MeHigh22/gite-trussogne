@@ -2,7 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
-import BookingWidgetCore, { ELLOHA_URL } from '../components/BookingWidget';
+import PageHero from '../components/PageHero';
+import BookingWidgetCore from '../components/BookingWidget';
 
 function useBreakpoint() {
   const [bp, setBp] = useState(() => {
@@ -40,80 +41,38 @@ function GiteHero() {
     { n: 'Quiétude absolue', label: 'Sérénité' },
   ];
   return (
-    <section id="top" style={{
-      minHeight: '100vh',
-      padding: bp === 'mobile' ? '80px 20px 40px' : bp === 'tablet' ? '90px 32px 60px' : '140px 48px 80px',
-      position: 'relative',
-      background: 'var(--paper)'
-    }}>
-      <div style={{ display: 'grid', gridTemplateColumns: bp === 'desktop' ? '2fr 3fr' : '1fr', gap: 40, alignItems: 'center', minHeight: 'calc(100vh - 220px)' }}>
-        <div>
-          <h1 className="serif" style={{
-            fontSize: bp === 'mobile' ? 'clamp(36px, 8vw, 46px)' : 'clamp(48px, 6vw, 86px)',
-            lineHeight: 0.95,
-            letterSpacing: '-0.02em',
-            fontWeight: 400,
-            marginBottom: 24,
-          }}>
-            Votre<br />parenthèse<br /><span style={{ color: 'var(--green)' }}>enchantée.</span>
-          </h1>
-
-          <p style={{ fontSize: bp === 'mobile' ? 14 : 18, lineHeight: 1.5, color: 'var(--ink-soft)', marginBottom: bp === 'mobile' ? 24 : 44 }}>
-            Gîte de caractère pouvant accueillir jusqu'à 9 personnes dans un cadre naturel d'exception. Niché au cœur d'un environnement préservé, Trussogne offre un espace authentique pour des moments inoubliables.
+    <section id="top" style={{ background: 'var(--paper)' }}>
+      <PageHero
+        image="/assets/le-gite/le-gite-2.webp"
+        alt="Le gîte de Trussogne"
+        title="Votre parenthèse enchantée"
+        subtitle="Gîte de caractère pouvant accueillir jusqu'à 9 personnes dans un cadre naturel d'exception"
+      />
+      <div style={{ padding: bp === 'mobile' ? '32px 20px 8px' : bp === 'tablet' ? '40px 32px 8px' : '56px 48px 8px' }}>
+        <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+          <p style={{ fontSize: bp === 'mobile' ? 15 : 19, lineHeight: 1.6, color: 'var(--ink-soft)', maxWidth: 720 }}>
+            Niché au cœur d'un environnement préservé, Trussogne offre un espace authentique pour des moments inoubliables. <span className="serif" style={{ fontStyle: 'italic', color: 'var(--green)' }}>Votre évasion vous attend&nbsp;!</span>
           </p>
 
-          <div style={{ display: 'flex', gap: 14, alignItems: 'center', flexWrap: bp === 'mobile' ? 'nowrap' : 'wrap' }}>
-            <a href="#diane" className="btn-primary" style={bp === 'mobile' ? { padding: '9px 14px', fontSize: 13 } : {}}>
-              {bp === 'mobile' ? 'Voir les chambres' : 'Découvrir les chambres'}
-            </a>
-            <a href={ELLOHA_URL} target="_blank" rel="noopener noreferrer" className="btn-ghost" style={bp === 'mobile' ? { padding: '8px 12px', fontSize: 13 } : {}}>Réserver en direct</a>
-          </div>
-
-          {bp !== 'desktop' && (
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginTop: 32, height: 260 }}>
-              <div style={{ borderRadius: 4, overflow: 'hidden' }}>
-                <img src="/assets/le-gite/le-gite-2.webp" alt="Le gîte de Trussogne" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-              </div>
-              <div style={{ display: 'grid', gridTemplateRows: '1fr 1fr', gap: 8 }}>
-                <div style={{ borderRadius: 4, overflow: 'hidden' }}>
-                  <img src="/assets/le-gite/le-gite.webp" alt="Le gîte de Trussogne" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+          <div style={{
+            display: 'flex',
+            flexDirection: bp === 'mobile' ? 'column' : 'row',
+            alignItems: bp === 'mobile' ? 'flex-start' : 'center',
+            gap: bp === 'mobile' ? 32 : 56,
+            marginTop: bp === 'mobile' ? 24 : 32,
+            flexWrap: 'wrap',
+          }}>
+            <a href="#verte" className="btn-primary" style={bp === 'mobile' ? { padding: '12px 18px', fontSize: 13 } : {}}>Découvrir les chambres</a>
+            <div style={{ display: 'flex', gap: bp === 'mobile' ? 32 : 56, flexWrap: 'wrap' }}>
+              {stats.map((s, i) => (
+                <div key={i}>
+                  <div className="mono-label" style={{ color: 'var(--ink-soft)', marginBottom: 6 }}>{s.label}</div>
+                  <div style={{ fontSize: 20, lineHeight: 1.2, color: 'var(--green)', fontWeight: 500 }}>{s.n}</div>
                 </div>
-                <div style={{ borderRadius: 4, overflow: 'hidden' }}>
-                  <img src="/assets/le-gite/le-gite-3.webp" alt="Le gîte de Trussogne" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-                </div>
-              </div>
+              ))}
             </div>
-          )}
-
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', marginTop: 48, borderTop: '1px solid var(--line)' }}>
-            {stats.map((s, i) => (
-              <div key={i} style={{
-                padding: '20px 0',
-                borderBottom: i < 2 ? '1px solid var(--line)' : 'none',
-                borderRight: i % 2 === 0 ? '1px solid var(--line)' : 'none',
-                paddingRight: i % 2 === 0 ? 24 : 0,
-                paddingLeft: i % 2 === 1 ? 24 : 0,
-              }}>
-                <div className="mono-label" style={{ color: 'var(--ink-soft)', marginBottom: 6 }}>{s.label}</div>
-                <div style={{ fontSize: 18, lineHeight: 1.2, color: 'var(--green)', fontWeight: 500 }}>{s.n}</div>
-              </div>
-            ))}
           </div>
         </div>
-
-        {bp === 'desktop' && (
-          <div style={{ height: 'min(720px, 80vh)', display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr 1fr', gap: 12 }}>
-            <div style={{ borderRadius: 4, overflow: 'hidden', gridRow: '1 / -1' }}>
-              <img src="/assets/le-gite/le-gite-2.webp" alt="Le gîte de Trussogne" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            </div>
-            <div style={{ borderRadius: 4, overflow: 'hidden' }}>
-              <img src="/assets/le-gite/le-gite.webp" alt="Le gîte de Trussogne" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            </div>
-            <div style={{ borderRadius: 4, overflow: 'hidden' }}>
-              <img src="/assets/le-gite/le-gite-3.webp" alt="Le gîte de Trussogne" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            </div>
-          </div>
-        )}
       </div>
     </section>
   );
@@ -122,10 +81,10 @@ function GiteHero() {
 function BookingWidget() {
   const bp = useBreakpoint();
   return (
-    <section style={{ background: 'var(--paper)', padding: bp === 'mobile' ? '24px 16px 32px' : bp === 'tablet' ? '32px 32px 40px' : '32px 48px 40px' }}>
-      {bp !== 'mobile' && <div className="mono-label" style={{ color: 'var(--ink-soft)', textAlign: 'center', marginBottom: 16 }}>· Vérifiez les disponibilités ·</div>}
-      {bp === 'mobile' && <div className="mono-label" style={{ color: 'var(--ink-soft)', textAlign: 'center', marginBottom: 16 }}>· Vérifiez les disponibilités ·</div>}
-      <BookingWidgetCore />
+    <section style={{ background: 'var(--paper)', padding: bp === 'mobile' ? '24px 20px 32px' : bp === 'tablet' ? '32px 32px 40px' : '32px 48px 40px' }}>
+      <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+        <BookingWidgetCore wrapperStyle={{ alignItems: 'flex-start' }} />
+      </div>
     </section>
   );
 }
@@ -137,26 +96,74 @@ const ROOMS = [
   { id: 'diane',    num: '04', name: 'Diane',    color: '#6B4226', img: '/assets/quatreChambres/ChambreDiane.webp',             desc: "Sa grande fenêtre panoramique vous plonge dans un décor naturel où chaque matin, le lever du soleil illumine délicatement la pièce. Aménagée d'un lit double au matelas à mémoire de forme, cette chambre est idéale pour un séjour ressourçant. Sa salle de douche privative allie confort et intimité.", features: ['Lit Queen size', 'Salle de douche privative', 'Vue imprenable'], images: ['/assets/quatreChambres/diane2.webp', '/assets/quatreChambres/diane3.webp'], align: 'right' },
 ];
 
+// Nombre total d'emplacements photo par chambre. Les slots au-delà des photos
+// réelles s'affichent en placeholder « carbon field » à remplir par l'hôte.
+const ROOM_SLOTS = 5;
+
 function RoomImages({ room }) {
+  // Photos réelles (principale + secondaires), complétées par des placeholders.
+  const real = [room.img, ...room.images].filter(s => s && s.startsWith('/'));
+  const slides = [
+    ...real,
+    ...Array.from({ length: Math.max(0, ROOM_SLOTS - real.length) }, () => null),
+  ];
+  const [index, setIndex] = useState(0);
+  const count = slides.length;
+  const [paused, setPaused] = useState(false);
+  const [inView, setInView] = useState(false);
+  const wrapRef = useRef(null);
+
+  // Démarre le défilement auto uniquement quand la chambre est visible à l'écran.
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(([e]) => setInView(e.isIntersecting), { threshold: 0.4 });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  // Avance toutes les 5 s (standard galerie), en pause au survol ou hors écran.
+  useEffect(() => {
+    if (count <= 1 || paused || !inView) return;
+    const id = setInterval(() => setIndex(i => (i + 1) % count), 5000);
+    return () => clearInterval(id);
+  }, [count, paused, inView]);
+
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-      <div style={{ aspectRatio: '16/9', borderRadius: 4, overflow: 'hidden' }}>
-        <img src={room.img} alt={room.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+    <div ref={wrapRef} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}
+      onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+      <div style={{ position: 'relative', aspectRatio: '4/3', borderRadius: 4, overflow: 'hidden' }}>
+        {slides.map((src, i) => (
+          <div key={i} style={{
+            position: 'absolute', inset: 0,
+            opacity: index === i ? 1 : 0,
+            transition: 'opacity 0.5s ease',
+            pointerEvents: index === i ? 'auto' : 'none',
+          }}>
+            {src ? (
+              <img src={src} alt={`${room.name} — photo ${i + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+            ) : (
+              <div className="ph" data-label={`${room.id} — photo ${i + 1}`} style={{ width: '100%', height: '100%' }}></div>
+            )}
+          </div>
+        ))}
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
-        {room.images.map((img, i) =>
-          img.startsWith('/') ? (
-            <div key={i} style={{ aspectRatio: '3/2', borderRadius: 4, overflow: 'hidden' }}>
-              <img src={img} alt={room.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-            </div>
-          ) : (
-            <div key={i} className="ph" data-label={img} style={{ aspectRatio: '3/2', borderRadius: 4 }}></div>
-          )
-        )}
-      </div>
+
+      {count > 1 && (
+        <div style={{ display: 'flex', gap: 8, justifyContent: 'center' }}>
+          {slides.map((_, i) => (
+            <button key={i} onClick={() => setIndex(i)} aria-label={`Aller à la photo ${i + 1}`} style={{
+              width: index === i ? 22 : 8, height: 8, borderRadius: 100,
+              background: index === i ? room.color : 'var(--line)',
+              border: 'none', cursor: 'pointer', transition: 'all 0.3s ease', padding: 0,
+            }} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
+
 
 function RoomSection({ room, index }) {
   const bp = useBreakpoint();
@@ -172,7 +179,7 @@ function RoomSection({ room, index }) {
           <div className="sec-num" style={{ marginBottom: 20 }}>· {room.num} ·</div>
           <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 0.95, fontWeight: 400, marginBottom: 28, letterSpacing: '-0.02em', color: room.color }}>{room.name}</h2>
           <p style={{ fontSize: 16, lineHeight: 1.7, color: 'var(--ink-soft)', maxWidth: 480, marginBottom: 36 }}>{room.desc}</p>
-          <div style={{ display: 'flex', flexDirection: 'column', border: '1px solid var(--line)', marginBottom: 36 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', border: '1px solid var(--line)' }}>
             {room.features.map((f, i) => (
               <div key={i} style={{ padding: '16px 20px', borderBottom: i < room.features.length - 1 ? '1px solid var(--line)' : 'none', fontSize: 14, display: 'flex', alignItems: 'center', gap: 10 }}>
                 <span style={{ width: 6, height: 6, borderRadius: '50%', background: room.color, flexShrink: 0 }}></span>
@@ -180,7 +187,6 @@ function RoomSection({ room, index }) {
               </div>
             ))}
           </div>
-          <a href={ELLOHA_URL} target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ background: room.color }}>Réserver</a>
         </div>
         {isMobile && <RoomImages room={room} />}
         {!isMobile && !isLeft && <RoomImages room={room} />}
@@ -195,12 +201,9 @@ function RoomsIntro() {
     <section style={{ padding: bp === 'mobile' ? '40px 20px 0' : bp === 'tablet' ? '60px 32px 0' : '80px 48px 0', background: 'var(--paper)', textAlign: 'center' }}>
       <div style={{ maxWidth: 900, margin: '0 auto' }}>
         <div className="sec-num" style={{ marginBottom: 20 }}>· 02 — NOS CHAMBRES ·</div>
-        <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 32 }}>
-          Quatre chambres, quatre atmosphères.
+        <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 48 }}>
+          Quatre chambres, quatre atmosphères
         </h2>
-        <p style={{ fontSize: 17, color: 'var(--ink-soft)', lineHeight: 1.6, maxWidth: 600, margin: '0 auto 48px' }}>
-          Décorées avec soin, chacune respire son propre caractère — du romantisme feutré au minimalisme rustique.
-        </p>
         <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
           {ROOMS.map((r) => (
             <a key={r.id} href={'#' + r.id} style={{ display: 'inline-flex', alignItems: 'center', gap: 10, padding: '12px 22px', border: '1px solid var(--line)', borderRadius: 100, fontSize: 14, fontWeight: 500, transition: 'all 0.3s ease' }}>
@@ -294,14 +297,13 @@ function GiteReviews() {
   ];
   const trackRef = useRef(null);
   const scroll = (dir) => { if (trackRef.current) trackRef.current.scrollBy({ left: dir * 480, behavior: 'smooth' }); };
-  const innerPad = bp === 'mobile' ? '0 20px' : bp === 'tablet' ? '0 32px' : '0 48px';
   return (
-    <section style={{ padding: bp === 'mobile' ? '40px 0' : '60px 0', background: 'var(--paper)' }}>
-      <div style={{ maxWidth: 1280, margin: '0 auto', padding: innerPad }}>
+    <section style={{ padding: bp === 'mobile' ? '40px 20px' : bp === 'tablet' ? '60px 32px' : '60px 48px', background: 'var(--paper)' }}>
+      <div style={{ maxWidth: 1280, margin: '0 auto', padding: 0 }}>
         <div className="sec-num" style={{ marginBottom: 20 }}>· AVIS ·</div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 56, gap: 48, flexWrap: 'wrap' }}>
           <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400, maxWidth: 720 }}>
-            Ce que disent <span style={{ color: 'var(--green)' }}>nos voyageurs.</span>
+            Ce que disent <span style={{ color: 'var(--green)' }}>nos voyageurs</span>
           </h2>
           <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -315,8 +317,8 @@ function GiteReviews() {
           </div>
         </div>
       </div>
-      <div style={{ maxWidth: 1280, margin: '0 auto', padding: innerPad }}>
-        <div ref={trackRef} className="review-track" style={{ display: 'flex', gap: 24, overflowX: 'auto', padding: '24px 0' }}>
+      <div style={{ maxWidth: 1280, margin: '0 auto', padding: 0 }}>
+        <div ref={trackRef} className="review-track" style={{ display: 'flex', gap: 24, overflowX: 'auto', padding: 0 }}>
           {reviews.map((r, i) => (
             <article key={i} className="review-card" style={{
               flex: bp === 'mobile' ? '0 0 300px' : bp === 'tablet' ? '0 0 360px' : '0 0 460px',
@@ -380,23 +382,25 @@ function GiteMosaic() {
   }, [lbIndex]);
 
   return (
-    <section style={{ background: 'var(--paper)', padding: '64px 0 80px' }}>
-      <div style={{ padding: '0 48px', marginBottom: 48 }}>
-        <div className="sec-num" style={{ marginBottom: 16 }}>· 01 — LE GÎTE ·</div>
-        <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400, maxWidth: 640 }}>
-          Un lieu d'exception où <span style={{ color: 'var(--green)' }}>confort et nature</span> se rencontrent.
-        </h2>
-      </div>
-      <div className="gallery-grid" style={{ padding: '0 48px' }}>
-        {MOSAIC.map((p, i) => (
-          <div key={i} className="gallery-item" onClick={() => setLbIndex(i)}
-            style={{ animation: `fadeUp 0.6s ease ${i * 0.04}s both` }}>
-            <img src={p.src} alt={p.caption} loading="lazy" />
-            <div className="overlay">
-              <div className="serif" style={{ fontSize: 18, fontStyle: 'italic', color: 'var(--paper)' }}>{p.caption}</div>
+    <section className="gite-section" style={{ background: 'var(--paper)', padding: '64px 48px 80px' }}>
+      <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+        <div style={{ marginBottom: 48 }}>
+          <div className="sec-num" style={{ marginBottom: 16 }}>· 01 — LE GÎTE ·</div>
+          <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400, maxWidth: 640 }}>
+            Un lieu d'exception où <span style={{ color: 'var(--green)' }}>confort et nature</span> se rencontrent
+          </h2>
+        </div>
+        <div className="gallery-grid gallery-grid--contained">
+          {MOSAIC.map((p, i) => (
+            <div key={i} className="gallery-item" onClick={() => setLbIndex(i)}
+              style={{ animation: `fadeUp 0.6s ease ${i * 0.04}s both` }}>
+              <img src={p.src} alt={p.caption} loading="lazy" />
+              <div className="overlay">
+                <div className="serif" style={{ fontSize: 18, fontStyle: 'italic', color: 'var(--paper)' }}>{p.caption}</div>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
       {lbIndex !== null && (

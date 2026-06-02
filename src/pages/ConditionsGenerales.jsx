@@ -135,14 +135,14 @@ export default function ConditionsGenerales() {
 
   return (
     <>
-      <Nav scrolled={scrolled} />
+      <Nav scrolled={scrolled} lightHero />
 
       {/* Hero */}
       <section style={{ padding: bp === 'mobile' ? '100px 20px 40px' : bp === 'tablet' ? '110px 32px 48px' : '140px 48px 60px', background: 'var(--paper)' }}>
         <div style={{ maxWidth: 860, margin: '0 auto' }}>
           <div className="mono-label" style={{ color: 'var(--ink-soft)', marginBottom: 20 }}>· Informations légales ·</div>
           <h1 className="serif" style={{ fontSize: bp === 'mobile' ? 'clamp(36px, 8vw, 46px)' : 'clamp(48px, 6vw, 86px)', lineHeight: 0.95, fontWeight: 400, marginBottom: 24 }}>
-            Conditions <span style={{ color: 'var(--green)' }}>générales.</span>
+            Conditions <span style={{ color: 'var(--green)' }}>générales</span>
           </h1>
           <p style={{ fontSize: bp === 'mobile' ? 14 : 16, lineHeight: 1.6, color: 'var(--ink-soft)', maxWidth: 560 }}>
             Contrat de location touristique — Gîte de Trussogne, Grande-Trussogne 9C, 5561 Houyet, Belgique.

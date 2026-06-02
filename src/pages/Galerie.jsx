@@ -96,14 +96,14 @@ export default function Galerie() {
 
   return (
     <div className="galerie-page">
-      <Nav scrolled={scrolled} />
+      <Nav scrolled={scrolled} lightHero />
 
       {/* Hero */}
       <section className="gal-hero" style={{ padding: '120px 48px 60px', textAlign: 'center' }}>
         <div style={{ maxWidth: 800, margin: '0 auto' }}>
 
           <h1 className="serif" style={{ fontSize: 'clamp(48px, 6vw, 86px)', lineHeight: 0.95, fontWeight: 400, marginBottom: 24 }}>
-            <span style={{ color: 'var(--green)' }}>Galerie</span> photos.
+            <span style={{ color: 'var(--green)' }}>Galerie</span> photos
           </h1>
           <p style={{ fontSize: 17, lineHeight: 1.6, color: 'var(--ink-soft)', maxWidth: 480, margin: '0 auto' }}>
             Découvrez Trussogne en images — les espaces, la nature, les détails qui font le charme de ce lieu d'exception.
@@ -142,7 +142,7 @@ export default function Galerie() {
       <section className="gal-cta" style={{ padding: '60px 48px', textAlign: 'center', borderTop: '1px solid var(--line)' }}>
         <div style={{ maxWidth: 700, margin: '0 auto' }}>
           <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 32 }}>
-            Réservez votre parenthèse.
+            Réservez votre parenthèse
           </h2>
           <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
             <a href={ELLOHA_URL} target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ fontSize: 15, padding: '16px 28px' }}>Réserver en direct</a>

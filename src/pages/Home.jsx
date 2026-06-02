@@ -2,7 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
-import BookingWidgetCore, { buildEllohaUrl, ELLOHA_URL } from '../components/BookingWidget';
+import PageHero from '../components/PageHero';
+import BookingWidgetCore from '../components/BookingWidget';
 
 function useBreakpoint() {
   const [bp, setBp] = useState(() => {
@@ -34,91 +35,39 @@ function Stat({ n, label }) {
 function Hero() {
   const bp = useBreakpoint();
   return (
-    <section id="top" style={{
-      minHeight: '100vh',
-      padding: bp === 'mobile' ? '80px 20px 40px' : bp === 'tablet' ? '90px 32px 60px' : '140px 48px 80px',
-      position: 'relative',
-      background: 'var(--paper)'
-    }}>
-      <div style={{ display: 'grid', gridTemplateColumns: bp === 'desktop' ? '2fr 3fr' : '1fr', gap: 40, alignItems: 'center', minHeight: 'calc(100vh - 220px)' }}>
-        <div>
-          <h1 className="serif" style={{
-            fontSize: bp === 'mobile' ? 'clamp(36px, 8vw, 46px)' : 'clamp(48px, 6vw, 86px)',
-            lineHeight: 0.95,
-            letterSpacing: '-0.02em',
-            fontWeight: 400,
-            color: 'var(--ink)',
-            marginBottom: 24,
-          }}>
-            Gîte de <span style={{ color: 'var(--green)' }}>charme</span>,<br/>
-            silence <span style={{ opacity: 0.4 }}>&amp;&nbsp;espace.</span>
-          </h1>
-
-          <p style={{ fontSize: bp === 'mobile' ? 14 : 18, lineHeight: 1.5, color: 'var(--ink-soft)', marginBottom: bp === 'mobile' ? 24 : 44 }}>
-            Niché au cœur des Ardennes belges à Houyet, un havre de paix pour 6 à 9 personnes, où le temps semble s'arrêter et où l'on se reconnecte à l'essentiel.
+    <section id="top" style={{ background: 'var(--paper)' }}>
+      <PageHero
+        image="/assets/photo1.webp"
+        alt="Maison ardennaise"
+        title="Gîte de Trussogne"
+        subtitle="Gîte de charme en Ardenne"
+      />
+      <div style={{ padding: bp === 'mobile' ? '32px 20px 48px' : bp === 'tablet' ? '40px 32px 56px' : '56px 48px 72px' }}>
+        <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+          <p style={{ fontSize: bp === 'mobile' ? 15 : 19, lineHeight: 1.6, color: 'var(--ink-soft)', maxWidth: 720 }}>
+            Nichée au cœur d'un environnement naturel préservé à Houyet dans nos Ardennes, notre propriété est le fruit d'un rêve : créer un havre de paix où le temps semble s'arrêter. À Trussogne, chacun peut se reconnecter à l'essentiel, profiter du calme et découvrir la beauté naturelle de cette région privilégiée.
           </p>
 
-          <div style={{ display: 'flex', gap: 14, alignItems: 'center', flexWrap: bp === 'mobile' ? 'nowrap' : 'wrap' }}>
-            <a href={ELLOHA_URL} target="_blank" rel="noopener noreferrer" className="btn-primary" style={bp === 'mobile' ? { padding: '9px 14px', fontSize: 13 } : {}}>
-              {bp === 'mobile' ? 'Réserver en direct' : <span>Réserver en direct</span>}
-            </a>
-            <a href="#story" className="btn-ghost" style={bp === 'mobile' ? { padding: '8px 12px', fontSize: 13 } : {}}>Découvrir le lieu</a>
+          <div style={{
+            display: 'flex',
+            flexDirection: bp === 'mobile' ? 'column' : 'row',
+            alignItems: bp === 'mobile' ? 'flex-start' : 'center',
+            gap: bp === 'mobile' ? 32 : 56,
+            marginTop: bp === 'mobile' ? 24 : 32,
+            flexWrap: 'wrap',
+          }}>
+            <a href="#story" className="btn-primary" style={bp === 'mobile' ? { padding: '12px 18px', fontSize: 13 } : {}}>Découvrir le lieu</a>
+            <div style={{ display: 'flex', gap: bp === 'mobile' ? 32 : 56 }}>
+              <Stat n="6—9" label="Voyageurs" />
+              <Stat n="04" label="Chambres" />
+            </div>
           </div>
 
-          {bp !== 'desktop' && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 32 }}>
-              <div style={{ borderRadius: 4, overflow: 'hidden', aspectRatio: '16/9' }}>
-                <img src="/assets/photo1.webp" alt="Maison ardennaise" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-              </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
-                <div style={{ borderRadius: 4, overflow: 'hidden', aspectRatio: '1/1' }}>
-                  <img src="/assets/Marcassins-Trussogne.webp" alt="Marcassins à Trussogne" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-                </div>
-                <div style={{ borderRadius: 4, overflow: 'hidden', aspectRatio: '1/1' }}>
-                  <img src="/assets/Photo-Lievres-amoureux-Tru.webp" alt="Lièvres amoureux à Trussogne" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-                </div>
-              </div>
-            </div>
-          )}
-
-          <div style={{ display: 'flex', gap: bp === 'mobile' ? 24 : 48, marginTop: 48, paddingTop: 36, borderTop: '1px solid var(--line)', flexWrap: 'wrap' }}>
-            <Stat n="6—9" label="Voyageurs" />
-            <Stat n="04" label="Chambres" />
-            <Stat n="550" label="ha de nature" />
-            <Stat n="1976" label="Maison ardennaise" />
+          <div style={{ marginTop: bp === 'mobile' ? 40 : 56 }}>
+            <BookingWidgetCore wrapperStyle={{ alignItems: 'flex-start' }} />
           </div>
         </div>
-
-        {bp === 'desktop' && (
-          <div style={{ height: 'min(720px, 80vh)', position: 'relative' }}>
-            <div className="hero-grid">
-              <div className="h-main" style={{ borderRadius: 4, overflow: 'hidden' }}><img src="/assets/photo1.webp" alt="Maison ardennaise" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /></div>
-              <div style={{ borderRadius: 4, overflow: 'hidden' }}><img src="/assets/Marcassins-Trussogne.webp" alt="Marcassins à Trussogne" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /></div>
-              <div style={{ borderRadius: 4, overflow: 'hidden' }}><img src="/assets/Photo-Lievres-amoureux-Tru.webp" alt="Lièvres amoureux à Trussogne" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /></div>
-            </div>
-            <div style={{
-              position: 'absolute', bottom: -24, left: -24,
-              background: 'var(--paper)', padding: '20px 24px',
-              border: '1px solid var(--line)', maxWidth: 280
-            }}>
-              <div className="mono-label" style={{ color: 'var(--green)', marginBottom: 8 }}>nº 01 — La maison</div>
-              <div className="serif" style={{ fontSize: 22, lineHeight: 1.2, fontStyle: 'italic' }}>
-                "Une vue parmi les plus belles de Belgique."
-              </div>
-              <div className="mono-label" style={{ marginTop: 10, fontSize: 9, color: 'var(--ink-soft)' }}>— Monika S., voyageuse</div>
-            </div>
-          </div>
-        )}
       </div>
-    </section>
-  );
-}
-
-function HomeBanner() {
-  const bp = useBreakpoint();
-  return (
-    <section style={{ background: 'var(--paper)', padding: bp === 'mobile' ? '24px 16px 32px' : bp === 'tablet' ? '32px 32px 40px' : '32px 48px 40px' }}>
-      <BookingWidgetCore />
     </section>
   );
 }
@@ -126,10 +75,10 @@ function HomeBanner() {
 function Sensory() {
   const bp = useBreakpoint();
   const senses = [
-    { num: '01', label: 'Printemps', caption: "Sentez l'odeur de la pluie après une après-midi chaude.", photo: '/assets/quatreSaisons/printemps.webp' },
-    { num: '02', label: 'Été',      caption: "Une expérience sensorielle au cœur de la pleine nature.", photo: '/assets/quatreSaisons/ete.webp' },
-    { num: '03', label: 'Automne',  caption: "Écoutez le chant des oiseaux dans les sapins.",           photo: '/assets/quatreSaisons/brume.webp' },
-    { num: '04', label: 'Hiver',    caption: "Laissez-vous envelopper par le calme de la saison.",      photo: '/assets/quatreSaisons/hiver1.webp' },
+    { num: '01', label: 'Printemps', caption: "Sentez l'odeur de la pluie après une après-midi chaude", photo: '/assets/quatreSaisons/printemps.webp' },
+    { num: '02', label: 'Été',      caption: "Une expérience sensorielle au cœur de la pleine nature", photo: '/assets/quatreSaisons/ete.webp' },
+    { num: '03', label: 'Automne',  caption: "Écoutez le chant des oiseaux dans les sapins",           photo: '/assets/quatreSaisons/brume.webp' },
+    { num: '04', label: 'Hiver',    caption: "Laissez-vous envelopper par le calme de la saison",      photo: '/assets/quatreSaisons/hiver1.webp' },
   ];
   const [active, setActive] = useState(0);
   const current = senses[active];
@@ -147,35 +96,39 @@ function Sensory() {
         ))}
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(31,58,24,0.7) 0%, rgba(31,58,24,0.3) 40%, rgba(31,58,24,0.3) 50%, rgba(31,58,24,0.85) 100%)', pointerEvents: 'none' }} />
 
-        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, padding: bp === 'desktop' ? '80px 48px 0' : '60px 24px 0' }}>
-          <div className="sec-num" style={{ marginBottom: 16, color: '#fff' }}>· UNE EXPÉRIENCE SENSORIELLE ·</div>
-          <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.0, fontWeight: 400, color: '#fff' }}>
-            Quatre saisons, un lieu.
-          </h2>
+        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, padding: bp === 'desktop' ? '80px 48px 0' : bp === 'tablet' ? '60px 32px 0' : '60px 20px 0' }}>
+          <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+            <div className="sec-num" style={{ marginBottom: 16, color: '#fff' }}>· UNE EXPÉRIENCE SENSORIELLE ·</div>
+            <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.0, fontWeight: 400, color: '#fff' }}>
+              Quatre saisons, un lieu
+            </h2>
+          </div>
         </div>
 
-        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: bp === 'desktop' ? '0 48px 64px' : '0 24px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: bp === 'mobile' ? 24 : 48, flexWrap: 'wrap' }}>
-          <div style={{ maxWidth: 480 }}>
-            <p className="serif" style={{ fontSize: bp === 'desktop' ? 28 : 20, lineHeight: 1.25, fontWeight: 400, marginBottom: 12, color: '#fff' }}>{current.caption}</p>
-            <p style={{ fontSize: 14, color: bp === 'mobile' ? 'rgba(244,239,230,0.85)' : 'rgba(244,239,230,0.6)', lineHeight: 1.5 }}>
-              Trussogne se vit autant qu'elle se regarde. Les fenêtres ouvertes, le bois qui crépite, le silence des Ardennes.
-            </p>
-          </div>
+        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: bp === 'desktop' ? '0 48px 64px' : bp === 'tablet' ? '0 32px 40px' : '0 20px 40px' }}>
+          <div style={{ maxWidth: 1280, margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: bp === 'mobile' ? 24 : 48, flexWrap: 'wrap' }}>
+            <div style={{ maxWidth: 480 }}>
+              <p className="serif" style={{ fontSize: bp === 'desktop' ? 28 : 20, lineHeight: 1.25, fontWeight: 400, marginBottom: 12, color: '#fff' }}>{current.caption}</p>
+              <p style={{ fontSize: 14, color: bp === 'mobile' ? 'rgba(244,239,230,0.85)' : 'rgba(244,239,230,0.6)', lineHeight: 1.5 }}>
+                Trussogne se vit autant qu'elle se regarde. Les fenêtres ouvertes, le bois qui crépite, le silence des Ardennes.
+              </p>
+            </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 0, width: bp === 'mobile' ? '100%' : 'auto' }}>
-            {senses.map((s, i) => (
-              <button key={i} onClick={() => setActive(i)} style={{
-                padding: bp === 'mobile' ? '12px 8px' : '16px 28px',
-                background: active === i ? 'rgba(244,239,230,0.15)' : 'transparent',
-                border: 'none', cursor: 'pointer',
-                borderBottom: active === i ? '2px solid var(--paper)' : '2px solid transparent',
-                transition: 'all 0.4s ease',
-                textAlign: 'left',
-              }}>
-                <div className="mono-label" style={{ fontSize: 9, color: active === i ? 'var(--paper)' : 'rgba(244,239,230,0.5)', marginBottom: 4 }}>{s.num}</div>
-                <div style={{ fontSize: bp === 'mobile' ? 13 : 14, fontWeight: 500, color: active === i ? '#fff' : 'rgba(244,239,230,0.65)', letterSpacing: '0.02em' }}>{s.label}</div>
-              </button>
-            ))}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 0, width: bp === 'mobile' ? '100%' : 'auto' }}>
+              {senses.map((s, i) => (
+                <button key={i} onClick={() => setActive(i)} style={{
+                  padding: bp === 'mobile' ? '12px 8px' : '16px 28px',
+                  background: active === i ? 'rgba(244,239,230,0.15)' : 'transparent',
+                  border: 'none', cursor: 'pointer',
+                  borderBottom: active === i ? '2px solid var(--paper)' : '2px solid transparent',
+                  transition: 'all 0.4s ease',
+                  textAlign: 'left',
+                }}>
+                  <div className="mono-label" style={{ fontSize: 9, color: active === i ? 'var(--paper)' : 'rgba(244,239,230,0.5)', marginBottom: 4 }}>{s.num}</div>
+                  <div style={{ fontSize: bp === 'mobile' ? 13 : 14, fontWeight: 500, color: active === i ? '#fff' : 'rgba(244,239,230,0.65)', letterSpacing: '0.02em' }}>{s.label}</div>
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -192,7 +145,7 @@ function Story() {
         <div>
           <div className="sec-num" style={{ marginBottom: 20 }}>· 02 — NOTRE HISTOIRE ·</div>
           <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, marginBottom: 32, fontWeight: 400 }}>
-            Le fruit d'un rêve, devenu havre de paix.
+            Le fruit d'un rêve, devenu havre de paix
           </h2>
           <p style={{ fontSize: 18, lineHeight: 1.7, color: 'var(--ink-soft)', marginBottom: 24, maxWidth: 560 }}>
             Nichée au cœur d'un environnement naturel préservé à Houyet dans nos Ardennes, notre propriété est née d'une envie simple : créer un lieu où le temps ralentit, où l'on respire profondément, et où la beauté discrète de la région se révèle au fil des heures.
@@ -235,7 +188,7 @@ function GiteSection() {
           <div>
             <div className="sec-num" style={{ marginBottom: 20 }}>· 03 — LE GÎTE ·</div>
             <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400, maxWidth: 720 }}>
-              Tout est prévu. <span style={{ color: 'var(--green)' }}>Vous n'avez qu'à arriver.</span>
+              Tout est prévu. <span style={{ color: 'var(--green)' }}>Vous n'avez qu'à arriver</span>
             </h2>
           </div>
           <p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--ink-soft)', maxWidth: 360 }}>
@@ -351,10 +304,10 @@ function Extras() {
   const bp = useBreakpoint();
   return (
     <section style={{ padding: bp === 'mobile' ? '40px 20px' : bp === 'tablet' ? '60px 32px' : '80px 48px', background: 'var(--cream-warm)' }}>
-      <div style={{ maxWidth: 1080, margin: '0 auto', textAlign: 'center' }}>
+      <div style={{ maxWidth: 1280, margin: '0 auto', textAlign: 'center' }}>
         <div className="sec-num" style={{ marginBottom: 20 }}>· 06 — NOS PETITS PLUS ·</div>
         <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 96 }}>
-          Pour aller plus loin.
+          Pour aller plus loin
         </h2>
         <div style={{ display: 'grid', gridTemplateColumns: bp === 'mobile' ? '1fr' : '1fr 1fr', gap: bp === 'mobile' ? 40 : 56, textAlign: 'left' }}>
           <div>
@@ -406,15 +359,13 @@ function Reviews() {
     if (!el) return;
     el.scrollBy({ left: dir * 480, behavior: 'smooth' });
   };
-  const innerPad = bp === 'mobile' ? '0 20px' : bp === 'tablet' ? '0 32px' : '0 48px';
-
   return (
-    <section id="avis" style={{ padding: bp === 'mobile' ? '40px 0' : '80px 0', background: 'var(--paper)' }}>
-      <div style={{ maxWidth: 1280, margin: '0 auto', padding: innerPad }}>
+    <section id="avis" style={{ padding: bp === 'mobile' ? '40px 20px' : bp === 'tablet' ? '60px 32px' : '80px 48px', background: 'var(--paper)' }}>
+      <div style={{ maxWidth: 1280, margin: '0 auto', padding: 0 }}>
         <div className="sec-num" style={{ marginBottom: 20 }}>· 07 — AVIS ·</div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 56, gap: 48, flexWrap: 'wrap' }}>
           <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400, maxWidth: 720 }}>
-            Ce que disent <span style={{ color: 'var(--green)' }}>nos voyageurs.</span>
+            Ce que disent <span style={{ color: 'var(--green)' }}>nos voyageurs</span>
           </h2>
           <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -428,8 +379,8 @@ function Reviews() {
           </div>
         </div>
       </div>
-      <div style={{ maxWidth: 1280, margin: '0 auto', padding: innerPad }}>
-        <div ref={trackRef} className="review-track" style={{ display: 'flex', gap: 24, overflowX: 'auto', padding: '24px 0' }}>
+      <div style={{ maxWidth: 1280, margin: '0 auto', padding: 0 }}>
+        <div ref={trackRef} className="review-track" style={{ display: 'flex', gap: 24, overflowX: 'auto', padding: 0 }}>
           {reviews.map((r, i) => (
             <article key={i} className="review-card" style={{
               flex: bp === 'mobile' ? '0 0 300px' : bp === 'tablet' ? '0 0 360px' : '0 0 460px',
@@ -520,7 +471,6 @@ export default function Home() {
       <Nav scrolled={scrolled} />
       <Hero />
       <Sensory />
-      <HomeBanner />
       <Story />
       <GiteSection />
       <Chambres />

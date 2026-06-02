@@ -1,46 +1,23 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ELLOHA_URL } from './BookingWidget';
 
-function useIsMobile() {
-  const [mobile, setMobile] = useState(() => window.innerWidth <= 900);
+export default function Nav({ scrolled, lightHero = false }) {
+  const { pathname } = useLocation();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 600);
+  const closeBtnRef = useRef(null);
+
   useEffect(() => {
-    const fn = () => setMobile(window.innerWidth <= 900);
+    const fn = () => setIsMobile(window.innerWidth <= 600);
     window.addEventListener('resize', fn, { passive: true });
     return () => window.removeEventListener('resize', fn);
   }, []);
-  return mobile;
-}
 
-function useFontToggle() {
-  const [isTenor, setIsTenor] = useState(() => localStorage.getItem('font') === 'tenor');
-  useEffect(() => {
-    if (isTenor) {
-      document.documentElement.setAttribute('data-font', 'tenor');
-      localStorage.setItem('font', 'tenor');
-    } else {
-      document.documentElement.removeAttribute('data-font');
-      localStorage.removeItem('font');
-    }
-  }, [isTenor]);
-  return [isTenor, setIsTenor];
-}
-
-export default function Nav({ scrolled, dark = false }) {
-  const { pathname } = useLocation();
-  const isMobile = useIsMobile();
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [isTenor, setIsTenor] = useFontToggle();
-
-  const bg = dark
-    ? scrolled ? 'rgba(26, 31, 23, 0.92)' : 'transparent'
-    : scrolled ? 'rgba(250, 247, 240, 0.92)' : 'transparent';
-
-  const borderColor = dark
-    ? scrolled ? 'rgba(244,239,230,0.08)' : 'transparent'
-    : scrolled ? '1px solid var(--line)' : '1px solid transparent';
-
-  const linkColor = dark ? 'rgba(244,239,230,0.8)' : 'var(--ink)';
+  // Au-dessus du hero (non scrollé) la nav est transparente sur image sombre :
+  // logo + hamburger doivent être blancs. Une fois scrollé, fond clair → couleurs normales.
+  // En mode `lightHero` (page sans image de hero), le fond est clair dès le départ → logo vert.
+  const onDarkBg = lightHero ? false : !scrolled;
 
   const navLinks = [
     { to: '/',          label: 'Accueil' },
@@ -51,100 +28,140 @@ export default function Nav({ scrolled, dark = false }) {
     { to: '/contact',   label: 'Contact' },
   ];
 
+  // Verrouille le scroll du body + focus + Escape quand le drawer est ouvert
+  useEffect(() => {
+    if (!menuOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    closeBtnRef.current?.focus();
+    const onKey = (e) => { if (e.key === 'Escape') setMenuOpen(false); };
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [menuOpen]);
+
   return (
     <>
       <nav style={{
         position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
-        padding: isMobile ? '10px 20px' : scrolled ? '14px 48px' : '24px 48px',
+        padding: scrolled ? '14px 48px' : '20px 48px',
         transition: 'all 0.4s ease',
-        background: menuOpen ? 'rgba(250,247,240,0.98)' : bg,
-        backdropFilter: scrolled || menuOpen ? 'blur(14px)' : 'none',
-        borderBottom: menuOpen ? '1px solid var(--line)' : borderColor,
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between'
+        background: scrolled ? 'rgba(250,247,240,0.92)' : 'transparent',
+        backdropFilter: scrolled ? 'blur(14px)' : 'none',
+        borderBottom: scrolled ? '1px solid var(--line)' : '1px solid transparent',
       }}>
-        <Link to="/" style={{ display: 'flex', alignItems: 'center' }} onClick={() => setMenuOpen(false)}>
-          <img src="/assets/logo.webp" alt="Trussogne" style={{ height: isMobile ? 44 : 72 }} />
-        </Link>
+        <div style={{ maxWidth: 1280, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <Link to="/" style={{ display: 'flex', alignItems: 'center' }}>
+            <img src="/assets/logo.webp" alt="Trussogne" style={{
+              height: isMobile ? (scrolled ? 44 : 52) : (scrolled ? 60 : 76),
+              transition: 'height 0.4s ease, filter 0.4s ease',
+              filter: onDarkBg ? 'brightness(0) invert(1)' : 'none',
+            }} />
+          </Link>
 
-        {!isMobile && (
-          <div className="nav-desktop" style={{ display: 'flex', gap: 32, alignItems: 'center' }}>
-            {navLinks.map(({ to, label }) => (
-              <Link key={to} to={to} className="nav-link" style={{
-                color: pathname === to ? 'var(--green)' : linkColor,
-                fontWeight: pathname === to ? 500 : undefined
-              }}>
-                {label}
-              </Link>
-            ))}
-          </div>
-        )}
-
-        {isMobile ? (
-          <button onClick={() => setMenuOpen(o => !o)} style={{
-            background: 'none', border: 'none', cursor: 'pointer',
-            display: 'flex', flexDirection: 'column', gap: 5, padding: 8
-          }}>
-            <span style={{ display: 'block', width: 22, height: 1.5, background: menuOpen ? 'var(--green)' : (dark ? 'var(--paper)' : 'var(--ink)'), transition: 'transform 0.3s', transform: menuOpen ? 'translateY(6.5px) rotate(45deg)' : 'none' }} />
-            <span style={{ display: 'block', width: 22, height: 1.5, background: menuOpen ? 'var(--green)' : (dark ? 'var(--paper)' : 'var(--ink)'), transition: 'opacity 0.3s', opacity: menuOpen ? 0 : 1 }} />
-            <span style={{ display: 'block', width: 22, height: 1.5, background: menuOpen ? 'var(--green)' : (dark ? 'var(--paper)' : 'var(--ink)'), transition: 'transform 0.3s', transform: menuOpen ? 'translateY(-6.5px) rotate(-45deg)' : 'none' }} />
+          <button
+            onClick={() => setMenuOpen(true)}
+            aria-label="Ouvrir le menu"
+            aria-expanded={menuOpen}
+            style={{
+              display: 'inline-flex', alignItems: 'center', gap: 12,
+              padding: '10px 18px',
+              border: '1px solid var(--green)',
+              borderRadius: 999,
+              background: 'var(--green)',
+              color: 'var(--paper)',
+              cursor: 'pointer', transition: 'all 0.3s ease',
+            }}
+            onMouseEnter={e => e.currentTarget.style.background = 'var(--green-deep)'}
+            onMouseLeave={e => e.currentTarget.style.background = 'var(--green)'}>
+            <span className="mono-label" style={{ color: 'var(--paper)' }}>Menu</span>
+            <span style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+              <span style={{ display: 'block', width: 20, height: 1.5, background: 'var(--paper)' }} />
+              <span style={{ display: 'block', width: 20, height: 1.5, background: 'var(--paper)' }} />
+            </span>
           </button>
-        ) : (
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <button
-              onClick={() => setIsTenor(v => !v)}
-              title={isTenor ? 'Basculer vers Playfair Display' : 'Basculer vers Tenor Sans'}
-              style={{
-                display: 'inline-flex', alignItems: 'center', gap: 6,
-                padding: '8px 14px',
-                border: '1px solid var(--line)',
-                borderRadius: 999,
-                fontSize: 11,
-                letterSpacing: '0.12em',
-                textTransform: 'uppercase',
-                color: isTenor ? 'var(--paper)' : 'var(--ink-soft)',
-                background: isTenor ? 'var(--green)' : 'transparent',
-                transition: 'all 0.25s ease',
-                cursor: 'pointer',
-              }}
-            >
-              <span style={{
-                fontSize: 13,
-                fontFamily: isTenor ? "'Tenor Sans', sans-serif" : "'Playfair Display', serif",
-                fontStyle: isTenor ? 'normal' : 'italic',
-              }}>
-                {isTenor ? 'TS' : 'PD'}
-              </span>
-              {isTenor ? 'Tenor Sans' : 'Playfair'}
-            </button>
-            <a href={ELLOHA_URL} target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ padding: '12px 24px', fontSize: 15 }}>
-              Réserver <span style={{ fontSize: 14 }}>→</span>
-            </a>
-          </div>
-        )}
+        </div>
       </nav>
 
-      {isMobile && menuOpen && (
-        <div style={{
-          position: 'fixed', top: 64, left: 0, right: 0, bottom: 0, zIndex: 49,
-          background: 'rgba(250,247,240,0.98)', backdropFilter: 'blur(14px)',
-          display: 'flex', flexDirection: 'column', padding: '40px 28px',
-          gap: 0
+      {/* Overlay */}
+      <div
+        onClick={() => setMenuOpen(false)}
+        style={{
+          position: 'fixed', inset: 0, zIndex: 60,
+          background: 'rgba(10,14,9,0.5)',
+          opacity: menuOpen ? 1 : 0,
+          pointerEvents: menuOpen ? 'auto' : 'none',
+          transition: 'opacity 0.4s ease',
+        }}
+      />
+
+      {/* Drawer latéral droite */}
+      <aside
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menu de navigation"
+        aria-hidden={!menuOpen}
+        {...(!menuOpen ? { inert: '' } : {})}
+        style={{
+          position: 'fixed', top: 0, right: 0, bottom: 0, zIndex: 61,
+          width: 'min(420px, 86vw)',
+          background: 'var(--green-deep)', color: 'var(--paper)',
+          transform: menuOpen ? 'translateX(0)' : 'translateX(100%)',
+          transition: 'transform 0.45s cubic-bezier(.2,.7,.2,1), box-shadow 0.45s ease',
+          boxShadow: menuOpen ? '-30px 0 60px -20px rgba(10,14,9,0.5)' : 'none',
+          display: 'flex', flexDirection: 'column',
+          padding: 'clamp(20px, 3vh, 28px) 32px clamp(24px, 4vh, 40px)',
+          overflowY: 'auto',
         }}>
-          {navLinks.map(({ to, label }) => (
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'clamp(20px, 5vh, 48px)' }}>
+          <span className="mono-label" style={{ color: 'rgba(244,239,230,0.5)' }}>Navigation</span>
+          <button
+            ref={closeBtnRef}
+            onClick={() => setMenuOpen(false)}
+            aria-label="Fermer le menu"
+            style={{
+              width: 44, height: 44, borderRadius: '50%',
+              border: '1px solid rgba(244,239,230,0.25)', background: 'transparent',
+              color: 'var(--paper)', fontSize: 20, cursor: 'pointer',
+              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+              transition: 'background 0.2s ease',
+            }}
+            onMouseEnter={e => e.currentTarget.style.background = 'rgba(244,239,230,0.1)'}
+            onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
+            ✕
+          </button>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', minHeight: 0 }}>
+          {navLinks.map(({ to, label }, i) => (
             <Link key={to} to={to} onClick={() => setMenuOpen(false)} style={{
-              fontSize: 28, fontFamily: "'Playfair Display', Georgia, serif",
-              fontWeight: 400, color: pathname === to ? 'var(--green)' : 'var(--ink)',
-              padding: '16px 0', borderBottom: '1px solid var(--line)',
-              fontStyle: 'italic'
+              fontFamily: "'Playfair Display', Georgia, serif",
+              fontStyle: 'italic', fontWeight: 400,
+              fontSize: 'clamp(22px, 3.6vh, 38px)', lineHeight: 1.1,
+              color: pathname === to ? 'var(--green-soft)' : 'var(--paper)',
+              padding: 'clamp(8px, 1.4vh, 14px) 0',
+              borderBottom: '1px solid rgba(244,239,230,0.12)',
+              opacity: menuOpen ? 1 : 0,
+              transform: menuOpen ? 'translateX(0)' : 'translateX(20px)',
+              transition: `opacity 0.4s ease ${0.1 + i * 0.05}s, transform 0.4s ease ${0.1 + i * 0.05}s`,
             }}>
               {label}
             </Link>
           ))}
-          <a href={ELLOHA_URL} target="_blank" rel="noopener noreferrer" className="btn-primary" onClick={() => setMenuOpen(false)} style={{ marginTop: 40, justifyContent: 'center' }}>
-            Réserver →
-          </a>
         </div>
-      )}
+
+        <a href={ELLOHA_URL} target="_blank" rel="noopener noreferrer" onClick={() => setMenuOpen(false)}
+          className="btn-primary" style={{ marginTop: 'clamp(20px, 3vh, 32px)', flexShrink: 0, justifyContent: 'center', background: 'var(--paper)', color: 'var(--green-deep)', padding: 'clamp(11px, 1.6vh, 14px) 24px', fontSize: 'clamp(12px, 1.5vh, 14px)' }}>
+          Réserver en direct →
+        </a>
+        <div style={{ marginTop: 'clamp(16px, 2.4vh, 24px)', flexShrink: 0, display: 'flex', flexDirection: 'column', gap: 4 }}>
+          <div className="mono-label" style={{ color: 'rgba(244,239,230,0.5)' }}>Contact</div>
+          <div style={{ fontSize: 14 }}>+32 476 222 707</div>
+          <div style={{ fontSize: 14 }}>trussogne@gmail.com</div>
+        </div>
+      </aside>
     </>
   );
 }

@@ -5,6 +5,25 @@ import { ELLOHA_URL } from '../components/BookingWidget';
 import { Link } from 'react-router-dom';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
+import PageHero from '../components/PageHero';
+
+function useBreakpoint() {
+  const [bp, setBp] = useState(() => {
+    if (window.innerWidth <= 600) return 'mobile';
+    if (window.innerWidth <= 900) return 'tablet';
+    return 'desktop';
+  });
+  useEffect(() => {
+    const fn = () => {
+      if (window.innerWidth <= 600) setBp('mobile');
+      else if (window.innerWidth <= 900) setBp('tablet');
+      else setBp('desktop');
+    };
+    window.addEventListener('resize', fn, { passive: true });
+    return () => window.removeEventListener('resize', fn);
+  }, []);
+  return bp;
+}
 
 const CATEGORIES = [
   { id: 'all',        label: 'Tout',               icon: '◆' },
@@ -59,6 +78,7 @@ const RESTAURANTS = [
 ];
 
 function ActHero() {
+  const bp = useBreakpoint();
   const stats = [
     { n: '30+',    label: 'Activités' },
     { n: '10',     label: 'Restaurants' },
@@ -66,57 +86,39 @@ function ActHero() {
     { n: '550 ha', label: 'Chevetogne' },
   ];
   return (
-    <section className="act-hero" style={{ minHeight: '100vh', padding: '140px 48px 80px', background: 'var(--paper)' }}>
-      <div className="act-hero-grid" style={{ display: 'grid', gridTemplateColumns: '2fr 3fr', gap: 40, alignItems: 'center', minHeight: 'calc(100vh - 220px)' }}>
-        <div>
-          <h1 className="serif act-hero-h1" style={{ fontSize: 'clamp(48px, 6vw, 86px)', lineHeight: 0.95, letterSpacing: '-0.02em', fontWeight: 400, marginBottom: 24 }}>
-            Activités &<br /><span style={{ color: 'var(--green)' }}>alentours.</span>
-          </h1>
-          <p className="act-hero-p" style={{ fontSize: 18, lineHeight: 1.5, color: 'var(--ink-soft)', marginBottom: 44, maxWidth: 440 }}>
-            Nature, patrimoine, aventure et gastronomie — les Ardennes belges regorgent de trésors à découvrir, à quelques minutes de votre porte.
+    <section id="top" style={{ background: 'var(--paper)' }}>
+      <PageHero
+        image="/assets/alentours/veveve.webp"
+        alt="Château de Vêves"
+        title="Activités & alentours"
+        subtitle="Nature, patrimoine, aventure et gastronomie à quelques minutes de votre porte"
+      />
+      <div style={{ padding: bp === 'mobile' ? '32px 20px 8px' : bp === 'tablet' ? '40px 32px 8px' : '56px 48px 8px' }}>
+        <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+          <p style={{ fontSize: bp === 'mobile' ? 15 : 19, lineHeight: 1.6, color: 'var(--ink-soft)', maxWidth: 720 }}>
+            Les Ardennes belges regorgent de trésors à découvrir — sentiers et forêts, châteaux médiévaux, sports en pleine nature et tables gourmandes, tout est à portée de main depuis le gîte.
           </p>
-          <div style={{ display: 'flex', gap: 14, alignItems: 'center' }}>
-            <a href="#activites" className="btn-primary">Voir les activités</a>
-            <a href="#restaurants" className="btn-ghost">Restaurants</a>
-          </div>
 
-          <div className="act-hero-imgs-large act-hero-imgs-mobile" style={{ display: 'none', height: 260, gridTemplateColumns: '1.4fr 1fr', gridTemplateRows: '1fr 1fr', gap: 8, marginTop: 32 }}>
-            <div style={{ borderRadius: 4, overflow: 'hidden', gridColumn: 1, gridRow: 1 }}>
-              <img src="/assets/alentours/descente_lesse_kayak_chateau_walmin.webp" alt="Kayak sur la Lesse" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          <div style={{
+            display: 'flex',
+            flexDirection: bp === 'mobile' ? 'column' : 'row',
+            alignItems: bp === 'mobile' ? 'flex-start' : 'center',
+            gap: bp === 'mobile' ? 32 : 56,
+            marginTop: bp === 'mobile' ? 24 : 32,
+            flexWrap: 'wrap',
+          }}>
+            <div style={{ display: 'flex', gap: 14, alignItems: 'center', flexWrap: 'wrap' }}>
+              <a href="#activites" className="btn-primary">Voir les activités</a>
+              <a href="#restaurants" className="btn-ghost">Restaurants</a>
             </div>
-            <div style={{ borderRadius: 4, overflow: 'hidden', gridColumn: 1, gridRow: 2 }}>
-              <img src="/assets/alentours/CELLES_08_©_Rita_Photographie-scaled-1-1024x576.webp" alt="Celles" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <div style={{ display: 'flex', gap: bp === 'mobile' ? 32 : 56, flexWrap: 'wrap' }}>
+              {stats.map((s, i) => (
+                <div key={i}>
+                  <div className="mono-label" style={{ color: 'var(--ink-soft)', marginBottom: 6 }}>{s.label}</div>
+                  <div style={{ fontSize: 20, lineHeight: 1.2, color: 'var(--green)', fontWeight: 500 }}>{s.n}</div>
+                </div>
+              ))}
             </div>
-            <div style={{ borderRadius: 4, overflow: 'hidden', gridColumn: 2, gridRow: '1 / -1' }}>
-              <img src="/assets/alentours/veveve.webp" alt="Château de Vêves" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            </div>
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', marginTop: 48, borderTop: '1px solid var(--line)' }}>
-            {stats.map((s, i) => (
-              <div key={i} style={{
-                padding: '20px 0',
-                borderBottom: i < 2 ? '1px solid var(--line)' : 'none',
-                borderRight: i % 2 === 0 ? '1px solid var(--line)' : 'none',
-                paddingRight: i % 2 === 0 ? 24 : 0,
-                paddingLeft: i % 2 === 1 ? 24 : 0,
-              }}>
-                <div className="mono-label" style={{ color: 'var(--ink-soft)', marginBottom: 6 }}>{s.label}</div>
-                <div style={{ fontSize: 20, lineHeight: 1.2, color: 'var(--green)', fontWeight: 500 }}>{s.n}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="act-hero-imgs-large" style={{ height: 'min(720px, 80vh)', display: 'grid', gridTemplateColumns: '1.4fr 1fr', gridTemplateRows: '1fr 1fr', gap: 12 }}>
-          <div style={{ borderRadius: 4, overflow: 'hidden', gridColumn: 1, gridRow: 1 }}>
-            <img src="/assets/alentours/descente_lesse_kayak_chateau_walmin.webp" alt="Kayak sur la Lesse" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-          </div>
-          <div style={{ borderRadius: 4, overflow: 'hidden', gridColumn: 1, gridRow: 2 }}>
-            <img src="/assets/alentours/CELLES_08_©_Rita_Photographie-scaled-1-1024x576.webp" alt="Celles" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-          </div>
-          <div style={{ borderRadius: 4, overflow: 'hidden', gridColumn: 2, gridRow: '1 / -1' }}>
-            <img src="/assets/alentours/veveve.webp" alt="Château de Vêves" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </div>
         </div>
       </div>
@@ -135,7 +137,7 @@ function ActivitiesSection() {
           <div>
             <div className="sec-num" style={{ marginBottom: 16 }}>· DÉCOUVRIR ·</div>
             <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400 }}>
-              {filtered.length} activités<span style={{ color: 'var(--green)' }}> à découvrir.</span>
+              {filtered.length} activités<span style={{ color: 'var(--green)' }}> à découvrir</span>
             </h2>
           </div>
         </div>
@@ -202,7 +204,7 @@ function RestaurantsSection() {
           <div>
             <div className="sec-num" style={{ marginBottom: 16 }}>· GASTRONOMIE ·</div>
             <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400 }}>
-              {RESTAURANTS.length} adresses<span style={{ color: 'var(--green)' }}> gourmandes.</span>
+              {RESTAURANTS.length} adresses<span style={{ color: 'var(--green)' }}> gourmandes</span>
             </h2>
           </div>
         </div>
@@ -250,10 +252,10 @@ function RestaurantsSection() {
 function PetitsPlus() {
   return (
     <section className="act-section" style={{ padding: '80px 48px', background: 'var(--cream)' }}>
-      <div style={{ maxWidth: 1080, margin: '0 auto', textAlign: 'center' }}>
+      <div style={{ maxWidth: 1280, margin: '0 auto', textAlign: 'center' }}>
         <div className="sec-num" style={{ marginBottom: 20 }}>· NOS PETITS PLUS ·</div>
         <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 96 }}>
-          Pour aller plus loin.
+          Pour aller plus loin
         </h2>
         <div className="act-petits-plus-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 56, textAlign: 'left' }}>
           <div>
@@ -305,7 +307,7 @@ export default function Activites() {
       <section className="act-section" style={{ padding: '60px 48px', background: 'var(--green)', color: 'var(--paper)', textAlign: 'center' }}>
         <div style={{ maxWidth: 800, margin: '0 auto' }}>
           <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 32 }}>
-            Votre évasion <span style={{ opacity: 0.6 }}>vous attend.</span>
+            Votre évasion <span style={{ opacity: 0.6 }}>vous attend</span>
           </h2>
           <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
             <a href={ELLOHA_URL} target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ background: 'var(--paper)', color: 'var(--green)', fontSize: 15, padding: '16px 28px' }}>Réserver en direct</a>
