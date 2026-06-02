@@ -254,7 +254,7 @@ function GiteActivities() {
       <div style={{ maxWidth: 1280, margin: '0 auto' }}>
         <div className="sec-num" style={{ marginBottom: 20, color: 'rgba(244,239,230,0.7)' }}>· ALENTOURS ·</div>
         <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.1, fontWeight: 400, marginBottom: 24, maxWidth: 900 }}>
-          Un environnement <span style={{ opacity: 0.6 }}>à couper le souffle</span>, à quelques minutes de la porte.
+          Un environnement <span style={{ opacity: 0.6 }}>à couper le souffle</span>, à quelques minutes de la porte
         </h2>
         <div className="tab-strip" style={{ borderColor: 'rgba(244,239,230,0.18)', marginBottom: 32, marginLeft: -12, flexWrap: 'wrap' }}>
           {items.map((it, i) => (

@@ -231,7 +231,7 @@ function Chambres() {
         <div className="sec-num" style={{ marginBottom: 20 }}>· 04 — CHAMBRES ·</div>
         <div style={{ marginBottom: 64 }}>
           <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400, maxWidth: 720 }}>
-            Quatre chambres, quatre atmosphères.
+            Quatre chambres, quatre atmosphères
           </h2>
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: bp === 'mobile' ? '1fr' : 'repeat(2, 1fr)', gap: 24 }}>
@@ -267,7 +267,7 @@ function ActivitiesPreview() {
       <div style={{ maxWidth: 1280, margin: '0 auto' }}>
         <div className="sec-num" style={{ marginBottom: 20, color: 'rgba(244,239,230,0.7)' }}>· 05 — ALENTOURS ·</div>
         <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.1, fontWeight: 400, marginBottom: 24, maxWidth: 900 }}>
-          Un environnement <span style={{ opacity: 0.6 }}>à couper le souffle</span>, à quelques minutes de la porte.
+          Un environnement <span style={{ opacity: 0.6 }}>à couper le souffle</span>, à quelques minutes de la porte
         </h2>
         <div className="tab-strip" style={{ borderColor: 'rgba(244,239,230,0.18)', marginBottom: 32, marginLeft: -12, flexWrap: 'wrap' }}>
           {items.map((it, i) => (
@@ -416,7 +416,7 @@ function Booking() {
         <div>
           <div className="sec-num" style={{ marginBottom: 20 }}>· 08 — RÉSERVATION ·</div>
           <h2 className="serif" style={{ fontSize: 'clamp(28px, 4vw, 52px)', lineHeight: 1.05, fontWeight: 400, marginBottom: 32 }}>
-            Réservez en direct.
+            Réservez en direct
           </h2>
           <p style={{ fontSize: 17, lineHeight: 1.6, color: 'var(--ink-soft)', maxWidth: 460, marginBottom: 48 }}>
             Réservez directement via notre système de réservation. Tarifs établis pour 6 à 9 personnes.
